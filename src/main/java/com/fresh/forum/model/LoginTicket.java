@@ -1,12 +1,16 @@
 package com.fresh.forum.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.GeneratorType;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
+@Table(name = "login_ticket")
 public class LoginTicket {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private int userId;
     private Date expired;

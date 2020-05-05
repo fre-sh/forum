@@ -1,13 +1,13 @@
 package com.fresh.forum.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "message")
 @Entity
 public class Message {
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private int fromId;
     private int toId;
