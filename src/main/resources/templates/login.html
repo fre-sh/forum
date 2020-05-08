@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="zh-CN"
       class="is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
 <head>
@@ -19,7 +18,14 @@
             <h1 class="logo hide-text"><img src="../images/res/nk.png" alt=""></h1>
             <h2 class="subtitle">
                 #if($msg)
-                $!{msg}
+                <div id="errorMsg" style="color: red" hidden>$!{msg}</div>
+                <script>
+                    window.onload= () => {
+                        let $div = document.getElementById('errorMsg');
+                        msg = $div.textContent;
+                        confirm(msg);
+                    }
+                </script>
                 #else
                 与世界分享你的知识、经验和见解
                 #end

@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer> {
+public interface QuestionDAO extends JpaRepository<Question, Integer> {
 
     List<Question> findByUserId(int userId, Pageable pageable);
 

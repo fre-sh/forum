@@ -1,21 +1,18 @@
 package com.fresh.forum.service;
 
 import com.fresh.forum.model.Question;
-import com.fresh.forum.repository.QuestionRepository;
+import com.fresh.forum.repository.QuestionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.HtmlUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by nowcoder on 2016/7/15.
- */
 @Service
+@Transactional
 public class QuestionService {
     @Autowired
-    QuestionRepository questionDAO;
+    QuestionDAO questionDAO;
 
 //    @Autowired
 //    SensitiveService sensitiveService;

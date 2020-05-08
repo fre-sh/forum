@@ -2,12 +2,14 @@ package com.fresh.forum.service;
 
 import com.fresh.forum.model.LoginTicket;
 import com.fresh.forum.model.User;
-import com.fresh.forum.repository.UserRepository;
+import com.fresh.forum.repository.LoginTicketDAO;
+import com.fresh.forum.repository.UserDAO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -15,10 +17,13 @@ import java.util.*;
  * Created by nowcoder on 2016/7/2.
  */
 @Service
+@Transactional
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     @Autowired
-    private UserRepository userDAO;
+    private UserDAO userDAO;
+    @Autowired
+    private LoginTicketDAO loginTicketDAO;
 
 //    @Autowired
 //    private LoginTicketDAO loginTicketDAO;
@@ -103,7 +108,7 @@ public class UserService {
         ticket.setExpired(date);
         ticket.setStatus(0);
         ticket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
-//        loginTicketDAO.addTicket(ticket);
+        loginTicketDAO.save(ticket);
         return ticket.getTicket();
     }
 
@@ -112,6 +117,6 @@ public class UserService {
     }
 
     public void logout(String ticket) {
-//        loginTicketDAO.updateStatus(ticket, 1);
+        loginTicketDAO.findByTicket(ticket).setStatus(1);
     }
 }
