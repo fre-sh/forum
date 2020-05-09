@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,8 +54,8 @@ public class MessageController {
         return "letter";
     }
 
-    @RequestMapping(path = {"/msg/detail"}, method = {RequestMethod.GET})
-    public String getConversationDetail(Model model, @RequestParam("conversationId") String conversationId) {
+    @RequestMapping(path = {"/msg/detail/{conversationId}"}, method = {RequestMethod.GET})
+    public String getConversationDetail(Model model, @PathVariable String conversationId) {
         try {
             List<Message> messageList = messageService.getConversationDetail(conversationId, 0, 10);
             List<ViewObject> messages = new ArrayList<>();

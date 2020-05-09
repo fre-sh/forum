@@ -5,14 +5,14 @@
             <ul class="letter-list">
                 #foreach($conversation in $conversations)
                 <li id="conversation-item-10005_622873">
-                    <a class="letter-link" href="/msg/detail?conversationId=$conversation.message.conversationId"></a>
+                    <a class="letter-link" href="/msg/detail/$conversation.message.conversationId"></a>
                     <div class="letter-info">
                         <span class="l-time">$data.format('yyyy-MM-dd HH:mm:ss', $conversation.message.createdDate)</span>
                         <div class="l-operate-bar">
                             <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
                             删除
                             </a>-->
-                            <a href="/msg/detail?$conversation.message.conversationId">
+                            <a href="/msg/detail/$conversation.message.conversationId">
                                 共$conversation.message.id条会话
                             </a>
                         </div>
@@ -23,16 +23,16 @@
                             $conversation.unread
                         </span>
                         #end
-                        <a class="list-head">
+                        <a class="list-head" href="/user/$conversation.user.id">
                             <img alt="头像" src="$conversation.user.headUrl">
                         </a>
                     </div>
                     <div class="letter-detail">
-                        <a title="通知" class="letter-name level-color-1">
+                        <a title="通知" class="letter-name level-color-1" href="/user/$conversation.user.id">
                             $conversation.user.name
                         </a>
                         <p class="letter-brief">
-                            $conversation.message.content
+                            <a href="/msg/detail/$conversation.message.conversationId">$conversation.message.content</a>
                         </p>
                     </div>
                 </li>
