@@ -13,9 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-/**
- * Created by nowcoder on 2016/7/2.
- */
 @Service
 @Transactional
 public class UserService {

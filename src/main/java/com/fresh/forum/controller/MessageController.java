@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by nowcoder on 2016/7/24.
- */
 @Controller
 public class MessageController {
     @Autowired
@@ -57,15 +54,23 @@ public class MessageController {
     @RequestMapping(path = {"/msg/detail/{conversationId}"}, method = {RequestMethod.GET})
     public String getConversationDetail(Model model, @PathVariable String conversationId) {
         try {
+            messageService.hasRead(conversationId);
             List<Message> messageList = messageService.getConversationDetail(conversationId, 0, 10);
             List<ViewObject> messages = new ArrayList<>();
+            User talker = null;
             for (Message message : messageList) {
                 ViewObject vo = new ViewObject();
                 vo.set("message", message);
-                vo.set("user", userService.getUser(message.getFromId()));
+                User user = userService.getUser(message.getFromId());
+                vo.set("user", user);
+                if (user.getId() != hostHolder.getUser().getId()) {
+                    talker = user;
+                }
                 messages.add(vo);
             }
             model.addAttribute("messages", messages);
+            // 和当前用户对话的人
+            model.addAttribute("talker", talker);
         } catch (Exception e) {
             logger.error("获取详情失败" + e.getMessage());
         }
@@ -73,7 +78,6 @@ public class MessageController {
     }
 
     @RequestMapping(path = {"/msg/addMessage"}, method = {RequestMethod.POST})
-    @ResponseBody
     public String addMessage(@RequestParam("toName") String toName,
                              @RequestParam("content") String content) {
         try {
@@ -96,7 +100,7 @@ public class MessageController {
             ));
             message.setContent(content);
             messageService.addMessage(message);
-            return WendaUtil.getJSONString(0);
+            return "redirect:/msg/detail/" + message.getConversationId();
 
         } catch (Exception e) {
             logger.error("发送消息失败:", e);

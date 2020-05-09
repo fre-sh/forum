@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by nowcoder on 2016/7/24.
- */
 @Service
 public class MessageService {
 
@@ -34,5 +31,9 @@ public class MessageService {
 
     public int getConversationUnreadCount(int userId, String conversationId) {
         return messageDAO.countByToIdAndConversationIdAndHasReadIsFalse(userId, conversationId);
+    }
+
+    public void hasRead(String conversationId) {
+        messageDAO.findByConversationId(conversationId).forEach(e -> e.setHasRead(true));
     }
 }

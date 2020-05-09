@@ -5,6 +5,7 @@
         <ul class="letter-chatlist">
              #foreach($message in $messages)
             <li id="msg-item-4009580">
+                #if($message.user.id != $user.id)
                 <a class="list-head">
                     <img alt="头像" src="${message.user.headUrl}">
                 </a>
@@ -20,12 +21,47 @@
                         </p>
                     </div>
                 </div>
+                #else
+                <div class="tooltip fade left in">
+                    <div class="tooltip-arrow"></div>
+                    <div class="tooltip-inner letter-chat clearfix">
+                        <div class="letter-info">
+                            <p class="letter-time">$data.format('yyyy-MM-dd HH:mm:ss', $message.message.createdDate)</p>
+                            <!-- <a href="javascript:void(0);" id="del-link" name="4009580">删除</a> -->
+                        </div>
+                        <p class="chat-content">
+                            $message.message.content
+                        </p>
+                    </div>
+                </div>
+                <a class="list-head">
+                    <img alt="头像" src="${message.user.headUrl}">
+                </a>
+                #end
             </li>
             #end
         </ul>
-
+        <div>
+            <form id="form_send_msg" action="/msg/addMessage" method="post">
+                <div class="zm-editable-editor-field-wrap">
+                    <input name="toName" value="$talker.name" hidden>
+                    <textarea name="content" class="js-content zm-editable-editor-field-element editable" placeholder="私信内容" style="font-style:italic;width:98%;"></textarea>
+                </div>
+                <div class="zm-command js-footer">
+                    <span style="display:none;margin-left:10px;line-height:30px;float:left;color:#c33;" class="js-error"></span>
+                    <a onclick="document.getElementById('form_send_msg').submit()" class="zg-r5px zu-question-form-add zg-btn-blue js-ok">发送</a>
+                    <!--<button type="submit" class="zg-r5px zu-question-form-add js-ok" value="发送"></button>-->
+                </div>
+            </form>
+        </div>
+        <a href="/msg/list" id="buttom_back">返回会话页面<<</a>
     </div>
 </div>
+<script>
+    window.onload = function () {
+        location.href = location.href + '#buttom_back';
+    }
+</script>
 #parse("js.html")
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
 #parse("footer.html")
