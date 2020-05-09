@@ -13,8 +13,8 @@ public class Message {
     private int toId;
     private String content;
     private Date createdDate;
-    private int hasRead;
-
+    private boolean hasRead;
+    private String conversationId;
 
     public int getId() {
         return id;
@@ -56,22 +56,24 @@ public class Message {
         this.createdDate = createdDate;
     }
 
-    public int getHasRead() {
+    public boolean isHasRead() {
         return hasRead;
     }
 
-    public void setHasRead(int hasRead) {
+    public void setHasRead(boolean hasRead) {
         this.hasRead = hasRead;
     }
 
     public String getConversationId() {
-        if (fromId < toId) {
-            return String.format("%d_%d", fromId, toId);
-        } else {
-            return String.format("%d_%d", toId, fromId);
-        }
+//        if (fromId < toId) {
+//            conversionId = String.format("%d_%d", fromId, toId);
+//        } else {
+//            conversionId = String.format("%d_%d", toId, fromId);
+//        }
+        return conversationId;
     }
 
     public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 }
