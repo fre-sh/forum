@@ -52,11 +52,11 @@ public class QuestionController {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
 
-//        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
-//        List<ViewObject> comments = new ArrayList<ViewObject>();
-//        for (Comment comment : commentList) {
-//            ViewObject vo = new ViewObject();
-//            vo.set("comment", comment);
+        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
+        List<ViewObject> comments = new ArrayList<>();
+        for (Comment comment : commentList) {
+            ViewObject vo = new ViewObject();
+            vo.set("comment", comment);
 //            if (hostHolder.getUser() == null) {
 //                vo.set("liked", 0);
 //            } else {
@@ -64,10 +64,10 @@ public class QuestionController {
 //            }
 //
 //            vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
-//            vo.set("user", userService.getUser(comment.getUserId()));
-//            comments.add(vo);
-//        }
-//        model.addAttribute("comments", comments);
+            vo.set("user", userService.getUser(comment.getUserId()));
+            comments.add(vo);
+        }
+        model.addAttribute("comments", comments);
 
 //        List<ViewObject> followUsers = new ArrayList<ViewObject>();
 //        // 获取关注的用户信息
