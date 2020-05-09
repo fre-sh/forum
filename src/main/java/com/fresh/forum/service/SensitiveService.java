@@ -1,5 +1,7 @@
 package com.fresh.forum.service;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.CharUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -21,7 +23,7 @@ public class SensitiveService implements InitializingBean {
     /**
      * 默认敏感词替换符
      */
-    private static final String DEFAULT_REPLACEMENT = "敏感词";
+    private static final String DEFAULT_REPLACEMENT = "**";
 
 
     private class TrieNode {
@@ -162,12 +164,11 @@ public class SensitiveService implements InitializingBean {
 
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         rootNode = new TrieNode();
 
         try {
-            InputStream is = Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("SensitiveWords.txt");
+            InputStream is = this.getClass().getResourceAsStream("/SensitiveWords.txt");
             InputStreamReader read = new InputStreamReader(is);
             BufferedReader bufferedReader = new BufferedReader(read);
             String lineTxt;
