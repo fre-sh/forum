@@ -19,7 +19,7 @@ public interface MessageDAO extends JpaRepository<Message, Integer> {
 
     @Query(value = "select " + INSERT_FIELDS + ", count(id) as id  from" +
             " ( select * from message where from_id=?1 or to_id=?1 order by created_date desc ) tt " +
-            " group by conversation_id, created_date " +
+            " group by conversation_id " +
             " order by created_date desc limit ?2, ?3", nativeQuery = true)
     List<Message> getConversationList(int userId, int offset, int limit);
 }
