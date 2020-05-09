@@ -1,8 +1,13 @@
 package com.fresh.forum.controller;
 
 import com.fresh.forum.AppException;
+import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
+import com.fresh.forum.dto.ViewObject;
+import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Question;
+import com.fresh.forum.model.User;
+import com.fresh.forum.service.CommentService;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
 import com.fresh.forum.util.WendaUtil;
@@ -30,9 +35,9 @@ public class QuestionController {
     @Autowired
     UserService userService;
 
-//    @Autowired
-//    CommentService commentService;
-//
+    @Autowired
+    CommentService commentService;
+
 //    @Autowired
 //    FollowService followService;
 //
@@ -42,11 +47,11 @@ public class QuestionController {
 //    @Autowired
 //    EventProducer eventProducer;
 
-//    @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
-//    public String questionDetail(Model model, @PathVariable("qid") int qid) {
-//        Question question = questionService.getById(qid);
-//        model.addAttribute("question", question);
-//
+    @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
+    public String questionDetail(Model model, @PathVariable("qid") int qid) {
+        Question question = questionService.getById(qid);
+        model.addAttribute("question", question);
+
 //        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
 //        List<ViewObject> comments = new ArrayList<ViewObject>();
 //        for (Comment comment : commentList) {
@@ -62,9 +67,8 @@ public class QuestionController {
 //            vo.set("user", userService.getUser(comment.getUserId()));
 //            comments.add(vo);
 //        }
-//
 //        model.addAttribute("comments", comments);
-//
+
 //        List<ViewObject> followUsers = new ArrayList<ViewObject>();
 //        // 获取关注的用户信息
 //        List<Integer> users = followService.getFollowers(EntityType.ENTITY_QUESTION, qid, 20);
@@ -85,9 +89,9 @@ public class QuestionController {
 //        } else {
 //            model.addAttribute("followed", false);
 //        }
-//
-//        return "detail";
-//    }
+
+        return "detail";
+    }
 
     @RequestMapping(value = "/question/add", method = {RequestMethod.POST})
     @ResponseBody
