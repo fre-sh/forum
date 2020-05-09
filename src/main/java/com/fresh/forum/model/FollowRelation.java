@@ -3,11 +3,9 @@ package com.fresh.forum.model;
 import com.fresh.forum.dto.EntityType;
 
 import javax.persistence.*;
-import java.util.Date;
 
-@Entity
-@Table(name = "comment")
-public class Comment {
+public class FollowRelation {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
@@ -18,12 +16,6 @@ public class Comment {
 
     @Enumerated(value = EnumType.STRING)
     private EntityType entityType;
-
-    private String content;
-
-    private Date createdDate;
-
-    private int status;
 
     public int getId() {
         return id;
@@ -55,29 +47,5 @@ public class Comment {
 
     public void setEntityType(EntityType entityType) {
         this.entityType = entityType;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 }

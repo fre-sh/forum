@@ -45,7 +45,7 @@ public class CommentController {
                 // return "redirect:/reglogin";
             }
             comment.setCreatedDate(new Date());
-            comment.setEntityType(EntityType.ENTITY_QUESTION);
+            comment.setEntityType(EntityType.QUESTION);
             comment.setEntityId(questionId);
             commentService.addComment(comment);
 

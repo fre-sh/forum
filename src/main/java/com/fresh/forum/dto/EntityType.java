@@ -1,7 +1,10 @@
 package com.fresh.forum.dto;
 
-public class EntityType {
-    public static int ENTITY_QUESTION = 1;
-    public static int ENTITY_COMMENT = 2;
-    public static int ENTITY_USER = 3;
+/**
+ * 实体类型，用于关注、评论
+ */
+public enum EntityType {
+    QUESTION,
+    COMMENT,
+    USER
 }

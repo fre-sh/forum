@@ -1,5 +1,6 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.repository.CommentDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class CommentService {
     @Autowired
     SensitiveService sensitiveService;
 
-    public List<Comment> getCommentsByEntity(int entityId, int entityType) {
+    public List<Comment> getCommentsByEntity(int entityId, EntityType entityType) {
         return commentDAO.findByEntityIdAndEntityType(entityId, entityType);
     }
 
@@ -28,7 +29,7 @@ public class CommentService {
         commentDAO.save(comment);
     }
 
-    public int getCommentCount(int entityId, int entityType) {
+    public int getCommentCount(int entityId, EntityType entityType) {
         return commentDAO.countByEntityIdAndEntityType(entityId, entityType);
     }
 

@@ -6,7 +6,6 @@ import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Question;
-import com.fresh.forum.model.User;
 import com.fresh.forum.service.CommentService;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
@@ -52,7 +51,7 @@ public class QuestionController {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
 
-        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
+        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.QUESTION);
         List<ViewObject> comments = new ArrayList<>();
         for (Comment comment : commentList) {
             ViewObject vo = new ViewObject();
