@@ -4,6 +4,8 @@ import com.fresh.forum.dto.EntityType;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "follow_relation")
 public class FollowRelation {
 
     @Id

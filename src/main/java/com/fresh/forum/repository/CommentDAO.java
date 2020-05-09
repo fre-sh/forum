@@ -15,5 +15,5 @@ public interface CommentDAO extends JpaRepository<Comment, Integer> {
 
     int countByEntityIdAndEntityType(int entityId, EntityType entityType);
 
-    int countByUserId(int userId);
+    int countByUserIdAndEntityType(int userId, EntityType entityType);
 }

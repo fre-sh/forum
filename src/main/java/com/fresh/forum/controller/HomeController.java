@@ -1,9 +1,12 @@
 package com.fresh.forum.controller;
 
 import com.fresh.forum.dto.EntityType;
+import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.model.User;
+import com.fresh.forum.service.CommentService;
+import com.fresh.forum.service.FollowService;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
 import org.slf4j.Logger;
@@ -29,14 +32,14 @@ public class HomeController {
     @Autowired
     UserService userService;
 
-//    @Autowired
-//    FollowService followService;
-//
-//    @Autowired
-//    CommentService commentService;
-//
-//    @Autowired
-//    HostHolder hostHolder;
+    @Autowired
+    FollowService followService;
+
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    HostHolder hostHolder;
 
     private List<ViewObject> getQuestions(int userId, int offset, int limit) {
         List<Question> questionList = questionService.getLatestQuestions(userId, offset, limit);
@@ -66,14 +69,14 @@ public class HomeController {
         User user = userService.getUser(userId);
         ViewObject vo = new ViewObject();
         vo.set("user", user);
-//        vo.set("commentCount", commentService.getUserCommentCount(userId));
-//        vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
-//        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
-//        if (hostHolder.getUser() != null) {
-//            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId));
-//        } else {
-//            vo.set("followed", false);
-//        }
+        vo.set("commentCount", commentService.getUserAnswerCount(userId));
+        vo.set("followerCount", followService.getFollowerCount(EntityType.USER, userId));
+        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.USER));
+        if (hostHolder.getUser() != null) {
+            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.USER, userId));
+        } else {
+            vo.set("followed", false);
+        }
         model.addAttribute("profileUser", vo);
         return "profile";
     }
