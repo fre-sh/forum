@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Service
@@ -35,7 +34,7 @@ public class CommentService {
     }
 
     public int getUserAnswerCount(int userId) {
-        return commentDAO.countByEntityIdAndEntityType(userId, EntityType.QUESTION);
+        return commentDAO.countByEntityIdAndEntityType(userId, EntityType.question);
     }
 
     public void deleteComment(int commentId) {

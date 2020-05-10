@@ -9,6 +9,7 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String description = "";
     private String password;
     private String salt;
     private String headUrl;
@@ -22,6 +23,14 @@ public class User {
         this.password = "";
         this.salt = "";
         this.headUrl = "";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {

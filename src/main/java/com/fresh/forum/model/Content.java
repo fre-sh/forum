@@ -1,21 +1,34 @@
 package com.fresh.forum.model;
 
+import com.fresh.forum.dto.ContentType;
+import com.fresh.forum.dto.EntityType;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "question")
-public class Question {
+@Table(name = "content")
+public class Content {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true)
-    private String title;
-    private String content;
-    private Date createdDate;
     private int userId;
-    private int commentCount;
+
+    @Enumerated(value = EnumType.STRING)
+    private ContentType contentType;
+
+    /**
+     * 回答 -> 问题
+     * 文章 -> 标题
+     */
+    private String title;
+
+    private String content;
+
+    private Date createdDate;
+
+    private boolean isDelete;
 
     public int getId() {
         return id;
@@ -23,6 +36,22 @@ public class Question {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
     }
 
     public String getTitle() {
@@ -49,19 +78,11 @@ public class Question {
         this.createdDate = createdDate;
     }
 
-    public int getUserId() {
-        return userId;
+    public boolean isDelete() {
+        return isDelete;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }

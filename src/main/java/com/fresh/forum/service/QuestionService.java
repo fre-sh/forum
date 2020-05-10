@@ -18,6 +18,10 @@ public class QuestionService {
     @Autowired
     SensitiveService sensitiveService;
 
+    public Question getByTitle(String title) {
+        return questionDAO.findByTitle(title);
+    }
+
     public Question getById(int id) {
         return questionDAO.getOne(id);
     }

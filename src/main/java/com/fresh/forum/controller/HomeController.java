@@ -5,10 +5,7 @@ import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.model.User;
-import com.fresh.forum.service.CommentService;
-import com.fresh.forum.service.FollowService;
-import com.fresh.forum.service.QuestionService;
-import com.fresh.forum.service.UserService;
+import com.fresh.forum.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +38,9 @@ public class HomeController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    private ContentService contentService;
+
     @RequestMapping("/search")
     public String search(Model model, @RequestParam String keyword) {
         model.addAttribute("vos", getQuestions(0, 0, 20));
@@ -54,6 +54,12 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping(path = {"/home"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String index(Model model) {
+        model.addAttribute("vos", contentService.getLatest(0, 0, 20));
+        return "index";
+    }
+
     @RequestMapping(path = {"/user/{userId}"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String userIndex(Model model, @PathVariable("userId") int userId) {
         model.addAttribute("vos", getQuestions(userId, 0, 20));
@@ -62,10 +68,10 @@ public class HomeController {
         ViewObject vo = new ViewObject();
         vo.set("user", user);
         vo.set("commentCount", commentService.getUserAnswerCount(userId));
-        vo.set("followerCount", followService.getFollowerCount(EntityType.USER, userId));
-        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.USER));
+        vo.set("followerCount", followService.getFollowerCount(EntityType.user, userId));
+        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.user));
         if (hostHolder.getUser() != null) {
-            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.USER, userId));
+            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.user, userId));
         } else {
             vo.set("followed", false);
         }
@@ -85,7 +91,7 @@ public class HomeController {
         for (Question question : questionList) {
             ViewObject vo = new ViewObject();
             vo.set("question", question);
-            vo.set("followCount", followService.getFollowerCount(EntityType.QUESTION, question.getId()));
+            vo.set("followCount", followService.getFollowerCount(EntityType.question, question.getId()));
             vo.set("user", userService.getUser(question.getUserId()));
             vos.add(vo);
         }

@@ -46,12 +46,18 @@ public class QuestionController {
 //    @Autowired
 //    EventProducer eventProducer;
 
+    @RequestMapping("/question")
+    public String question(String title) {
+        Question question = questionService.getByTitle(title);
+        return "redirect:/question/" + question.getId();
+    }
+
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
 
-        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.QUESTION);
+        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.question);
         List<ViewObject> comments = new ArrayList<>();
         for (Comment comment : commentList) {
             ViewObject vo = new ViewObject();

@@ -18,4 +18,6 @@ public interface QuestionDAO extends JpaRepository<Question, Integer> {
             " order by created_date desc limit :offset, :limit", nativeQuery = true
     )
     List<Question> selectLatestQuestions(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
+
+    Question findByTitle(String title);
 }
