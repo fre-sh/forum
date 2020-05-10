@@ -14,11 +14,11 @@ public interface MessageDAO extends JpaRepository<Message, Integer> {
 
     String INSERT_FIELDS = " from_id, to_id, content, has_read, conversation_id, created_date ";
 
-    List<Message> findByConversationId(String conversationId);
+    List<Message> findByConversationIdAndToId(String conversationId, int toId);
 
     int countByToIdAndConversationIdAndHasReadIsFalse(int userId, String conversationId);
 
-    @Query(value = "select * from message where conversation_id=?1 order by created_date limit ?2, ?3", nativeQuery = true)
+    @Query(value = "select * from message where conversation_id=?1 order by created_date desc limit ?2, ?3", nativeQuery = true)
     List<Message> getConversationDetail(String conversationId, int offset, int limit);
 
     Page<Message> findByConversationIdOrderByCreatedDate(String conversationId, Pageable pageable);

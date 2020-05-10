@@ -41,18 +41,10 @@ public class HomeController {
     @Autowired
     HostHolder hostHolder;
 
-    private List<ViewObject> getQuestions(int userId, int offset, int limit) {
-        List<Question> questionList = questionService.getLatestQuestions(userId, offset, limit);
-        List<ViewObject> vos = new ArrayList<>();
-        for (Question question : questionList) {
-            ViewObject vo = new ViewObject();
-            vo.set("question", question);
-//            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, question.getId()));
-            vo.set("followCount", 10);
-            vo.set("user", userService.getUser(question.getUserId()));
-            vos.add(vo);
-        }
-        return vos;
+    @RequestMapping("/search")
+    public String search(Model model, @RequestParam String keyword) {
+        model.addAttribute("vos", getQuestions(0, 0, 20));
+        return "index";
     }
 
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
@@ -79,5 +71,24 @@ public class HomeController {
         }
         model.addAttribute("profileUser", vo);
         return "profile";
+    }
+
+
+    private List<ViewObject> getQuestions(int userId, int offset, int limit) {
+        List<Question> questionList = questionService.getLatestQuestions(userId, offset, limit);
+        List<ViewObject> vos = CreateViewObjects(questionList);
+        return vos;
+    }
+
+    private List<ViewObject> CreateViewObjects(List<Question> questionList) {
+        List<ViewObject> vos = new ArrayList<>();
+        for (Question question : questionList) {
+            ViewObject vo = new ViewObject();
+            vo.set("question", question);
+            vo.set("followCount", followService.getFollowerCount(EntityType.QUESTION, question.getId()));
+            vo.set("user", userService.getUser(question.getUserId()));
+            vos.add(vo);
+        }
+        return vos;
     }
 }

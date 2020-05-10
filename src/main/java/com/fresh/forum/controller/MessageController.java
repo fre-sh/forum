@@ -54,7 +54,7 @@ public class MessageController {
     @RequestMapping(path = {"/msg/detail/{conversationId}"}, method = {RequestMethod.GET})
     public String getConversationDetail(Model model, @PathVariable String conversationId) {
         try {
-            messageService.hasRead(conversationId);
+            messageService.hasRead(conversationId, hostHolder.getUser().getId());
             List<Message> messageList = messageService.getConversationDetail(conversationId, 0, 10);
             List<ViewObject> messages = new ArrayList<>();
             User talker = null;
