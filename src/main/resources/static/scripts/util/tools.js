@@ -23,4 +23,10 @@ $(function () {
             $(this).toggleClass('toggle-expand-right')
         })
     })
+
+    if ($("#wangEditor").length > 0) {
+        const E = window.wangEditor;
+        const editor1 = new E('#wangEditor');
+        editor1.create()
+    }
 })

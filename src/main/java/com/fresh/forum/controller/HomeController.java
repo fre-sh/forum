@@ -47,12 +47,11 @@ public class HomeController {
         return "index";
     }
 
-/*    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String index(Model model,
-                        @RequestParam(value = "pop", defaultValue = "0") int pop) {
+    @RequestMapping(path = {"/question/list"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String index(Model model, @RequestParam(value = "pop", defaultValue = "0") int pop) {
         model.addAttribute("vos", getQuestions(0, 0, 20));
-        return "index";
-    }*/
+        return "question";
+    }
 
     @RequestMapping(path = {"/home", "/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
