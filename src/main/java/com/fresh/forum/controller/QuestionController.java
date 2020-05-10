@@ -5,10 +5,9 @@ import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Comment;
+import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
-import com.fresh.forum.service.CommentService;
-import com.fresh.forum.service.QuestionService;
-import com.fresh.forum.service.UserService;
+import com.fresh.forum.service.*;
 import com.fresh.forum.util.WendaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Controller
 public class QuestionController {
@@ -37,8 +38,11 @@ public class QuestionController {
     @Autowired
     CommentService commentService;
 
-//    @Autowired
-//    FollowService followService;
+    @Autowired
+    private ContentService contentService;
+
+    @Autowired
+    FollowService followService;
 //
 //    @Autowired
 //    LikeService likeService;
@@ -54,6 +58,25 @@ public class QuestionController {
 
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
+        Question question = questionService.getById(qid);
+        model.addAttribute("question", question);
+
+        List<Content> answerList = contentService.listAnswer(question.getTitle());
+
+        List<ViewObject> vos = answerList.stream()
+                .map(answer -> ViewObject.build("answer", answer)
+                        .set("briefAnswer", contentService.getBriefContent(answer))
+                        .set("user", userService.getUser(answer.getUserId()))
+                        .set("comments", commentService.getCommentsByEntity(answer.getId(), EntityType.content))
+                ).collect(Collectors.toList());
+
+        model.addAttribute("vos", vos);
+        return "detail";
+    }
+
+
+    @RequestMapping(value = "/question2/{qid}", method = {RequestMethod.GET})
+    public String questionDetail2(Model model, @PathVariable("qid") int qid) {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
 

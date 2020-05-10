@@ -1,5 +1,6 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Content;
@@ -39,7 +40,11 @@ public class ContentService {
         ).collect(Collectors.toList());
     }
 
-    private String getBriefContent(Content content) {
+    public String getBriefContent(Content content) {
         return content.getContent().substring(0, Math.min(200, content.getContent().length())) + (content.getContent().length() > 200 ? "..." : "" );
+    }
+
+    public List<Content> listAnswer(String questionTitle) {
+        return contentDAO.findByContentTypeAndTitle(ContentType.answer, questionTitle);
     }
 }

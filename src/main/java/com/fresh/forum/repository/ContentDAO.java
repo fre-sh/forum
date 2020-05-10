@@ -1,5 +1,6 @@
 package com.fresh.forum.repository;
 
+import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Content;
@@ -17,4 +18,5 @@ public interface ContentDAO extends JpaRepository<Content, Integer> {
     )
     List<Content> getLatest(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 
+    List<Content> findByContentTypeAndTitle(ContentType contentType, String title);
 }
