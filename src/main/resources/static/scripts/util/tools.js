@@ -5,6 +5,17 @@ function getBrief(text) {
     return text;
 }
 
+function $postJson(url, data, callback, type){
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: type,
+        success: callback,
+    });
+}
+
 $(function () {
     $(".text-brief").each(function () {
         let originalText = $(this).html();
@@ -13,7 +24,7 @@ $(function () {
         $(this).next().click(function () {
             let $content = $(this).prev();
             let html = $content.html();
-            if (html.length === 203) {
+            if (html !== originalText) {
                 $content.html(originalText);
                 $(this).text("收起")
             } else {
@@ -26,7 +37,22 @@ $(function () {
 
     if ($("#wangEditor").length > 0) {
         const E = window.wangEditor;
-        const editor1 = new E('#wangEditor');
-        editor1.create()
+        editor = new E('#wangEditor');
+        editor.create()
     }
 })
+
+let editor;
+function submitContent(contentType, title, qId) {
+    let text = editor.txt.html();
+    let data = {
+        content:text,
+        contentType:contentType,
+        title:title,
+    }
+    $.post('/content/add', data,
+        function (res) {
+            location.href = '/question/' + qId
+        }, 'json'
+    );
+}

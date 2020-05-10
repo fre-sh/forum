@@ -31,15 +31,6 @@
                     <button onclick="showAnswerArea()" data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="6727688">
                         回答问题
                     </button>
-                    <div class="goog-menu goog-menu-vertical" role="menu" aria-haspopup="true"
-                         style="user-select: none; visibility: visible; left: 91.6px; top: 34px; display: none;">
-                        <div class="goog-menuitem" role="menuitem" id=":3" style="user-select: none;">
-                            <div class="goog-menuitem-content" style="user-select: none;">使用匿名身份</div>
-                        </div>
-                        <div class="goog-menuitem" role="menuitem" id=":4" style="user-select: none;">
-                            <div class="goog-menuitem-content" style="user-select: none;">问题重定向</div>
-                        </div>
-                    </div>
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
                             <a href="">
@@ -62,6 +53,9 @@
                                 <img src="${vo.headUrl}" class="zm-item-img-avatar"></a>
                             #end
                         </div>
+                        #if($vos.size() == 0)
+                        该问题暂无回答
+                        #end
                     </div>
                 </div>
             </div>
@@ -79,7 +73,9 @@
                     <label class="zg-left anno-box" style="user-select: none;">
                         <input name="anno-checkbox" type="checkbox" >匿名
                     </label>
-                    <span class=" zg-right"><a class="submit-button zg-btn-blue" name="save" href="javascript:">发布回答</a></span>
+                    <span class=" zg-right">
+                        <a class="submit-button zg-btn-blue" name="save" href="#" onclick="submitContent('answer', '$question.title', $question.id)">发布回答</a>
+                    </span>
                     <div class="draft-controls zg-right "><span class="draft-saved-info" style="display: none;">
                         <a class="draft-clear-button goog-inline-block" href="#" data-tip="s$b$删除草稿"><i
                                 class="zg-icon zg-icon-bin"></i><span class="hide-text">清除草稿</span></a><span
