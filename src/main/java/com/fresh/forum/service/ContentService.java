@@ -5,7 +5,9 @@ import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Content;
+import com.fresh.forum.model.Question;
 import com.fresh.forum.repository.ContentDAO;
+import com.fresh.forum.repository.QuestionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,12 @@ public class ContentService {
     @Autowired
     private HostHolder hostHolder;
 
+    @Autowired
+    private QuestionDAO questionDAO;
+
+    @Autowired
+    private SensitiveService sensitiveService;
+
     public List<ViewObject> getLatest(int userId, int offset, int limit) {
         List<Content> contentList = contentDAO.getLatest(userId, offset, limit);
         return contentList.stream()
@@ -56,10 +64,12 @@ public class ContentService {
     public void add(String text, String contentType, String title) {
         Content content = new Content();
         content.setCreatedDate(new Date());
-        content.setContent(text);
+        content.setContent(sensitiveService.filter(text));
         content.setContentType(ContentType.valueOf(contentType));
         content.setTitle(title);
         content.setUserId(hostHolder.getUser().getId());
         contentDAO.save(content);
+        Question question = questionDAO.findByTitle(title);
+        question.setContent(question.getContent() + 1);
     }
 }

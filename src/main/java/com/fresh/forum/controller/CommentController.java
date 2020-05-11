@@ -50,7 +50,7 @@ public class CommentController {
             commentService.addComment(comment);
 
             int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
-            questionService.updateCommentCount(comment.getEntityId(), count);
+            questionService.updateAnswerCount(comment.getEntityId(), count);
 
 //            eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
 //                    .setEntityId(questionId));

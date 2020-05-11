@@ -39,8 +39,8 @@ public class QuestionService {
         return questionDAO.selectLatestQuestions(userId, offset, limit);
     }
 
-    public int updateCommentCount(int id, int count) {
-        questionDAO.getOne(id).setCommentCount(count);
+    public int updateAnswerCount(int id, int count) {
+        questionDAO.getOne(id).setAnswerCount(count);
         return count;
     }
 }

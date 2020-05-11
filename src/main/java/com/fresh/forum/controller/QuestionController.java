@@ -50,6 +50,19 @@ public class QuestionController {
 //    @Autowired
 //    EventProducer eventProducer;
 
+    @RequestMapping(path = {"/question/list"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String index(Model model) {
+        List<ViewObject> vos = questionService.getLatestQuestions(0, 0, 20).stream()
+                .map(question -> ViewObject
+                        .build("question", question)
+                        .set("user", userService.getUser(question.getUserId()))
+                        .set("answerCnt", contentService.listAnswer(question.getTitle()).size())
+                        .set("followCount", followService.getFollowerCount(EntityType.user, question.getUserId()))
+                ).collect(Collectors.toList());
+        model.addAttribute("vos", vos);
+        return "question";
+    }
+
     @RequestMapping("/question")
     public String question(String title) {
         Question question = questionService.getByTitle(title);
@@ -65,7 +78,6 @@ public class QuestionController {
 
         List<ViewObject> vos = answerList.stream()
                 .map(answer -> ViewObject.build("answer", answer)
-                        .set("briefAnswer", contentService.getBriefContent(answer))
                         .set("user", userService.getUser(answer.getUserId()))
                         .set("comments", commentService.getCommentsByEntity(answer.getId(), EntityType.content))
                 ).collect(Collectors.toList());
@@ -74,52 +86,6 @@ public class QuestionController {
         return "detail";
     }
 
-
-    @RequestMapping(value = "/question2/{qid}", method = {RequestMethod.GET})
-    public String questionDetail2(Model model, @PathVariable("qid") int qid) {
-        Question question = questionService.getById(qid);
-        model.addAttribute("question", question);
-
-        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.question);
-        List<ViewObject> comments = new ArrayList<>();
-        for (Comment comment : commentList) {
-            ViewObject vo = new ViewObject();
-            vo.set("comment", comment);
-//            if (hostHolder.getUser() == null) {
-//                vo.set("liked", 0);
-//            } else {
-//                vo.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
-//            }
-//
-//            vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
-            vo.set("user", userService.getUser(comment.getUserId()));
-            comments.add(vo);
-        }
-        model.addAttribute("comments", comments);
-
-//        List<ViewObject> followUsers = new ArrayList<ViewObject>();
-//        // 获取关注的用户信息
-//        List<Integer> users = followService.getFollowers(EntityType.ENTITY_QUESTION, qid, 20);
-//        for (Integer userId : users) {
-//            ViewObject vo = new ViewObject();
-//            User u = userService.getUser(userId);
-//            if (u == null) {
-//                continue;
-//            }
-//            vo.set("name", u.getName());
-//            vo.set("headUrl", u.getHeadUrl());
-//            vo.set("id", u.getId());
-//            followUsers.add(vo);
-//        }
-//        model.addAttribute("followUsers", followUsers);
-//        if (hostHolder.getUser() != null) {
-//            model.addAttribute("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_QUESTION, qid));
-//        } else {
-//            model.addAttribute("followed", false);
-//        }
-
-        return "detail";
-    }
 
     @RequestMapping(value = "/question/add", method = {RequestMethod.POST})
     @ResponseBody
@@ -136,9 +102,6 @@ public class QuestionController {
                 question.setUserId(hostHolder.getUser().getId());
             }
             questionService.addQuestion(question);
-//                eventProducer.fireEvent(new EventModel(EventType.ADD_QUESTION)
-//                        .setActorId(question.getUserId()).setEntityId(question.getId())
-//                .setExt("title", question.getTitle()).setExt("content", question.getContent()));
             return WendaUtil.getJSONString(0);
         } catch (Exception e) {
             logger.error("增加问题失败" + e.getMessage());
