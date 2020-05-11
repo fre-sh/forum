@@ -18,6 +18,8 @@ public interface MessageDAO extends JpaRepository<Message, Integer> {
 
     int countByToIdAndConversationIdAndHasReadIsFalse(int userId, String conversationId);
 
+    int countByToIdAndHasReadIsFalse(int toId);
+
     @Query(value = "select * from message where conversation_id=?1 order by created_date desc limit ?2, ?3", nativeQuery = true)
     List<Message> getConversationDetail(String conversationId, int offset, int limit);
 

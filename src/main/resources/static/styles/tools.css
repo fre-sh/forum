@@ -7,3 +7,17 @@
 .toggle-expand-right{
     float: right;
 }
+.msg-num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #e84a4a;
+    color: #FFF;
+    border-radius: 50px;
+    line-height: 16px;
+    min-height: 16px;
+    outline: medium none;
+    padding: 0 4px;
+    text-align: center;
+    z-index: 10;
+}

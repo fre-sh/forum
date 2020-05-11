@@ -28,19 +28,19 @@ $(function () {
                 $content.html(originalText);
                 $(this).text("收起")
             } else {
-                $content.html(getBrief(originalText))
+                $content.html(getBrief(originalText));
                 $(this).text("显示全部")
             }
             $(this).toggleClass('toggle-expand-right')
         })
-    })
+    });
 
     if ($("#wangEditor").length > 0) {
         const E = window.wangEditor;
         editor = new E('#wangEditor');
         editor.create()
     }
-})
+});
 
 let editor;
 function submitContent(contentType, title, qId) {
@@ -49,7 +49,7 @@ function submitContent(contentType, title, qId) {
         content:text,
         contentType:contentType,
         title:title,
-    }
+    };
     $.post('/content/add', data,
         function (res) {
             location.href = '/question/' + qId

@@ -107,4 +107,36 @@ public class MessageController {
             return WendaUtil.getJSONString(1, "发信失败");
         }
     }
+
+    @RequestMapping(path = {"/msg/add"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String add(@RequestParam("toName") String toName,
+                      @RequestParam("content") String content) {
+        try {
+            if (hostHolder.getUser() == null) {
+                return WendaUtil.getJSONString(999, "未登录");
+            }
+
+            User user = userService.selectByName(toName);
+            if (user == null) {
+                return WendaUtil.getJSONString(1, "用户不存在");
+            }
+
+            Message message = new Message();
+            message.setCreatedDate(new Date());
+            message.setFromId(hostHolder.getUser().getId());
+            message.setToId(user.getId());
+            message.setContent(content);
+            message.setConversationId(String.format("%d_%d",
+                    Math.min(message.getFromId(), message.getToId()),
+                    Math.max(message.getFromId(), message.getToId())
+            ));
+            messageService.addMessage(message);
+            return WendaUtil.getJSONString(0);
+
+        } catch (Exception e) {
+            logger.error("发送消息失败" + e.getMessage());
+            return WendaUtil.getJSONString(1, "发信失败");
+        }
+    }
 }

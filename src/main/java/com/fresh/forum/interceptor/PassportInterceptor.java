@@ -4,6 +4,7 @@ import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.model.LoginTicket;
 import com.fresh.forum.model.User;
 import com.fresh.forum.repository.LoginTicketDAO;
+import com.fresh.forum.repository.MessageDAO;
 import com.fresh.forum.repository.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,9 @@ public class PassportInterceptor implements HandlerInterceptor {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private MessageDAO messageDAO;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -55,6 +59,7 @@ public class PassportInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         if (modelAndView != null && hostHolder.getUser() != null) {
             modelAndView.addObject("user", hostHolder.getUser());
+            modelAndView.addObject("unReadCnt", messageDAO.countByToIdAndHasReadIsFalse(hostHolder.getUser().getId()));
         }
     }
 
