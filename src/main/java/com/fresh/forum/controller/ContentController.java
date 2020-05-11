@@ -1,7 +1,10 @@
 package com.fresh.forum.controller;
 
+import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ResponseTO;
+import com.fresh.forum.model.Content;
+import com.fresh.forum.model.Question;
 import com.fresh.forum.service.CommentService;
 import com.fresh.forum.service.ContentService;
 import com.fresh.forum.service.QuestionService;
@@ -33,4 +36,21 @@ public class ContentController {
         contentService.add(content, contentType, title);
         return ResponseTO.success();
     }
+
+    /**
+     * 访问文章/回答（所属问题）
+     * @param id
+     * @return
+     */
+    @RequestMapping("/content/{id}")
+    public String showContent(@PathVariable int id) {
+        Content content = contentService.getOne(id);
+        if (content.getContentType() == ContentType.answer) {
+            Question question = questionService.getByTitle(content.getTitle());
+            return "redirect:/question/" + question.getId();
+        } else {
+            return "/";
+        }
+    }
+
 }

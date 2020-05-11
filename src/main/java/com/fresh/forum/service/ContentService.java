@@ -41,12 +41,15 @@ public class ContentService {
     @Autowired
     private SensitiveService sensitiveService;
 
+    public Content getOne(int id) {
+        return contentDAO.getOne(id);
+    }
+
     public List<ViewObject> getLatest(int userId, int offset, int limit) {
         List<Content> contentList = contentDAO.getLatest(userId, offset, limit);
         return contentList.stream()
                 .map(content -> ViewObject
                     .build("content", content)
-                    .set("briefContent", getBriefContent(content))
                     .set("user", userService.getUser(content.getUserId()))
                     .set("userFanCnt", followService.getFollowerCount(EntityType.user, content.getUserId()))
                     .set("commentCnt", commentService.getCommentCount(content.getId(), EntityType.content))

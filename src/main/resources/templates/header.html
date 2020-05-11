@@ -20,6 +20,7 @@
     <!-- 工具类型在前，放在header里 -->
     <script type="text/javascript" src="/scripts/jquery/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/scripts/util/wangEditor.min.js"></script>
+    <script type="text/javascript" src="/scripts/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="/scripts/util/tools.js"></script>
 
 </head>
@@ -76,11 +77,18 @@
         </div>
         <div id="zg-top-nav" class="zu-top-nav">
             <ul class="zu-top-nav-ul zg-clear">
+                <!--#if($request.getRequestURI().matches("/|/index|/home"))
+                <li class="zu-top-nav-li current" id="zh-top-nav-home">
+                #else
+                <li class="zu-top-nav-li current" id="zh-top-nav-home">
+                #end-->
+
                 <li class="zu-top-nav-li current" id="zh-top-nav-home">
                     <a class="zu-top-nav-link" href="/" id="zh-top-link-home" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_home">首页</a>
                 </li>
+
                 <li class="zu-top-nav-li " id="zh-top-nav-explore">
-                    <a class="zu-top-nav-link" href="/question/list">问题</a>
+                    <a class="zu-top-nav-link" href="/question/list">问题 #set($value = "#if(1==1)2#{else}3#end")</a>
                 </li>
                 #if ($user)
                 <li class="top-nav-noti zu-top-nav-li ">
