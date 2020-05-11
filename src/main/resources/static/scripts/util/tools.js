@@ -21,7 +21,9 @@ $(function () {
         let originalText = $(this).html();
         $(this).html(getBrief(originalText));
 
-        $(this).next().click(function () {
+        let lableA = $(this).next();
+        // lableA.attr('href', '#' + $(this).id)
+        lableA.click(function () {
             let $content = $(this).prev();
             let html = $content.html();
             if (html !== originalText) {
