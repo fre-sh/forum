@@ -62,6 +62,10 @@ public class ContentService {
         return content.getContent().substring(0, Math.min(200, content.getContent().length())) + (content.getContent().length() > 200 ? "..." : "" );
     }
 
+    public int countAnswer(int userId) {
+        return contentDAO.countByUserId(userId);
+    }
+
     public List<Content> listAnswer(String questionTitle) {
         return contentDAO.findByContentTypeAndTitle(ContentType.answer, questionTitle);
     }

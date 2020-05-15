@@ -17,4 +17,6 @@ public interface ContentDAO extends JpaRepository<Content, Integer> {
     List<Content> getLatest(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 
     List<Content> findByContentTypeAndTitle(ContentType contentType, String title);
+
+    int countByUserId(int userId);
 }

@@ -1,5 +1,29 @@
 function follow(entityType, entityId) {
-    followContent(entityId);
+    if (entityType === 'content') {
+        followContent(entityId);
+    } else if (entityType === 'user') {
+        followUser(entityId)
+    }
+}
+
+function followUser(id) {
+    $.post('/user/follow', {'userId':id},
+        function (res) {
+            if (res.code === 0) {
+                location.reload();
+            }
+        }, 'json'
+    );
+}
+
+function unfollowUser(id) {
+    $.post('/user/disFollow', {'userId':id},
+        function (res) {
+            if (res.code === 0) {
+                location.reload();
+            }
+        }, 'json'
+    );
 }
 
 function followContent(id) {

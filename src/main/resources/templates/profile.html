@@ -13,15 +13,17 @@
                     <div id="zh-profile-follows-list">
                         <div class="zh-general-list clearfix">
                             <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                                #if($profileUser.user.id != $user.id)
                                 <div class="zg-right">
                                     #if ($profileUser.followed)
                                     <button class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0
-                                    js-follow-user" data-status="1" data-id="$profileUser.user.id">取消关注</button>
+                                    " data-status="1" data-id="$profileUser.user.id" onclick="unfollowUser($profileUser.user.id)">取消关注</button>
                                     #else
                                     <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
-                                    js-follow-user" data-id="$profileUser.user.id">关注</button>
+                                    " data-id="$profileUser.user.id" onclick="followUser($profileUser.user.id)">关注</button>
                                     #end
                                 </div>
+                                #end
                                 <a title="Barty" class="zm-item-link-avatar" href="/user/${profileUser.user.id}">
                                     <img src="${profileUser.user.headUrl}" class="zm-item-img-avatar">
                                 </a>
@@ -34,10 +36,13 @@
                                         /
                                         <a target="_self" href="/user/${profileUser.user.id}/followees" class="zg-link-gray-normal">${profileUser.followeeCount}关注</a>
                                         /
-                                        <a target="_self" href="#" class="zg-link-gray-normal">${profileUser.commentCount} 回答</a>
-                                        /
-                                        <a target="_self" href="#" class="zg-link-gray-normal">548 赞同</a>
+                                        <a target="_self" href="#" class="zg-link-gray-normal">${profileUser.answerCnt} 回答</a>
                                     </div>
+                                </div>
+                                <div>${profileUser.user.description}
+                                   <!-- <a style="float: right;" class="zg-follow meta-item" href="javascript:void(0)" onclick="">
+                                        <span id="follow-span-1">编辑</span>
+                                    </a>-->
                                 </div>
                             </div>
                         </div>

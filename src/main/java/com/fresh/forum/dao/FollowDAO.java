@@ -11,6 +11,8 @@ public interface FollowDAO extends JpaRepository<FollowRelation, Integer> {
 
     List<FollowRelation> findByEntityTypeAndEntityId(EntityType entityType, int entityId);
 
+    List<FollowRelation> findByUserIdAndEntityType(int userId, EntityType entityType);
+
     void deleteByUserIdAndEntityTypeAndEntityId(int userId, EntityType entityType, int entityId);
 
     int countByUserIdAndEntityType(int userId, EntityType entityType);

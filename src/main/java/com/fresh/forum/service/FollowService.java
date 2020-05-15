@@ -16,6 +16,22 @@ public class FollowService {
     @Autowired
     private FollowDAO followDAO;
 
+    /**
+     * 获取关注列表
+     * @param userId
+     * @param type
+     * @return
+     */
+    public List<FollowRelation> getFollowObjs(int userId, EntityType type) {
+        return followDAO.findByUserIdAndEntityType(userId, type);
+    }
+
+    /**
+     * 获取粉丝列表
+     * @param type
+     * @param entityId
+     * @return
+     */
     public List<FollowRelation> getFollowers(EntityType type, int entityId) {
         return followDAO.findByEntityTypeAndEntityId(type, entityId);
     }
