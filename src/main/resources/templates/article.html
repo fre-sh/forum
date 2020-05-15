@@ -1,0 +1,94 @@
+#parse("header.html")
+<link rel="stylesheet" href="../styles/detail.css">
+<div class="zg-wrap zu-main clearfix with-indention-votebar" itemscope="" itemtype="http://schema.org/Question"
+     id="zh-single-question-page" data-urltoken="36301524" role="main">
+    <div class="zu-main-content">
+        <div class="zu-main-content-inner">
+            <meta itemprop="isTopQuestion" content="false">
+            <meta itemprop="visitsCount" content="402">
+            <div class="zm-tag-editor zg-section">
+                <!--<div class="zm-tag-editor-labels zg-clear"><a data-tip="t$b$null" class="zm-item-tag" href="/topic/">新浪微博</a><a data-tip="t$b$null" class="zm-item-tag" href="/topic/">网络营销</a><a data-tip="t$b$null" class="zm-item-tag" href="/topic/">微博粉丝</a><a data-tip="t$b$null" class="zm-item-tag" href="/topic/">僵尸粉</a><a data-tip="t$b$null" class="zm-item-tag" href="/topic/">网络水军</a><a href="javascript:;" class="zu-edit-button" name="edit"><i class="zu-edit-button-icon"></i>修改</a></div>-->
+            </div>
+            <div id="zh-question-title" data-editable="true" class="zm-editable-status-normal">
+                <h2 class="zm-item-title">
+                    <span class="zm-editable-content">$content.title</span>
+                </h2>
+<!--                <a style="float: right;" data-follow="c:link" class="zg-follow meta-item" href="javascript:void(0)" id="cl-2180" onclick="follow('content',$vo.content.id)">
+                    <i class="z-icon-follow"></i>
+                    <span onclick="showAnswerArea()">编辑</span>
+                </a>-->
+                <a style="float: right;" data-follow="c:link" class="zg-follow meta-item" href="javascript:void(0)" id="cl-2180" onclick="follow('content',$vo.content.id)">
+                    <i class="z-icon-follow"></i>
+                    <span id="follow-span-1">
+                                    #if($vo.isFollow)
+                                    取消收藏
+                                    #else
+                                    收藏
+                                    #end
+                                    </span>
+                </a>
+            </div>
+            <div class="zm-item-answer-author-info" style="margin-top: 10px;margin-bottom: 10px">
+                <a class="zm-item-link-avatar js-user-0" href="/user/${author.id}" data-original_title="${author.name}">
+                        <img src="${author.headUrl}" class="zm-item-img-avatar" style="width: 20px;"></a>
+                <a class="author-link" data-tip="p$b$amuro1230" target="_self" href="/user/$!{author.id}">$!{user.name}</a>
+                ，$data.format('yyyy-MM-dd HH:mm:ss', $!{content.createdDate})</div>
+            <div id="zh-question-detail" class="zm-item-rich-text zm-editable-status-normal" data-resourceid="6727688"
+                 data-action="/question/detail">
+                <div class="zm-editable-content">$content.content
+                </div>
+            </div>
+            <div class="zm-side-section">
+                <div class="zm-side-section-inner" id="zh-content-side-header-wrap">
+                </div>
+            </div>
+            <div id="zh-question-answer-wrap" data-pagesize="10" class="zh-question-answer-wrapper navigable"
+                 data-widget="navigable" data-navigable-options="{&quot;items&quot;: &quot;>.zm-item-answer&quot;}"
+                 data-init="{&quot;params&quot;: {&quot;url_token&quot;: 36301524, &quot;pagesize&quot;: 10, &quot;offset&quot;: 0}, &quot;nodename&quot;: &quot;QuestionAnswerListV2&quot;}">
+                <div>
+                    <form class="form-inline" name="article-comment" action="/comment/add" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="contentId" value="${content.id}">
+                            <input type="text" name="content" class="form-control" placeholder="写下你的评论..." style="width: 700px">
+                        </div>
+                        <button type="button" class="btn btn-default">发送</button>
+                    </form>
+                </div>
+                #foreach($vo in $comments)
+                <div tabindex="-1" class="zm-item-answer" itemprop="topAnswer" itemscope=""
+                     itemtype="http://schema.org/Answer" data-aid="22162611" data-atoken="66862039" data-collapsed="0"
+                     data-created="1444310527" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1"
+                     data-za-module="AnswerItem">
+                    <link itemprop="url" href="">
+                    <meta itemprop="answer-id" content="22162611">
+                    <meta itemprop="answer-url-token" content="66862039">
+                    <a class="zg-anchor-hidden" name="answer-22162611"></a>
+                    <div class="answer-head">
+                        <div class="zm-item-answer-author-info">
+                            <a class="zm-item-link-avatar avatar-link" href="" target="_self"
+                               data-tip="p$t$yingxiaodao">
+                                <img src="$vo.user.headUrl" class="zm-list-avatar avatar"></a>
+                            <a class="author-link" data-tip="p$t$yingxiaodao" target="_self" href="/user/$vo.user.id">$vo.comment.content</a>
+                        <div class="zm-item-vote-info" data-votecount="28" data-za-module="VoteInfo">
+                                <span class="voters text">
+                                    <a href="" class="more text">
+                                        <span class="js-voteCount"></span>$vo.user.name, $data.format('yyyy-MM-dd HH:mm:ss', $!{vo.comment.createdDate})</a></span>
+                        </div>
+                    </div>
+                </div>
+                #end
+            </div>
+            <a name="draft"></a>
+        </div>
+
+    </div>
+</div>
+</div>
+#parse("js.html")
+<script type="text/javascript" src="/scripts/main/site/detail.js"></script>
+<script>
+    function showAnswerArea() {
+        $("#zh-question-answer-form-wrap").toggleClass("hidden");
+    }
+</script>
+#parse("footer.html")

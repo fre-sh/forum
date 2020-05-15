@@ -77,11 +77,15 @@ $(function () {
             let formData = $form.serializeArray();
             $.post('/comment/add', formData,
                 function (res) {
-                    let $tbody = $form.parent("div").next("table").children("tbody");
-                    $tbody.html($tbody.html() + '<tr><td>\n' +
-                        '<span><img src="' + res.data.user.headUrl + '" class="Avatar"></span>\n' +
-                        '<span style="margin-left: 10px">' + res.data.comment.content + '</span>\n' +
-                        '</td></tr>');
+                    if ($form.attr('name') === 'article-comment') {
+                        location.reload();
+                    } else {
+                        let $tbody = $form.parent("div").next("table").children("tbody");
+                        $tbody.html($tbody.html() + '<tr><td>\n' +
+                            '<span><img src="' + res.data.user.headUrl + '" class="Avatar"></span>\n' +
+                            '<span style="margin-left: 10px">' + res.data.comment.content + '</span>\n' +
+                            '</td></tr>');
+                    }
                 }, 'json'
             );
         })
