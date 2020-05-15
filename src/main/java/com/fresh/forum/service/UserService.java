@@ -4,6 +4,7 @@ import com.fresh.forum.model.LoginTicket;
 import com.fresh.forum.model.User;
 import com.fresh.forum.repository.LoginTicketDAO;
 import com.fresh.forum.repository.UserDAO;
+import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,9 @@ public class UserService {
         return userDAO.findByName(name);
     }
 
-    public Map<String, Object> register(String username, String password) {
+    public Map<String, Object> register(String username, String password,String email, String description) {
         Map<String, Object> map;
-        map = new HashMap<String, Object>();
+        map = new HashMap<>();
         if (StringUtils.isBlank(username)) {
             map.put("msg", "用户名不能为空");
             return map;
@@ -55,8 +56,10 @@ public class UserService {
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
         String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
         user.setHeadUrl(head);
-//        user.setPassword(WendaUtil.MD5(password+user.getSalt()));
-        user.setPassword(password);
+        user.setPassword(WendaUtil.MD5(password+user.getSalt()));
+//        user.setPassword(password);
+        user.setEmail(email);
+        user.setDescription(description);
         userDAO.save(user);
 
         // 登陆
@@ -85,8 +88,7 @@ public class UserService {
             return map;
         }
 
-//        if (!WendaUtil.MD5(password+user.getSalt()).equals(user.getPassword())) {
-        if (!password.equals(user.getPassword())) {
+        if (!Objects.equals(WendaUtil.MD5(password + user.getSalt()), user.getPassword())) {
             map.put("msg", "密码不正确");
             return map;
         }

@@ -24,17 +24,16 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-//    @Autowired
-//    EventProducer eventProducer;
-
     @RequestMapping(path = {"/reg/"}, method = {RequestMethod.POST})
     public String reg(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
+                      @RequestParam("email") String email,
+                      @RequestParam("description") String description,
                       @RequestParam("next") String next,
                       @RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
                       HttpServletResponse response) {
         try {
-            Map<String, Object> map = userService.register(username, password);
+            Map<String, Object> map = userService.register(username, password, email, description);
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
@@ -64,6 +63,11 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping(path = {"/reg/page"}, method = {RequestMethod.GET})
+    public String regloginPage() {
+        return "register";
+    }
+
     @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
                         @RequestParam("password") String password,
@@ -79,11 +83,6 @@ public class LoginController {
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
-
-//                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
-//                        .setExt("username", username).setExt("email", "zjuyxy@qq.com")
-//                        .setActorId((int)map.get("userId")));
-
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;
                 }

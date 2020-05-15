@@ -36,23 +36,29 @@
                 <form action="/reg/" id="regloginform" method="post">
                     <input type="hidden" name="_xsrf" value="21aa1c8d254df2899b23ab9afbd62a53">
                     <div class="group-inputs">
-                        <div class="email input-wrapper" aria-required="">
+                        <div class="email input-wrapper">
                             <input type="text" name="username" aria-label="账号" placeholder="账号" required>
                         </div>
                         <div class="input-wrapper">
                             <input type="password" name="password" aria-label="密码" placeholder="密码" required>
                         </div>
+                        <div class="input-wrapper">
+                            <input type="text" name="email" aria-label="邮箱" placeholder="邮箱" required>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="text" name="description" aria-label="个人简介" placeholder="个人简介" aria-required="false" required="false">
+                        </div>
                     </div>
                     <input type="hidden" name="next" value="$!{next}"/>
                     <div class="button-wrapper command clearfix">
                         <button class="sign-button submit" type="submit" style="width: 100%;"
-                                onclick="form=document.getElementById('regloginform');form.action='/login/'">登录</button>
+                                onclick="form=document.getElementById('regloginform');form.action='/reg/'">注册</button>
                     </div>
                     <div class="signin-misc-wrapper clearfix">
                         <label class="remember-me">
                             <input type="checkbox" name="rememberme" checked="" value="true"> 记住我
                         </label>
-                        <a class="unable-login" href="/reg/page">注册</a>
+                        <a class="unable-login" href="/reglogin">登录</a>
                     </div>
                 </form>
             </div>
