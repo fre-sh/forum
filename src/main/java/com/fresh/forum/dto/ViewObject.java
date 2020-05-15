@@ -20,4 +20,8 @@ public class ViewObject {
     public Object get(String key) {
         return objs.get(key);
     }
+
+    public Map<String, Object> toMap() {
+        return objs;
+    }
 }

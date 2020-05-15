@@ -2,6 +2,8 @@ package com.fresh.forum.controller;
 
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
+import com.fresh.forum.dto.ResponseTO;
+import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.service.CommentService;
 import com.fresh.forum.service.QuestionService;
@@ -10,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -32,9 +32,10 @@ public class CommentController {
 //    EventProducer eventProducer;
 
 
-    @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
-    public String addComment(@RequestParam("questionId") int questionId,
-                             @RequestParam("content") String content) {
+    @RequestMapping(path = {"comment/add"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseTO addComment(@RequestParam("contentId") int contentId,
+                                 @RequestParam("content") String content) {
         try {
             Comment comment = new Comment();
             comment.setContent(content);
@@ -42,22 +43,17 @@ public class CommentController {
                 comment.setUserId(hostHolder.getUser().getId());
             } else {
                 comment.setUserId(WendaUtil.ANONYMOUS_USERID);
-                // return "redirect:/reglogin";
             }
             comment.setCreatedDate(new Date());
-            comment.setEntityType(EntityType.question);
-            comment.setEntityId(questionId);
-            commentService.addComment(comment);
-
-            int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
-            questionService.updateAnswerCount(comment.getEntityId(), count);
-
-//            eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
-//                    .setEntityId(questionId));
-
+            comment.setEntityType(EntityType.content);
+            comment.setEntityId(contentId);
+            comment = commentService.addComment(comment);
+            return ResponseTO.success(
+                    ViewObject.build("comment", comment).set("user", hostHolder.getUser())
+            );
         } catch (Exception e) {
             logger.error("增加评论失败" + e.getMessage());
         }
-        return "redirect:/question/" + questionId;
+        return ResponseTO.failed("添加评论失败");
     }
 }

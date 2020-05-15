@@ -21,8 +21,28 @@ function $postJson(url, data, callback, type){
 }
 
 $(function () {
+    $("form[action='/comment/add']").each(function () {
+        let $form = $(this);
+        $(this).children("button").click(function () {
+            let formData = $form.serializeArray();
+            $.post('/comment/add', formData,
+                function (res) {
+                    let $tbody = $form.parent("div").next("table").children("tbody");
+                    $tbody.html($tbody.html() + '<tr><td>\n' +
+                        '<span><img src="' + res.data.user.headUrl + '" class="Avatar"></span>\n' +
+                        '<span style="margin-left: 10px">' + res.data.comment.content + '</span>\n' +
+                        '</td></tr>');
+                }, 'json'
+            );
+        })
+    });
+
     $(".text-brief").each(function () {
         let originalText = $(this).html();
+        if (originalText.length < 200){
+            $(this).next().remove();
+            return;
+        }
         $(this).html(getBrief(originalText));
 
         let lableA = $(this).next();

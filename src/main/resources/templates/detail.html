@@ -130,35 +130,31 @@
                             <a itemprop="url" class="answer-date-link meta-item" target="_blank" href="">
                                 发布于 $data.format('yyyy-MM-dd HH:mm:ss', $!{vo.answer.createdDate})</a>
                             <a name="addcomment" class="meta-item toggle-comment js-toggleCommentBox"
-                               href="#collapseExample" aria-expanded="true" data-toggle="collapse" aria-controls="collapseExample">
+                               href="#collapseExample${vo.answer.id}" aria-expanded="true" data-toggle="collapse" aria-controls="collapseExample${vo.answer.id}">
                                 <i class="z-icon-comment"></i>${vo.comments.size()} 条评论</a>
-                            <a href="" class="meta-item zu-autohide js-thank" data-thanked="false">
-                                <i class="z-icon-thank"></i>感谢</a>
-
                             <button class="item-collapse js-collapse" style="">
                                 <i class="z-icon-fold"></i>收起
                             </button>
                         </div>
                     </div>
-                    <div class="collapse" id="collapseExample">
+                    <div class="collapse" id="collapseExample${vo.answer.id}">
                         <div class="comment-container">
                             <div class="comment-head">
-                                <form class="form-inline">
+                                <form class="form-inline" action="/comment/add" method="post">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="exampleInputName2" placeholder="写下你的评论..." style="width: 700px">
+                                        <input type="hidden" name="contentId" value="${vo.answer.id}">
+                                        <input type="text" name="content" class="form-control" id="exampleInputName2" placeholder="写下你的评论..." style="width: 700px">
                                     </div>
-                                    <button type="submit" class="btn btn-default">发送</button>
+                                    <button type="button" class="btn btn-default">发送</button>
                                 </form>
                             </div>
-<!--                            <ul class="list-group" style="margin-bottom: 0">-->
-<!--                                #foreach($comment in $vo.comments)-->
-<!--                                <li class="list-group-item">$comment.content</li>-->
-<!--                                #end-->
-<!--                            </ul>-->
                             <table class="table" style="margin-bottom: 0;margin-left: 8px;width: 98%;">
                                 <tbody>
                                 #foreach($comment in $vo.comments)
-                                <tr><td>$comment.content</td></tr>
+                                <tr><td>
+                                    <span><img src="${vo.user.headUrl}" class="Avatar"></span>
+                                    <span style="margin-left: 10px">$comment.content</span>
+                                </td></tr>
                                 #end
                                 </tbody>
                             </table>

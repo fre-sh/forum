@@ -1,5 +1,7 @@
 package com.fresh.forum.dto;
 
+import javax.swing.text.View;
+
 public class ResponseTO {
 
     private int code;
@@ -27,6 +29,9 @@ public class ResponseTO {
     public ResponseTO(int code, Object data, String msg) {
         this.code = code;
         this.data = data;
+        if (data instanceof ViewObject) {
+            this.data = ((ViewObject) data).toMap();
+        }
         this.msg = msg;
     }
 

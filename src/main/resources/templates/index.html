@@ -69,23 +69,37 @@
                                                     <a data-follow="c:link" class="zg-follow meta-item" href="#" id="cl-2180">
                                                         <i class="z-icon-follow"></i>收藏
                                                     </a>
-                                                    <a href="#" class="meta-item toggle-comment js-toggleCommentBox">
+                                                    <a href="#" class="meta-item toggle-comment js-toggleCommentBox" href="#collapseExample${vo.content.id}"
+                                                       aria-controls="collapseExample${vo.content.id}">
                                                         <i class="z-icon-comment"></i>$vo.commentCnt 条评论</a>
-                                                    <a href="#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;">
-                                                        <div class="goog-inline-block goog-menu-button-outer-box">
-                                                            <div class="goog-inline-block goog-menu-button-inner-box">
-                                                                <div class="goog-inline-block goog-menu-button-caption">
-                                                                    <i class="z-icon-share"></i>分享</div>
-                                                                <div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div>
-                                                        </div>
-                                                    </a>
-                                                    <span class="zg-bull zu-autohide">•</span>
-                                                    <a href="#" class="meta-item zu-autohide js-report">举报</a>
                                                     <button class="meta-item item-collapse js-collapse">
                                                         <i class="z-icon-fold"></i>收起</button>
                                                 </div>
                                             </div>
                                             <!--<a href="#" class="ignore zu-autohide" name="dislike" data-tip="s$b$不感兴趣"></a>-->
+                                        </div>
+                                        <div class="collapse" id="collapseExample${vo.answer.id}">
+                                            <div class="comment-container">
+                                                <div class="comment-head">
+                                                    <form class="form-inline" action="/comment/add" method="post">
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="contentId" value="${vo.answer.id}">
+                                                            <input type="text" name="content" class="form-control" id="exampleInputName2" placeholder="写下你的评论..." style="width: 700px">
+                                                        </div>
+                                                        <button type="button" class="btn btn-default">发送</button>
+                                                    </form>
+                                                </div>
+                                                <table class="table" style="margin-bottom: 0;margin-left: 8px;width: 98%;">
+                                                    <tbody>
+                                                    #foreach($comment in $vo.comments)
+                                                    <tr><td>
+                                                        <span><img src="${vo.user.headUrl}" class="Avatar"></span>
+                                                        <span style="margin-left: 10px">$comment.content</span>
+                                                    </td></tr>
+                                                    #end
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

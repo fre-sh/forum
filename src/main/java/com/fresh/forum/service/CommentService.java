@@ -23,10 +23,10 @@ public class CommentService {
         return commentDAO.findByEntityIdAndEntityType(entityId, entityType);
     }
 
-    public void addComment(Comment comment) {
+    public Comment addComment(Comment comment) {
         comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
         comment.setContent(sensitiveService.filter(comment.getContent()));
-        commentDAO.save(comment);
+        return commentDAO.save(comment);
     }
 
     public int getCommentCount(int entityId, EntityType entityType) {
