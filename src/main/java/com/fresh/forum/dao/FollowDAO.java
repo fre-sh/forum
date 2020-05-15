@@ -4,8 +4,14 @@ import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.model.FollowRelation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 public interface FollowDAO extends JpaRepository<FollowRelation, Integer> {
+
+    List<FollowRelation> findByEntityTypeAndEntityId(EntityType entityType, int entityId);
+
+    void deleteByUserIdAndEntityTypeAndEntityId(int userId, EntityType entityType, int entityId);
 
     int countByUserIdAndEntityType(int userId, EntityType entityType);
 

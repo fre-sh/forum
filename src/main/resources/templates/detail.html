@@ -11,46 +11,40 @@
             </div>
             <div id="zh-question-title" data-editable="true" class="zm-editable-status-normal">
                 <h2 class="zm-item-title">
-
-                    <span class="zm-editable-content">$question.title<a href="javascript:;" class="zu-edit-button"
-                                                                        name="edit"><i class="zu-edit-button-icon"></i>修改</a></span>
-
+                    <span class="zm-editable-content">$question.title</span>
                 </h2>
             </div>
             <div id="zh-question-detail" class="zm-item-rich-text zm-editable-status-normal" data-resourceid="6727688"
                  data-action="/question/detail">
-                <div class="zm-editable-content">$question.content<a href="javascript:;" class="zu-edit-button"
-                                                                     name="edit"><i
-                        class="zu-edit-button-icon"></i>修改</a></div>
+                <div class="zm-editable-content">$question.content
+                <!--    #if($user.id == $question.userId)
+                    <a href="javascript:;" class="zu-edit-button" name="edit"><i
+                        class="zu-edit-button-icon"></i>修改</a>
+                    #end-->
+                </div>
             </div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
-                    <button data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="6727688">
-                        关注问题
-                    </button>
+                    #if($isFollow)
+                    <button data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="6727688" style="background: darkgray;border: 1px solid darkgray;"
+                            onclick="followQuestion($question.id)" id="followQuestion">取消关注</button>
+                    #else
+                    <button data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="6727688"
+                            onclick="followQuestion($question.id)" id="followQuestion">关注问题</button>
+                    #end
                     <button onclick="showAnswerArea()" data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="6727688">
                         回答问题
                     </button>
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
                             <a href="">
-                                <strong>9</strong></a>人关注该问题
+                                <strong>${followers.size()}</strong></a>人关注该问题
                         </div>
                         <div class="list zu-small-avatar-list zg-clear">
-                                <span class="zm-item-link-avatar">
-                                    <img title="匿名用户" class="zm-item-img-avatar"
-                                         src="../images/res/aadd7b895_s.jpg"></span>
-                            <a data-tip="p$b$yi-yi-98-91-99" class="zm-item-link-avatar" href=""
-                               data-original_title="奕奕">
-                                <img src="../images/res/6ceea810748d179f57cac0baa5cf9592_s.jpg"
-                                     class="zm-item-img-avatar"></a>
-                            <a data-tip="p$t$wang-wu-29-54" class="zm-item-link-avatar" href=""
-                               data-original_title="王五">
-                                <img src="../images/res/da8e974dc_s.jpg" class="zm-item-img-avatar"></a>
-                            #foreach($vo in $followUsers)
-                            <a class="zm-item-link-avatar js-user-${vo.id}" href="/user/${vo.id}"
-                               data-original_title="${vo.name}">
-                                <img src="${vo.headUrl}" class="zm-item-img-avatar"></a>
+                            #foreach($follower in $followers)
+                            <a class="zm-item-link-avatar js-user-${follower.id}" href="/user/${follower.id}"
+                               data-original_title="${follower.name}">
+                                <img src="${follower.headUrl}" class="zm-item-img-avatar"></a>
                             #end
                         </div>
                         #if($vos.size() == 0)
@@ -106,7 +100,7 @@
                     </div>
                     <div class="answer-head">
                         <div class="zm-item-answer-author-info">
-                            <a class="zm-item-link-avatar avatar-link" href="" target="_blank"
+                            <a class="zm-item-link-avatar avatar-link" href="" target="_self"
                                data-tip="p$t$yingxiaodao">
                                 <img src="$vo.user.headUrl" class="zm-list-avatar avatar"></a>
                             <a class="author-link" data-tip="p$t$yingxiaodao" target="_self" href="/user/$vo.user.id">$vo.user.name</a>
@@ -127,7 +121,7 @@
                     <a class="zg-anchor-hidden ac" name="22162611-comment"></a>
                     <div class="zm-item-meta answer-actions clearfix js-contentActions">
                         <div class="zm-meta-panel">
-                            <a itemprop="url" class="answer-date-link meta-item" target="_blank" href="">
+                            <a itemprop="url" class="answer-date-link meta-item" target="_self" href="">
                                 发布于 $data.format('yyyy-MM-dd HH:mm:ss', $!{vo.answer.createdDate})</a>
                             <a name="addcomment" class="meta-item toggle-comment js-toggleCommentBox"
                                href="#collapseExample${vo.answer.id}" aria-expanded="true" data-toggle="collapse" aria-controls="collapseExample${vo.answer.id}">

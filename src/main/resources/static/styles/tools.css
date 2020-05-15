@@ -1,3 +1,7 @@
+.dis-follow {
+    background: darkgray;
+    border: 1px solid darkgray;
+}
 .comment-container {
     border: 1px solid #ebebeb;
     background: #fff;

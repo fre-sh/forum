@@ -1,5 +1,7 @@
 package com.fresh.forum.controller;
 
+import com.fresh.forum.dto.ResponseTO;
+import com.fresh.forum.model.User;
 import com.fresh.forum.util.AppException;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
@@ -40,12 +42,20 @@ public class QuestionController {
 
     @Autowired
     FollowService followService;
-//
-//    @Autowired
-//    LikeService likeService;
-//
-//    @Autowired
-//    EventProducer eventProducer;
+
+    @RequestMapping("/question/follow")
+    @ResponseBody
+    public ResponseTO follow(int id) {
+        followService.follow(hostHolder.getUser().getId(), EntityType.question, id);
+        return ResponseTO.success();
+    }
+
+    @RequestMapping("/question/disFollow")
+    @ResponseBody
+    public ResponseTO disFollow(int id) {
+        followService.disFollow(hostHolder.getUser().getId(), EntityType.question, id);
+        return ResponseTO.success();
+    }
 
     @RequestMapping(path = {"/question/list"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
@@ -70,16 +80,20 @@ public class QuestionController {
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
+        model.addAttribute("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.question, qid));
 
-        List<Content> answerList = contentService.listAnswer(question.getTitle());
+        List<User> followers = followService.getFollowers(EntityType.question, qid).stream()
+                .map(follower -> userService.getUser(follower.getUserId())
+                ).collect(Collectors.toList());
 
-        List<ViewObject> vos = answerList.stream()
+        List<ViewObject> vos = contentService.listAnswer(question.getTitle()).stream()
                 .map(answer -> ViewObject.build("answer", answer)
                         .set("user", userService.getUser(answer.getUserId()))
                         .set("comments", commentService.getCommentsByEntity(answer.getId(), EntityType.content))
                 ).collect(Collectors.toList());
 
         model.addAttribute("vos", vos);
+        model.addAttribute("followers", followers);
         return "detail";
     }
 
