@@ -1,3 +1,29 @@
+function follow(entityType, entityId) {
+    followContent(entityId);
+}
+
+function followContent(id) {
+    let $followSpan = $("#follow-span-" + id);
+    let text = $.trim($followSpan.text());
+    if (text === '收藏') {
+        $.get('/content/follow', {'id':id},
+            function (res) {
+                if (res.code === 0) {
+                    $followSpan.text("取消收藏");
+                }
+            }, 'json'
+        );
+    } else if (text === '取消收藏') {
+        $.get('/content/disFollow', {'id':id},
+            function (res) {
+                if (res.code === 0) {
+                    $followSpan.text("收藏");
+                }
+            }, 'json'
+        );
+    }
+}
+
 function followQuestion(id) {
     let $followQuestion = $("#followQuestion");
     let text = $.trim($followQuestion.text());

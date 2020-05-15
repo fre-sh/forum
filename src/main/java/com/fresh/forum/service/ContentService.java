@@ -54,6 +54,7 @@ public class ContentService {
                     .set("userFanCnt", followService.getFollowerCount(EntityType.user, content.getUserId()))
                     .set("commentCnt", commentService.getCommentCount(content.getId(), EntityType.content))
                     .set("comments", commentService.getCommentsByEntity(content.getId(), EntityType.content))
+                    .set("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.content, content.getId()))
         ).collect(Collectors.toList());
     }
 

@@ -90,6 +90,7 @@ public class QuestionController {
                 .map(answer -> ViewObject.build("answer", answer)
                         .set("user", userService.getUser(answer.getUserId()))
                         .set("comments", commentService.getCommentsByEntity(answer.getId(), EntityType.content))
+                        .set("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.content, answer.getId()))
                 ).collect(Collectors.toList());
 
         model.addAttribute("vos", vos);

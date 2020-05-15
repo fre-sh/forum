@@ -123,6 +123,16 @@
                         <div class="zm-meta-panel">
                             <a itemprop="url" class="answer-date-link meta-item" target="_self" href="">
                                 发布于 $data.format('yyyy-MM-dd HH:mm:ss', $!{vo.answer.createdDate})</a>
+                            <a data-follow="c:link" class="zg-follow meta-item" href="javascript:void(0)" id="cl-2180" onclick="follow('content',$vo.answer.id)">
+                                <i class="z-icon-follow"></i>
+                                <span id="follow-span-${vo.answer.id}">
+                                    #if($vo.isFollow)
+                                    取消收藏
+                                    #else
+                                    收藏
+                                    #end
+                                    </span>
+                            </a>
                             <a name="addcomment" class="meta-item toggle-comment js-toggleCommentBox"
                                href="#collapseExample${vo.answer.id}" aria-expanded="true" data-toggle="collapse" aria-controls="collapseExample${vo.answer.id}">
                                 <i class="z-icon-comment"></i>${vo.comments.size()} 条评论</a>
