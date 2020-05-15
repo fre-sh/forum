@@ -1,10 +1,9 @@
 package com.fresh.forum.controller;
 
-import com.fresh.forum.AppException;
+import com.fresh.forum.util.AppException;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
-import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.service.*;
@@ -16,10 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Controller

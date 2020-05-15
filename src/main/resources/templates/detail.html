@@ -129,7 +129,8 @@
                         <div class="zm-meta-panel">
                             <a itemprop="url" class="answer-date-link meta-item" target="_blank" href="">
                                 发布于 $data.format('yyyy-MM-dd HH:mm:ss', $!{vo.answer.createdDate})</a>
-                            <a href="" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+                            <a name="addcomment" class="meta-item toggle-comment js-toggleCommentBox"
+                               href="#collapseExample" aria-expanded="true" data-toggle="collapse" aria-controls="collapseExample">
                                 <i class="z-icon-comment"></i>${vo.comments.size()} 条评论</a>
                             <a href="" class="meta-item zu-autohide js-thank" data-thanked="false">
                                 <i class="z-icon-thank"></i>感谢</a>
@@ -137,6 +138,31 @@
                             <button class="item-collapse js-collapse" style="">
                                 <i class="z-icon-fold"></i>收起
                             </button>
+                        </div>
+                    </div>
+                    <h1>先写论文</h1>
+                    <div class="collapse" id="collapseExample">
+                        <div class="comment-container">
+                            <div class="comment-head">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="exampleInputName2" placeholder="写下你的评论..." style="width: 700px">
+                                    </div>
+                                    <button type="submit" class="btn btn-default">发送</button>
+                                </form>
+                            </div>
+<!--                            <ul class="list-group" style="margin-bottom: 0">-->
+<!--                                #foreach($comment in $vo.comments)-->
+<!--                                <li class="list-group-item">$comment.content</li>-->
+<!--                                #end-->
+<!--                            </ul>-->
+                            <table class="table" style="margin-bottom: 0;margin-left: 8px;width: 98%;">
+                                <tbody>
+                                #foreach($comment in $vo.comments)
+                                <tr><td>$comment.content</td></tr>
+                                #end
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

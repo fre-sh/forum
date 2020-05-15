@@ -10,6 +10,7 @@ public class User {
     private int id;
     private String name;
     private String description = "";
+    private String email = "";
     private String password;
     private String salt;
     private String headUrl;
@@ -23,6 +24,14 @@ public class User {
         this.password = "";
         this.salt = "";
         this.headUrl = "";
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDescription() {
