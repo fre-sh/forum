@@ -4909,7 +4909,7 @@ html.no-touchevents .feed-source a:hover {
     margin-right:5px
 }
 .feed-item .collapse {
-    display:none;
+    /*display:none;*/
     float:right
 }
 .feed-item .comment,.feed-item .collect,.feed-item .vote_actions,.feed-item .follow {

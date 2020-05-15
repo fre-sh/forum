@@ -53,6 +53,7 @@ public class ContentService {
                     .set("user", userService.getUser(content.getUserId()))
                     .set("userFanCnt", followService.getFollowerCount(EntityType.user, content.getUserId()))
                     .set("commentCnt", commentService.getCommentCount(content.getId(), EntityType.content))
+                    .set("comments", commentService.getCommentsByEntity(content.getId(), EntityType.content))
         ).collect(Collectors.toList());
     }
 
