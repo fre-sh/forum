@@ -18,6 +18,10 @@ public class MessageService {
     @Autowired
     SensitiveService sensitiveService;
 
+    public int countUnRead(int fromUser, int toUser) {
+        return messageDAO.countByFromIdAndToIdAndHasReadIsFalse(fromUser, toUser);
+    }
+
     public void addMessage(Message message) {
         message.setContent(sensitiveService.filter(message.getContent()));
         messageDAO.save(message);

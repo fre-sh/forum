@@ -60,6 +60,20 @@
 <script>
     window.onload = function () {
         location.href = location.href + '#buttom_back';
+
+        var id = setInterval(function(){
+            $.get('/msg/countUnRead',
+                {
+                    'fromUser':$talker.id,
+                    'toUser':$user.id
+                },
+                function (res) {
+                    if (res.code === 0 && res.data > 0) {
+                        location.reload();
+                    }
+                }, 'json'
+            );
+        }, 1000)
     }
 </script>
 #parse("js.html")

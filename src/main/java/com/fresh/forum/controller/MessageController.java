@@ -1,6 +1,8 @@
 package com.fresh.forum.controller;
 
+import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
+import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.Message;
 import com.fresh.forum.model.User;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +33,12 @@ public class MessageController {
     UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+
+    @RequestMapping("/msg/countUnRead")
+    @ResponseBody
+    public ResponseTO countUnRead(int fromUser, int toUser) {
+        return ResponseTO.success(messageService.countUnRead(fromUser, toUser));
+    }
 
     @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
     public String getConversationList(Model model) {
@@ -57,22 +66,23 @@ public class MessageController {
             messageService.hasRead(conversationId, hostHolder.getUser().getId());
             List<Message> messageList = messageService.getConversationDetail(conversationId, 0, 10);
             List<ViewObject> messages = new ArrayList<>();
-            User talker = null;
+            int talkerId = Arrays.stream(conversationId.split("_"))
+                    .map(Integer::parseInt)
+                    .filter(id -> id!=hostHolder.getUser().getId())
+                    .findFirst().get();
+            User talker = userService.getUser(talkerId);
             for (Message message : messageList) {
                 ViewObject vo = new ViewObject();
                 vo.set("message", message);
                 User user = userService.getUser(message.getFromId());
                 vo.set("user", user);
-                if (user.getId() != hostHolder.getUser().getId()) {
-                    talker = user;
-                }
                 messages.add(vo);
             }
             model.addAttribute("messages", messages);
             // 和当前用户对话的人
             model.addAttribute("talker", talker);
         } catch (Exception e) {
-            logger.error("获取详情失败" + e.getMessage());
+            logger.error("获取详情失败", e);
         }
         return "letterDetail";
     }
