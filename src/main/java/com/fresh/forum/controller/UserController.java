@@ -55,7 +55,7 @@ public class UserController {
     @RequestMapping(path = {"/user/{uid}/followees"}, method = {RequestMethod.GET})
     public String followees(Model model, @PathVariable("uid") int userId) {
         List<Integer> userIds = followService.getFollowObjs(userId, EntityType.user)
-                .stream().map(FollowRelation::getUserId)
+                .stream().map(FollowRelation::getEntityId)
                 .collect(Collectors.toList());
         model.addAttribute("followees", getUsersInfo(hostHolder.getUser().getId(), userIds));
         model.addAttribute("followeeCount", followService.getFolloweeCount(userId, EntityType.user));
