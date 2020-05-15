@@ -1,7 +1,7 @@
 package com.fresh.forum.service;
 
 import com.fresh.forum.dto.EntityType;
-import com.fresh.forum.repository.FollowDAO;
+import com.fresh.forum.dao.FollowDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

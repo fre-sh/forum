@@ -1,7 +1,7 @@
 package com.fresh.forum.service;
 
 import com.fresh.forum.model.Message;
-import com.fresh.forum.repository.MessageDAO;
+import com.fresh.forum.dao.MessageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

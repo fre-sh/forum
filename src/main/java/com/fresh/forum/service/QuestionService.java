@@ -1,7 +1,7 @@
 package com.fresh.forum.service;
 
 import com.fresh.forum.model.Question;
-import com.fresh.forum.repository.QuestionDAO;
+import com.fresh.forum.dao.QuestionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.fresh.forum.repository;
+package com.fresh.forum.dao;
 
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.model.FollowRelation;

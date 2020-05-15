@@ -2,8 +2,8 @@ package com.fresh.forum.service;
 
 import com.fresh.forum.model.LoginTicket;
 import com.fresh.forum.model.User;
-import com.fresh.forum.repository.LoginTicketDAO;
-import com.fresh.forum.repository.UserDAO;
+import com.fresh.forum.dao.LoginTicketDAO;
+import com.fresh.forum.dao.UserDAO;
 import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -71,15 +71,6 @@ public class UserService {
 
     public Map<String, Object> login(String username, String password) {
         Map<String, Object> map = new HashMap<>();
-        if (StringUtils.isBlank(username)) {
-            map.put("msg", "用户名不能为空");
-            return map;
-        }
-
-        if (StringUtils.isBlank(password)) {
-            map.put("msg", "密码不能为空");
-            return map;
-        }
 
         User user = userDAO.findByName(username);
 

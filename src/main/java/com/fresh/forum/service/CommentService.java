@@ -2,7 +2,7 @@ package com.fresh.forum.service;
 
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.model.Comment;
-import com.fresh.forum.repository.CommentDAO;
+import com.fresh.forum.dao.CommentDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

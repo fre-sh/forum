@@ -15,7 +15,7 @@
 <div class="index-main">
     <div class="index-main-body">
         <div class="index-header">
-            <h1 class="logo hide-text"><img src="../images/res/nk.png" alt=""></h1>
+            <h1 class="logo hide-text"><img src="../images/icon.png" alt=""></h1>
             <h2 class="subtitle">
                 #if($msg)
                 <div id="errorMsg" style="color: red" hidden>$!{msg}</div>
@@ -37,7 +37,7 @@
                     <input type="hidden" name="_xsrf" value="21aa1c8d254df2899b23ab9afbd62a53">
                     <div class="group-inputs">
                         <div class="email input-wrapper">
-                            <input type="text" name="username" aria-label="账号" placeholder="账号" required>
+                            <input type="text" name="username" aria-label="用户名" placeholder="用户名" required>
                         </div>
                         <div class="input-wrapper">
                             <input type="password" name="password" aria-label="密码" placeholder="密码" required>
@@ -51,8 +51,7 @@
                     </div>
                     <input type="hidden" name="next" value="$!{next}"/>
                     <div class="button-wrapper command clearfix">
-                        <button class="sign-button submit" type="submit" style="width: 100%;"
-                                onclick="form=document.getElementById('regloginform');form.action='/reg/'">注册</button>
+                        <button class="sign-button submit" type="submit" style="width: 100%;">注册</button>
                     </div>
                     <div class="signin-misc-wrapper clearfix">
                         <label class="remember-me">

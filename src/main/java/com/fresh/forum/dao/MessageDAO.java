@@ -1,7 +1,6 @@
-package com.fresh.forum.repository;
+package com.fresh.forum.dao;
 
 import com.fresh.forum.model.Message;
-import com.fresh.forum.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
