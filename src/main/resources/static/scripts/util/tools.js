@@ -51,21 +51,19 @@ function followContent(id) {
 function followQuestion(id) {
     let $followQuestion = $("#followQuestion");
     let text = $.trim($followQuestion.text());
-    if (text === '关注问题') {
+    if (text === '收藏问题') {
         $.get('/question/follow', {'id':id},
             function (res) {
                 if (res.code === 0) {
-                    $followQuestion.text("取消关注");
-                    $followQuestion.attr('style', 'background: darkgray;border: 1px solid darkgray;')
+                   location.reload();
                 }
             }, 'json'
         );
-    } else if (text === '取消关注') {
+    } else if (text === '取消收藏') {
         $.get('/question/disFollow', {'id':id},
             function (res) {
                 if (res.code === 0) {
-                    $followQuestion.text("关注问题");
-                    $followQuestion.attr('style', '')
+                    location.reload();
                 }
             }, 'json'
         );

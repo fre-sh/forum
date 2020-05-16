@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -24,6 +26,14 @@ public class FollowService {
      */
     public List<FollowRelation> getFollowObjs(int userId, EntityType type) {
         return followDAO.findByUserIdAndEntityType(userId, type);
+    }
+
+    public List<FollowRelation> getFollowObjs(int userId, EntityType...type) {
+        List<EntityType> entityTypes = new ArrayList<>();
+        for (EntityType entityType : type) {
+            entityTypes.add(entityType);
+        }
+        return followDAO.findByUserIdAndEntityTypeIn(userId, entityTypes);
     }
 
     /**
