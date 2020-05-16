@@ -85,4 +85,10 @@ public class ContentService {
 
         return contentDAO.save(content);
     }
+
+    public void init() {
+        for (Content content : contentDAO.findAll()) {
+            content.setCommentCnt(commentService.getCommentCount(content.getId(), EntityType.content));
+        }
+    }
 }

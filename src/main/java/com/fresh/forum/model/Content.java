@@ -30,6 +30,16 @@ public class Content {
 
     private boolean isDelete;
 
+    private int commentCnt;
+
+    public int getCommentCnt() {
+        return commentCnt;
+    }
+
+    public void setCommentCnt(int commentCnt) {
+        this.commentCnt = commentCnt;
+    }
+
     public int getId() {
         return id;
     }

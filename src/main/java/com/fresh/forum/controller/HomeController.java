@@ -53,6 +53,7 @@ public class HomeController {
     @RequestMapping(path = {"/home", "/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
         model.addAttribute("vos", contentService.getLatest(0, 0, 20));
+//        contentService.init();
         return "index";
     }
 
