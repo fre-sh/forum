@@ -19,6 +19,8 @@ public interface ContentDAO extends JpaRepository<Content, Integer> {
 
     List<Content> findByContentTypeAndTitle(ContentType contentType, String title);
 
+    List<Content> findByTitleContains(String title);
+
     int countByUserId(int userId);
 
     Content findById(int id);

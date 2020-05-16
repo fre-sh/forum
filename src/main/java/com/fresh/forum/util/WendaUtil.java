@@ -3,6 +3,7 @@ package com.fresh.forum.util;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.util.HtmlUtils;
 
 import java.security.MessageDigest;
 import java.util.Map;
@@ -12,6 +13,14 @@ public class WendaUtil {
 
     public static int ANONYMOUS_USERID = 33;
     public static int SYSTEM_USERID = 44;
+
+    public static String getBrief(String text) {
+        String content = HtmlUtils.htmlEscape(text);
+        if (content.length() > 50) {
+            return content.substring(0, 50) + "...";
+        }
+        return content;
+    }
 
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();

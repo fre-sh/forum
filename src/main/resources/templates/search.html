@@ -1,0 +1,87 @@
+#parse("header.html")
+<link rel="stylesheet" href="../../styles/result.css">
+<link rel="stylesheet" href="../../styles/detail.css">
+    <div id="main">
+        <div class="zg-wrap zu-main clearfix ">
+            <div class="zm-profile-section-wrap zm-profile-followee-page">
+                <div class="zm-profile-section-head">
+                    <span class="zm-profile-section-name">
+                        <a href="/user/${curUser.id}">root</a> 收藏了
+                    </span>
+                    <a class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" href="/user/44">返回个人主页</a>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" onclick="javascript:location.href='/user/44/collection?entityType=question'" style="margin-right: 8px">问题</button>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" onclick="javascript:location.href='/user/44/collection?entityType=article'" style="margin-right: 8px">文章</button>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" onclick="javascript:location.href='/user/44/collection?entityType=answer'" style="margin-right: 8px">回答</button>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" onclick="javascript:location.href='/user/44/collection'" style="margin-right: 8px">全部</button>
+                </div>
+                <div class="zm-profile-section-list">
+                    <div id="zh-profile-follows-list">
+                        <div class="zh-general-list clearfix">
+                            <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                                <div class="zg-right">
+                                    <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
+                                    " onclick="unfollowUser($vo.id)">取消收藏</button>
+                                </div>
+                                <div class="zm-list-content-medium" style="margin-left: 0px;">
+                                    <div class="details zg-gray">
+                                        文章
+                                    </div>
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/user/10" class="zg-link" title="Barty">水军历史</a></h2>
+                                </div>
+                            </div>
+                            <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                                <div class="zg-right">
+                                    <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
+                                    " onclick="unfollowUser($vo.id)">取消收藏</button>
+                                </div>
+                                <div class="zm-list-content-medium" style="margin-left: 0px;">
+                                    <div class="details zg-gray">
+                                        回答
+                                    </div>
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/content/1" class="zg-link" title="Barty">本人坐标美国德州，对于此次疫情，美国各界的反应算得上是“冰火两重天”。本人坐标美国德州，对于此次疫情...</a></h2>
+                                    <a data-tip="p$t$buaabarty" href="/question/1" class="zg-link" title="Barty">美国疫情会严重到何种程度？</a>
+                                </div>
+                            </div>
+                            <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                                <div class="zg-right">
+                                    <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
+                                    " onclick="unfollowUser($vo.id)">取消收藏</button>
+                                </div>
+                                <div class="zm-list-content-medium" style="margin-left: 0px;">
+                                    <div class="details zg-gray">
+                                        问题
+                                    </div>
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/content/16" class="zg-link" title="Barty">美国疫情会严重到何种程度？</a></h2>
+                                </div>
+                            </div>
+                            <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                                <div class="zg-right">
+                                    <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
+                                    " onclick="unfollowUser($vo.id)">取消收藏</button>
+                                </div>
+                                <div class="zm-list-content-medium" style="margin-left: 0px;">
+                                    <div class="details zg-gray">
+                                        回答
+                                    </div>
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/content/8" class="zg-link" title="Barty"></a><p><a data-tip="p$t$buaabarty" href="/content/8" class="zg-link" title="Barty">谢邀！<br><br>网络水军的兴衰起伏，与互联网的进化相互交织。他们是社交时代的镜子，折射的...</a></p></h2>
+                                    <a data-tip="p$t$buaabarty" href="/question/8" class="zg-link" title="Barty">现在的微博里僵尸和水军泛滥，请问这些网络水军是怎么来的啊？</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+#parse("js.html")
+<script type="text/javascript" src="/scripts/main/site/follow.js"></script>
+<script>
+    function deleteRecord(id) {
+        $.post('/user/record/del', {'id':id},
+            function (res) {
+                location.reload();
+            }, 'json'
+        );
+    }
+</script>
+#parse("footer.html")

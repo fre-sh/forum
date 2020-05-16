@@ -13,6 +13,8 @@ public interface QuestionDAO extends JpaRepository<Question, Integer> {
 
     List<Question> findByUserId(int userId, Pageable pageable);
 
+    List<Question> findByTitleContains(String title);
+
     @Query(value = "select * from question q where :userId = 0 or q.user_id = :userId " +
             " order by created_date desc limit :offset, :limit", nativeQuery = true
     )

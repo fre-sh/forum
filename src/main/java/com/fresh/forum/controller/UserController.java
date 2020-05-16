@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,11 +89,7 @@ public class UserController {
 
     private Object getContent(FollowRelation relation) {
         if (relation.getEntityType() == EntityType.content) {
-            String content = contentService.getOne(relation.getEntityId()).getContent();
-            if (content.length() > 50) {
-                return content.substring(0, 50) + "...";
-            }
-            return content;
+            return WendaUtil.getBrief(contentService.getOne(relation.getEntityId()).getContent());
         }
         return null;
     }
