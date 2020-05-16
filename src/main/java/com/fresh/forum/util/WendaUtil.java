@@ -14,8 +14,12 @@ public class WendaUtil {
     public static int ANONYMOUS_USERID = 33;
     public static int SYSTEM_USERID = 44;
 
+    public static String highLight(String str, String keyword) {
+        return str.replaceAll(keyword, "<span style='color:red'>" + keyword + "</div>");
+    }
+
     public static String getBrief(String text) {
-        String content = HtmlUtils.htmlEscape(text);
+        String content = text.replaceAll("<.+?>", "");
         if (content.length() > 50) {
             return content.substring(0, 50) + "...";
         }

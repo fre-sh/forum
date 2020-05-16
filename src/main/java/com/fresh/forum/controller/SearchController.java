@@ -26,13 +26,28 @@ public class SearchController {
     @RequestMapping(path = {"/search/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String search(Model model, @RequestParam("q") String keyword) {
         model.addAttribute("vos", searchService.searchAll(keyword));
+        model.addAttribute("keyword", keyword);
         return "search";
     }
 
     @RequestMapping(path = {"/search/user"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String searchUser(Model model) {
-
-        return "index";
+    public String searchUser(Model model, @RequestParam("q") String keyword) {
+        model.addAttribute("vos", searchService.searchUser(keyword));
+        model.addAttribute("keyword", keyword);
+        return "search";
     }
 
+    @RequestMapping(path = {"/search/question"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String searchQuestion(Model model, @RequestParam("q") String keyword) {
+        model.addAttribute("vos", searchService.searchQuestion(keyword));
+        model.addAttribute("keyword", keyword);
+        return "search";
+    }
+
+    @RequestMapping(path = {"/search/content"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String searchContent(Model model, @RequestParam("q") String keyword) {
+        model.addAttribute("vos", searchService.searchContent(keyword));
+        model.addAttribute("keyword", keyword);
+        return "search";
+    }
 }

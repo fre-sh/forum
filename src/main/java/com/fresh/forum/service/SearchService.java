@@ -49,18 +49,29 @@ public class SearchService {
     public List<SearchVO> searchUser(String keyword){
         return userDAO.findByNameContains(keyword).stream()
                 .map(SearchVO::new)
+                .map(vo -> highLight(vo, keyword))
                 .collect(Collectors.toList());
     }
 
     public List<SearchVO> searchContent(String keyword){
         return contentDAO.findByTitleContains(keyword).stream()
                 .map(SearchVO::new)
+                .map(vo -> highLight(vo, keyword))
                 .collect(Collectors.toList());
     }
 
     public List<SearchVO> searchQuestion(String keyword){
         return questionDAO.findByTitleContains(keyword).stream()
                 .map(SearchVO::new)
+                .map(vo -> highLight(vo, keyword))
                 .collect(Collectors.toList());
+    }
+
+    private SearchVO highLight(SearchVO searchVO, String keyWord) {
+//        searchVO.setEntityTitle(WendaUtil.highLight(searchVO.getEntityTitle(), keyWord));
+//        if (StringUtils.isNotEmpty(searchVO.getContent())) {
+//            searchVO.setContent(WendaUtil.highLight(searchVO.getContent(), keyWord));
+//        }
+        return searchVO;
     }
 }
