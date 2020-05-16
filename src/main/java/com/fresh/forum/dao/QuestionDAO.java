@@ -1,5 +1,6 @@
 package com.fresh.forum.dao;
 
+import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface QuestionDAO extends JpaRepository<Question, Integer> {
     List<Question> selectLatestQuestions(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 
     Question findByTitle(String title);
+
+    Question findById(int id);
 }

@@ -2,8 +2,10 @@ package com.fresh.forum.controller;
 
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
+import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.dto.ViewObject;
 import com.fresh.forum.model.FollowRelation;
+import com.fresh.forum.model.ReadRecord;
 import com.fresh.forum.model.User;
 import com.fresh.forum.service.*;
 import com.fresh.forum.util.WendaUtil;
@@ -37,6 +39,22 @@ public class UserController {
 
     @Autowired
     private ContentService contentService;
+    @Autowired
+    private RecordService recordService;
+
+    @RequestMapping(path = {"/user/record/del"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResponseTO delRecords(int id) {
+        recordService.delete(id);
+        return ResponseTO.success();
+    }
+
+    @RequestMapping(path = {"/user/{uid}/records"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String records(Model model, @PathVariable("uid") int userId) {
+        List<ReadRecord> records = recordService.findByUser(userId);
+        model.addAttribute("records", records);
+        return "readRecord";
+    }
 
     @RequestMapping(path = {"/user/{uid}/followers"}, method = {RequestMethod.GET})
     public String followers(Model model, @PathVariable("uid") int userId) {

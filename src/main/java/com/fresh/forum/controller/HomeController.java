@@ -41,6 +41,9 @@ public class HomeController {
     @Autowired
     private ContentService contentService;
 
+    @Autowired
+    private RecordService recordService;
+
     @RequestMapping("/search")
     public String search(Model model, @RequestParam String keyword) {
         model.addAttribute("vos", getQuestions(0, 0, 20));
@@ -69,6 +72,8 @@ public class HomeController {
             vo.set("followed", false);
         }
         model.addAttribute("profileUser", vo);
+
+        recordService.save(hostHolder.getUser().getId(), EntityType.user, userId);
         return "profile";
     }
 

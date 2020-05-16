@@ -3,7 +3,6 @@ package com.fresh.forum.controller;
 import com.fresh.forum.dto.*;
 import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
-import com.fresh.forum.model.User;
 import com.fresh.forum.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Controller()
@@ -36,6 +33,8 @@ public class ContentController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RecordService recordService;
 
     @RequestMapping("/article/edit")
     public String follow() {
@@ -74,6 +73,7 @@ public class ContentController {
         if (content.getContentType() == ContentType.answer) {
             Question question = questionService.getByTitle(content.getTitle());
             return "redirect:/question/" + question.getId();
+
         } else if (content.getContentType() == ContentType.article){
             model.addAttribute("content", content);
             model.addAttribute("author", userService.getUser(content.getUserId()));
@@ -84,6 +84,7 @@ public class ContentController {
                     ).collect(Collectors.toList())
             );
             model.addAttribute("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.content, content.getId()));
+            recordService.save(hostHolder.getUser().getId(), EntityType.content, id);
         }
         return "article";
     }

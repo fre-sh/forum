@@ -2,6 +2,7 @@ package com.fresh.forum.dao;
 
 import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.model.Content;
+import com.fresh.forum.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +20,6 @@ public interface ContentDAO extends JpaRepository<Content, Integer> {
     List<Content> findByContentTypeAndTitle(ContentType contentType, String title);
 
     int countByUserId(int userId);
+
+    Content findById(int id);
 }

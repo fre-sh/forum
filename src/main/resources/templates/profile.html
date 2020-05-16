@@ -23,6 +23,11 @@
                                     " data-id="$profileUser.user.id" onclick="followUser($profileUser.user.id)">关注</button>
                                     #end
                                 </div>
+                                #else
+                                <div class="zg-right">
+                                    <a class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0
+                                    " data-status="1" data-id="$profileUser.user.id" href="/user/${user.id}/records">浏览记录</a>
+                                </div>
                                 #end
                                 <a title="Barty" class="zm-item-link-avatar" href="/user/${profileUser.user.id}">
                                     <img src="${profileUser.user.headUrl}" class="zm-item-img-avatar">
@@ -110,7 +115,6 @@
                         </div>
                         #end
                     </div>
-                    <a href="javascript:;" id="zh-load-more" class="zg-btn-white zg-r3px zu-button-more">更多</a>
                 </div>
             </div>
         </div>

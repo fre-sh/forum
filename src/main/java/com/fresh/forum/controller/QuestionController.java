@@ -6,7 +6,6 @@ import com.fresh.forum.util.AppException;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
-import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.service.*;
 import com.fresh.forum.util.WendaUtil;
@@ -42,6 +41,8 @@ public class QuestionController {
 
     @Autowired
     FollowService followService;
+    @Autowired
+    RecordService recordService;
 
     @RequestMapping("/question/follow")
     @ResponseBody
@@ -95,6 +96,8 @@ public class QuestionController {
 
         model.addAttribute("vos", vos);
         model.addAttribute("followers", followers);
+
+        recordService.save(hostHolder.getUser().getId(), EntityType.question, qid);
         return "detail";
     }
 
