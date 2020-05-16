@@ -1,23 +1,24 @@
 package com.fresh.forum.controller;
 
-import com.fresh.forum.dto.EntityType;
-import com.fresh.forum.dto.HostHolder;
-import com.fresh.forum.dto.ResponseTO;
-import com.fresh.forum.dto.ViewObject;
+import com.fresh.forum.dto.*;
+import com.fresh.forum.model.Content;
 import com.fresh.forum.model.FollowRelation;
 import com.fresh.forum.model.ReadRecord;
 import com.fresh.forum.model.User;
 import com.fresh.forum.service.*;
 import com.fresh.forum.util.WendaUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class UserController {
@@ -54,6 +55,53 @@ public class UserController {
         List<ReadRecord> records = recordService.findByUser(userId);
         model.addAttribute("records", records);
         return "readRecord";
+    }
+
+    @RequestMapping(path = {"/user/{uid}/collection"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String collection(Model model, @PathVariable("uid") int userId,
+                             @RequestParam(required = false, defaultValue = "") String entityType) {
+        List<FollowRelation> followRelations;
+
+        if (StringUtils.isNotBlank(entityType)) {
+            if (Arrays.stream(ContentType.values()).map(Enum::name).collect(Collectors.toList()).contains(entityType)) {
+                ContentType contentType = ContentType.valueOf(entityType);
+                followRelations = followService.getFollowObjs(userId, EntityType.content)
+                        .stream().filter(relation -> contentService.getOne(relation.getEntityId()).getContentType() == contentType)
+                        .collect(Collectors.toList());
+            } else {
+                followRelations = followService.getFollowObjs(userId, EntityType.valueOf(entityType));
+            }
+        } else {
+            followRelations = followService.getFollowObjs(userId, EntityType.content, EntityType.question);
+        }
+
+        List<ViewObject> collection = followRelations.stream()
+            .map(relation -> ViewObject.build("relation", relation)
+                    .set("entityTitle", followService.getEntityTitle(relation))
+                    .set("contentType", getContentType(relation))
+                    .set("content", getContent(relation))
+            ).collect(Collectors.toList());
+
+        model.addAttribute("collection", collection);
+        return "collection";
+    }
+
+    private Object getContent(FollowRelation relation) {
+        if (relation.getEntityType() == EntityType.content) {
+            String content = contentService.getOne(relation.getEntityId()).getContent();
+            if (content.length() > 50) {
+                return content.substring(0, 50) + "...";
+            }
+            return content;
+        }
+        return null;
+    }
+
+    private String getContentType(FollowRelation relation) {
+        if (relation.getEntityType() != EntityType.content) {
+            return "";
+        }
+        return contentService.getOne(relation.getEntityId()).getContentType().name();
     }
 
     @RequestMapping(path = {"/user/{uid}/followers"}, method = {RequestMethod.GET})

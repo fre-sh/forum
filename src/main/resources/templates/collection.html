@@ -1,0 +1,72 @@
+#parse("header.html")
+<link rel="stylesheet" href="../../styles/result.css">
+<link rel="stylesheet" href="../../styles/detail.css">
+    <div id="main">
+        <div class="zg-wrap zu-main clearfix ">
+            <div class="zm-profile-section-wrap zm-profile-followee-page">
+                <div class="zm-profile-section-head">
+                    <span class="zm-profile-section-name">
+                        <a href="/user/${curUser.id}">${user.name}</a> 收藏了
+                    </span>
+                    <a class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" href="/user/${user.id}">返回个人主页</a>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return"
+                            onclick="javascript:location.href='/user/${user.id}/collection?entityType=question'"  style="margin-right: 8px">问题</button>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return"
+                            onclick="javascript:location.href='/user/${user.id}/collection?entityType=article'" style="margin-right: 8px">文章</button>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return"
+                            onclick="javascript:location.href='/user/${user.id}/collection?entityType=answer'" style="margin-right: 8px">回答</button>
+                    <button class="zg-right zg-link-litblue-normal zm-profile-answer-page-return"
+                            onclick="javascript:location.href='/user/${user.id}/collection'"  style="margin-right: 8px">全部</button>
+                </div>
+                <div class="zm-profile-section-list">
+                    <div id="zh-profile-follows-list">
+                        <div class="zh-general-list clearfix">
+                            #foreach($vo in $collection)
+                            <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                                <div class="zg-right">
+                                    <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
+                                    " onclick="unfollowUser($vo.id)">取消收藏</button>
+                                </div>
+                                <div class="zm-list-content-medium" style="margin-left: 0px;">
+                                    <div class="details zg-gray">
+                                        #if($vo.relation.entityType == "content" && "article" == $vo.contentType)
+                                        文章
+                                        #end
+                                        #if($vo.relation.entityType == "content" && "answer" == $vo.contentType)
+                                        回答
+                                        #end
+                                        #if($vo.relation.entityType == "question")
+                                        问题
+                                        #end
+                                    </div>
+                                    #if($vo.relation.entityType == "content" && "article" == $vo.contentType)
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/user/${vo.relation.entityId}" class="zg-link" title="Barty">${vo.entityTitle}</a></h2>
+                                    #end
+                                    #if($vo.relation.entityType == "content" && "answer" == $vo.contentType)
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/content/${vo.relation.entityId}" class="zg-link" title="Barty">${vo.content}</a></h2>
+                                    <a data-tip="p$t$buaabarty" href="/question/${vo.relation.entityId}" class="zg-link" title="Barty">${vo.entityTitle}</a>
+                                    #end
+                                    #if($vo.relation.entityType == "question")
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/content/${vo.relation.entityId}" class="zg-link" title="Barty">${vo.entityTitle}</a></h2>
+                                    #end
+                                </div>
+                            </div>
+                            #end
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+#parse("js.html")
+<script type="text/javascript" src="/scripts/main/site/follow.js"></script>
+<script>
+    function deleteRecord(id) {
+        $.post('/user/record/del', {'id':id},
+            function (res) {
+                location.reload();
+            }, 'json'
+        );
+    }
+</script>
+#parse("footer.html")

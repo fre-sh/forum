@@ -1,7 +1,12 @@
+.collect-select a{
+    margin-left: 5px;
+}
+
 .dis-follow {
     background: darkgray;
     border: 1px solid darkgray;
 }
+
 .comment-container {
     border: 1px solid #ebebeb;
     background: #fff;
@@ -9,6 +14,7 @@
     overflow: visible;
     border-radius: 4px;
 }
+
 .comment-head {
     padding: 12px 20px;
     background: #fff;
@@ -18,19 +24,23 @@
 .text-brief {
 
 }
+
 .text-full {
 
 }
-.toggle-expand-right{
+
+.toggle-expand-right {
     float: right;
 }
+
 span.toggle-expand {
-    display:inline-block;
-    padding:0 3px;
-    border-radius:2px;
-    font-size:.9em;
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 2px;
+    font-size: .9em;
     color: #25bb9b;
 }
+
 .msg-num {
     position: absolute;
     top: 0;

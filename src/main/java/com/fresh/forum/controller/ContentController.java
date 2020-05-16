@@ -72,7 +72,7 @@ public class ContentController {
         Content content = contentService.getOne(id);
         if (content.getContentType() == ContentType.answer) {
             Question question = questionService.getByTitle(content.getTitle());
-            return "redirect:/question/" + question.getId();
+            return "redirect:/question/" + question.getId() + "#answer-item-" + id;
 
         } else if (content.getContentType() == ContentType.article){
             model.addAttribute("content", content);
