@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RecordDAO extends JpaRepository<ReadRecord, Integer> {
 
-    List<ReadRecord> findByUserId(int userId);
+    List<ReadRecord> findByUserIdOrderByDateDesc(int userId);
 
     List<ReadRecord> findByUserIdAndEntityTypeAndEntityId(int userId, EntityType entityType, int entityId);
 

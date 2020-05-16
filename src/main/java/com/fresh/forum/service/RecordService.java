@@ -29,7 +29,7 @@ public class RecordService {
     }
 
     public List<ReadRecord> findByUser(int userId) {
-        return recordDAO.findByUserId(userId);
+        return recordDAO.findByUserIdOrderByDateDesc(userId);
     }
 
     public ReadRecord save(int fromUser, EntityType entityType, int entityId) {
