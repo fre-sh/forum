@@ -147,6 +147,12 @@ $(function () {
 });
 
 let editor;
+
+function submitArticle() {
+    let title = $("#articleTitle").val();
+    submitContent('article', title, -1);
+}
+
 function submitContent(contentType, title, qId) {
     let text = editor.txt.html();
     let data = {
@@ -156,7 +162,11 @@ function submitContent(contentType, title, qId) {
     };
     $.post('/content/add', data,
         function (res) {
-            location.href = '/question/' + qId
+            if (qId > 0) {
+                location.href = '/content/' + qId;
+            } else {
+                location.href = '/content/' + res.data.id;
+            }
         }, 'json'
     );
 }

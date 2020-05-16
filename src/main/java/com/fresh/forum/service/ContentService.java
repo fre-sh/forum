@@ -70,15 +70,19 @@ public class ContentService {
         return contentDAO.findByContentTypeAndTitle(ContentType.answer, questionTitle);
     }
 
-    public void add(String text, String contentType, String title) {
+    public Content add(String text, String contentType, String title) {
         Content content = new Content();
         content.setCreatedDate(new Date());
         content.setContent(sensitiveService.filter(text));
         content.setContentType(ContentType.valueOf(contentType));
         content.setTitle(title);
         content.setUserId(hostHolder.getUser().getId());
-        contentDAO.save(content);
-        Question question = questionDAO.findByTitle(title);
-        question.setContent(question.getContent() + 1);
+
+        if (content.getContentType() == ContentType.answer) {
+            Question question = questionDAO.findByTitle(title);
+            question.setAnswerCount(question.getAnswerCount() + 1);
+        }
+
+        return contentDAO.save(content);
     }
 }

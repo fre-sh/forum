@@ -37,6 +37,12 @@ public class ContentController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/article/edit")
+    public String follow() {
+
+        return "articleEdit";
+    }
+
     @RequestMapping("/content/follow")
     @ResponseBody
     public ResponseTO follow(int id) {
@@ -54,9 +60,7 @@ public class ContentController {
     @RequestMapping(value = "/content/add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseTO add(String content, String contentType, String title) {
-
-        contentService.add(content, contentType, title);
-        return ResponseTO.success();
+        return ResponseTO.success(contentService.add(content, contentType, title));
     }
 
     /**
