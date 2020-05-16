@@ -25,6 +25,10 @@ public class SearchController {
 
     @RequestMapping(path = {"/search/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String search(Model model, @RequestParam("q") String keyword) {
+        if (StringUtils.isBlank(keyword)) {
+            return "redirect:/";
+        }
+
         model.addAttribute("vos", searchService.searchAll(keyword));
         model.addAttribute("keyword", keyword);
         return "search";

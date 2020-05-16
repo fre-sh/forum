@@ -15,7 +15,7 @@ public class WendaUtil {
     public static int SYSTEM_USERID = 44;
 
     public static String highLight(String str, String keyword) {
-        return str.replaceAll(keyword, "<span style='color:red'>" + keyword + "</div>");
+        return str.replaceAll(keyword, "<span style='color:red'>" + keyword + "</span>");
     }
 
     public static String getBrief(String text) {

@@ -68,10 +68,10 @@ public class SearchService {
     }
 
     private SearchVO highLight(SearchVO searchVO, String keyWord) {
-//        searchVO.setEntityTitle(WendaUtil.highLight(searchVO.getEntityTitle(), keyWord));
-//        if (StringUtils.isNotEmpty(searchVO.getContent())) {
-//            searchVO.setContent(WendaUtil.highLight(searchVO.getContent(), keyWord));
-//        }
+        searchVO.setEntityTitle(WendaUtil.highLight(searchVO.getEntityTitle(), keyWord));
+        if (StringUtils.isNotEmpty(searchVO.getContent())) {
+            searchVO.setContent(WendaUtil.highLight(searchVO.getContent(), keyWord));
+        }
         return searchVO;
     }
 }
