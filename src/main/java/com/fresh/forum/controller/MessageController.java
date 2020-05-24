@@ -1,6 +1,5 @@
 package com.fresh.forum.controller;
 
-import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.dto.ViewObject;
@@ -95,7 +94,7 @@ public class MessageController {
                 return WendaUtil.getJSONString(999, "未登录");
             }
 
-            User user = userService.selectByName(toName);
+            User user = userService.getByName(toName);
             if (user == null) {
                 return WendaUtil.getJSONString(1, "用户不存在");
             }
@@ -127,7 +126,7 @@ public class MessageController {
                 return WendaUtil.getJSONString(999, "未登录");
             }
 
-            User user = userService.selectByName(toName);
+            User user = userService.getByName(toName);
             if (user == null) {
                 return WendaUtil.getJSONString(1, "用户不存在");
             }

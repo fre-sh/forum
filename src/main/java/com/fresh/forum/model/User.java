@@ -1,5 +1,7 @@
 package com.fresh.forum.model;
 
+import com.fresh.forum.dto.UserRole;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,8 @@ public class User {
     private String password;
     private String salt;
     private String headUrl;
+    @Enumerated(value = EnumType.STRING)
+    private UserRole role;
 
     public User() {
 
@@ -24,6 +28,14 @@ public class User {
         this.password = "";
         this.salt = "";
         this.headUrl = "";
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getEmail() {

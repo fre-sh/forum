@@ -26,7 +26,7 @@ public class UserService {
 //    @Autowired
 //    private LoginTicketDAO loginTicketDAO;
 
-    public User selectByName(String name) {
+    public User getByName(String name) {
         return userDAO.findByName(name);
     }
 
