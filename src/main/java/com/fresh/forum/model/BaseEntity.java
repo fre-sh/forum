@@ -12,16 +12,31 @@ public class BaseEntity
 {
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
+
+  /**
+   * 0-正常 1-删除 2-其他无效情况
+   */
+  @Column(name = "status", columnDefinition = "int default 0")
+  private Integer status;
+
   private Date createdDate;
 
   private Date updatedDate;
 
-  public int getId() {
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
+
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

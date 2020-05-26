@@ -10,10 +10,10 @@ import java.util.Date;
 public class ReadRecord {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-    private int userId;
+    private Integer id;
+    private Integer userId;
     private EntityType entityType;
-    private int entityId;
+    private Integer entityId;
     private String entityTitle;
     private Date date;
 
@@ -25,19 +25,19 @@ public class ReadRecord {
         this.entityTitle = entityTitle;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -49,11 +49,11 @@ public class ReadRecord {
         this.entityType = entityType;
     }
 
-    public int getEntityId() {
+    public Integer getEntityId() {
         return entityId;
     }
 
-    public void setEntityId(int entityId) {
+    public void setEntityId(Integer entityId) {
         this.entityId = entityId;
     }
 

@@ -7,25 +7,25 @@ import java.util.Date;
 @Entity
 public class Message extends BaseEntity {
 
-    private int fromId;
-    private int toId;
+    private Integer fromId;
+    private Integer toId;
     private String content;
     private boolean hasRead;
     private String conversationId;
 
-    public int getFromId() {
+    public Integer getFromId() {
         return fromId;
     }
 
-    public void setFromId(int fromId) {
+    public void setFromId(Integer fromId) {
         this.fromId = fromId;
     }
 
-    public int getToId() {
+    public Integer getToId() {
         return toId;
     }
 
-    public void setToId(int toId) {
+    public void setToId(Integer toId) {
         this.toId = toId;
     }
 

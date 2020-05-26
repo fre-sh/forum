@@ -10,8 +10,8 @@ public class Question extends BaseEntity{
     @Column(unique = true)
     private String title;
     private String content;
-    private int userId;
-    private int answerCount;
+    private Integer userId;
+    private Integer answerCount;
 
     public String getTitle() {
         return title;
@@ -29,19 +29,19 @@ public class Question extends BaseEntity{
         this.content = content;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getAnswerCount() {
+    public Integer getAnswerCount() {
         return answerCount;
     }
 
-    public void setAnswerCount(int answerCount) {
+    public void setAnswerCount(Integer answerCount) {
         this.answerCount = answerCount;
     }
 }

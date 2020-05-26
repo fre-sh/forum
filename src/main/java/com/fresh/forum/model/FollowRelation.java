@@ -8,26 +8,26 @@ import javax.persistence.*;
 @Table(name = "follow_relation")
 public class FollowRelation extends BaseEntity{
 
-    private int userId;
+    private Integer userId;
 
-    private int entityId;
+    private Integer entityId;
 
     @Enumerated(value = EnumType.STRING)
     private EntityType entityType;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getEntityId() {
+    public Integer getEntityId() {
         return entityId;
     }
 
-    public void setEntityId(int entityId) {
+    public void setEntityId(Integer entityId) {
         this.entityId = entityId;
     }
 

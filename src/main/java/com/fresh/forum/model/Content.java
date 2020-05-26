@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Table(name = "content")
 public class Content extends BaseEntity{
-    private int userId;
+    private Integer userId;
 
     @Enumerated(value = EnumType.STRING)
     private ContentType contentType;
@@ -22,23 +22,24 @@ public class Content extends BaseEntity{
 
     private String content;
 
-    private boolean isDelete;
+    private Integer commentCnt;
 
-    private int commentCnt;
+    public Content() {
+    }
 
-    public int getCommentCnt() {
+    public Integer getCommentCnt() {
         return commentCnt;
     }
 
-    public void setCommentCnt(int commentCnt) {
+    public void setCommentCnt(Integer commentCnt) {
         this.commentCnt = commentCnt;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -66,11 +67,4 @@ public class Content extends BaseEntity{
         this.content = content;
     }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
 }

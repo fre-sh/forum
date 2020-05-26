@@ -9,9 +9,8 @@ import java.util.Date;
 @Table(name = "login_ticket")
 public class LoginTicket extends BaseEntity{
 
-    private int userId;
+    private Integer userId;
     private Date expired;
-    private int status;// 0有效，1无效
     private String ticket;
 
     public String getTicket() {
@@ -22,11 +21,11 @@ public class LoginTicket extends BaseEntity{
         this.ticket = ticket;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -36,13 +35,5 @@ public class LoginTicket extends BaseEntity{
 
     public void setExpired(Date expired) {
         this.expired = expired;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 }
