@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body>
+	<body ng-app="admin" ng-controller="questionController" ng-init="questionListInit()">
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
 					<form class="layui-form" action="">
@@ -22,15 +22,15 @@
 								<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<select name="status" lay-filter="status">
+									<option value="">排序</option>
+									<option value="0" select="true">按时间排序</option>
+									<!--<option value="021">停止</option>-->
+									<option value="1">已删除</option>
+								</select>
 							</div>
 							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="">请选择一个状态</option>
-									<option value="010">正常</option>
-									<option value="021">停止</option>
-									<option value="0571">删除</option>
-								</select>
+								<input type="text" name="title" ng-model="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
 						</div>
@@ -109,6 +109,8 @@
 		</div>
 		<script src="../../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/homeController.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

@@ -1,8 +1,12 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.dao.QuestionDAO;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
@@ -17,6 +21,12 @@ public class QuestionService {
 
     @Autowired
     SensitiveService sensitiveService;
+
+    public List<Question> listByQuery(Query query) {
+        Question tmpQ = new Question();
+
+        return null;
+    }
 
     public Question getByTitle(String title) {
         return questionDAO.findByTitle(title);

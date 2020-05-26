@@ -49,7 +49,7 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 
 	}).mouseenter(function() {
 
-		dialog.tips('批量排序', '.listOrderBtn');
+		dialog.tips('倒序排序', '.listOrderBtn');
 
 	})	
 	//顶部批量删除
