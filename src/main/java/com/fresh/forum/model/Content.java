@@ -8,11 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "content")
-public class Content {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-
+public class Content extends BaseEntity{
     private int userId;
 
     @Enumerated(value = EnumType.STRING)
@@ -26,8 +22,6 @@ public class Content {
 
     private String content;
 
-    private Date createdDate;
-
     private boolean isDelete;
 
     private int commentCnt;
@@ -38,14 +32,6 @@ public class Content {
 
     public void setCommentCnt(int commentCnt) {
         this.commentCnt = commentCnt;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getUserId() {
@@ -78,14 +64,6 @@ public class Content {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public boolean isDelete() {

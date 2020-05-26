@@ -7,10 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comment")
-public class Comment {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+public class Comment extends BaseEntity{
 
     private int userId;
 
@@ -21,17 +18,7 @@ public class Comment {
 
     private String content;
 
-    private Date createdDate;
-
     private int status;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUserId() {
         return userId;
@@ -63,14 +50,6 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public int getStatus() {

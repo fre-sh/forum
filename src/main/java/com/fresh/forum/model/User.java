@@ -6,10 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class User {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+public class User  extends BaseEntity{
     private String name;
     private String description = "";
     private String email = "";
@@ -86,11 +83,4 @@ public class User {
         this.headUrl = headUrl;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

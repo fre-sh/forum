@@ -6,11 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "follow_relation")
-public class FollowRelation {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+public class FollowRelation extends BaseEntity{
 
     private int userId;
 
@@ -18,14 +14,6 @@ public class FollowRelation {
 
     @Enumerated(value = EnumType.STRING)
     private EntityType entityType;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUserId() {
         return userId;

@@ -5,24 +5,13 @@ import java.util.Date;
 
 @Table(name = "message")
 @Entity
-public class Message {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+public class Message extends BaseEntity {
+
     private int fromId;
     private int toId;
     private String content;
-    private Date createdDate;
     private boolean hasRead;
     private String conversationId;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getFromId() {
         return fromId;
@@ -46,14 +35,6 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public boolean isHasRead() {
