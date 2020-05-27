@@ -2,14 +2,15 @@ package com.fresh.forum.model;
 
 
 import com.alibaba.fastjson.JSON;
+import com.fresh.forum.util.DateUtil;
+import org.apache.commons.lang.time.DateUtils;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners({GenericEntityListener.class})
-public class BaseEntity
-{
+public class BaseEntity {
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
   private Integer id;
@@ -23,6 +24,14 @@ public class BaseEntity
   private Date createdDate;
 
   private Date updatedDate;
+
+  public String getCreateTime() {
+    return DateUtil.format(createdDate);
+  }
+
+  public String getUpdateTime() {
+    return DateUtil.format(updatedDate);
+  }
 
   public Integer getStatus() {
     return status;

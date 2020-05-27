@@ -5,8 +5,7 @@ import com.fresh.forum.model.Question;
 import com.fresh.forum.dao.QuestionDAO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
@@ -24,8 +23,12 @@ public class QuestionService {
 
     public List<Question> listByQuery(Query query) {
         Question tmpQ = new Question();
+        tmpQ.setTitle(query.getKw());
+        tmpQ.setStatus(query.getStatus());
+        ExampleMatcher matcher = ExampleMatcher.matching();
+        Example<Question> example = Example.of(tmpQ, matcher);
 
-        return null;
+        return questionDAO.findAll(example, new Sort(Sort.Direction.DESC, "created_date"));
     }
 
     public Question getByTitle(String title) {
