@@ -3,7 +3,6 @@ package com.fresh.forum.service;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.dao.QuestionDAO;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -21,14 +20,16 @@ public class QuestionService {
     @Autowired
     SensitiveService sensitiveService;
 
-    public List<Question> listByQuery(Query query) {
+    public Page<Question> listByQuery(Query query) {
         Question tmpQ = new Question();
         tmpQ.setTitle(query.getKw());
         tmpQ.setStatus(query.getStatus());
         ExampleMatcher matcher = ExampleMatcher.matching();
         Example<Question> example = Example.of(tmpQ, matcher);
 
-        return questionDAO.findAll(example, new Sort(Sort.Direction.DESC, "created_date"));
+        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
+        // JPA 分页从0页开始
+        return questionDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize(), sort));
     }
 
     public Question getByTitle(String title) {

@@ -1,10 +1,13 @@
 package com.fresh.forum.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 用于管理页面查询
  * @author guowenyu
  * @date 2020/5/26
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Query {
 
     /**
@@ -17,16 +20,16 @@ public class Query {
      */
     private Integer status;
 
-    private Integer pageNum;
+    private Integer curPage;
 
     private Integer pageSize;
 
-    public Integer getPageNum() {
-        return pageNum;
+    public Integer getCurPage() {
+        return curPage;
     }
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
+    public void setCurPage(Integer curPage) {
+        this.curPage = curPage;
     }
 
     public Integer getPageSize() {

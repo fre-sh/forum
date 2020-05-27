@@ -61,7 +61,9 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="q in questionList">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+									<td><input type="checkbox" name="" lay-skin="primary" data-id="1">
+										<div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
+									</td>
 									<td class="hidden-xs">{{q.id}}</td>
 									<td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="0" data-id="1"></td>
 									<td>{{q.title}}</td>
@@ -78,24 +80,14 @@
 								</tr>
 							</tbody>
 						</table>
-						<div class="page-wrap">
-							<ul class="pagination">
-								<li class="disabled"><span>«</span></li>
-								<li class="active"><span>1</span></li>
-								<li>
-									<a href="#">2</a>
-								</li>
-								<li>
-									<a href="#">»</a>
-								</li>
-							</ul>
-						</div>
+						<tm-pagination conf="pageConf"></tm-pagination>
 					</div>
 				</div>
 		</div>
 		<script src="../../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/questionController.js" type="text/javascript" charset="utf-8"></script>
 	</body>
