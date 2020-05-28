@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface QuestionDAO extends JpaRepository<Question, Integer> {
@@ -25,4 +26,6 @@ public interface QuestionDAO extends JpaRepository<Question, Integer> {
     Question findById(int id);
 
     int countByTitle(String title);
+
+    int deleteAllByIdIn(Collection<Integer> id);
 }

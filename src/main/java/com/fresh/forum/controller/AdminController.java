@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController extends BaseController{
@@ -20,6 +22,12 @@ public class AdminController extends BaseController{
     private UserService userService;
     @Autowired
     private QuestionService questionService;
+
+    @RequestMapping("/question/delAll")
+    public ResponseTO listQuestion(@RequestBody List<Integer> ids) {
+        questionService.delete(ids);
+        return success();
+    }
 
     @RequestMapping("/question/add")
     public ResponseTO listQuestion(@RequestBody Question query) {

@@ -70,4 +70,8 @@ public class QuestionService {
         questionDAO.getOne(id).setAnswerCount(count);
         return count;
     }
+
+    public void delete(List<Integer> ids) {
+        questionDAO.deleteAllByIdIn(ids);
+    }
 }

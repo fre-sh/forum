@@ -55,7 +55,11 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 
 	})	
 	//顶部批量删除
-	$('.delBtn').click(function () {
+	$('.delBtn').mouseenter(function () {
+
+		dialog.tips('批量删除', '.delBtn');
+
+	})/*.click(function () {
 		var url = $(this).attr('data-url');
 		dialog.confirm({
 			message: '您确定要删除选中项',
@@ -68,11 +72,7 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		})
 		return false;
 
-	}).mouseenter(function () {
-
-		dialog.tips('批量删除', '.delBtn');
-
-	});
+	})*/;
 	//列表添加
 	$('#table-list').on('click', '.add-btn', function() {
 		var url=$(this).attr('data-url');
@@ -82,20 +82,20 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		return false;
 	})
 	//列表删除
-	$('#table-list').on('click', '.del-btn', function() {
-		var url=$(this).attr('data-url');
-		var id = $(this).attr('data-id');
-		dialog.confirm({
-			message:'您确定要进行删除吗？',
-			success:function(){
-				layer.msg('确定了')
-			},
-			cancel:function(){
-				layer.msg('取消了')
-			}
-		})
-		return false;
-	})
+	// $('#table-list').on('click', '.del-btn', function() {
+	// 	var url=$(this).attr('data-url');
+	// 	var id = $(this).attr('data-id');
+	// 	dialog.confirm({
+	// 		message:'您确定要进行删除吗？',
+	// 		success:function(){
+	// 			layer.msg('确定了')
+	// 		},
+	// 		cancel:function(){
+	// 			layer.msg('取消了')
+	// 		}
+	// 	})
+	// 	return false;
+	// })
 	//列表跳转
 	$('#table-list,.tool-btn').on('click', '.go-btn', function() {
 		var url=$(this).attr('data-url');

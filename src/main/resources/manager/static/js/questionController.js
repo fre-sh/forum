@@ -5,6 +5,41 @@ app.controller("questionController", function ($scope, $http, appService) {
         alert("测试");
     };
 
+    $scope.check = function (e) {
+        e.checked = !e.checked
+    };
+
+    $scope.delAll = function () {
+        let ids = [];
+        $("input + div.layui-form-checked").each(function () {
+            ids.push(parseInt($(this).prev("input").attr('data-id')));
+        });
+        console.log(ids);
+        appService.delQuestion(ids).success(function (res) {
+            if (res.code === 0) {
+                layer.msg("删除成功", {
+                    icon: 6
+                });
+                $scope.loadPage();
+            } else {
+                layer.alert(res.msg);
+            }
+        });
+    };
+
+    $scope.delOne = function (id) {
+        appService.delQuestion([id]).success(function (res) {
+            if (res.code === 0) {
+                layer.msg("删除成功", {
+                    icon: 6
+                });
+                $scope.loadPage();
+            } else {
+                layer.alert(res.msg);
+            }
+        });
+    };
+
     $scope.showAddPage = function () {
         let w = '700px', h = '500px';
         var index = layer.open({
@@ -58,6 +93,7 @@ app.controller("questionController", function ($scope, $http, appService) {
             // let i = 1;
             $scope.questionList = res.data.content;
             $scope.pageConf.totalItems = res.data.totalElements;
+            layui.form().render('checkbox');
         });
     };
 
