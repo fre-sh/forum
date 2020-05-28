@@ -63,9 +63,9 @@ public class QuestionController {
         List<ViewObject> vos = questionService.getLatestQuestions(0, 0, 20).stream()
                 .map(question -> ViewObject
                         .build("question", question)
-                        .set("user", userService.getUser(question.getUserId()))
+                        .set("user", question.getUser())
                         .set("answerCnt", contentService.listAnswer(question.getTitle()).size())
-                        .set("followCount", followService.getFollowerCount(EntityType.user, question.getUserId()))
+                        .set("followCount", followService.getFollowerCount(EntityType.user, question.getUser().getId()))
                 ).collect(Collectors.toList());
         model.addAttribute("vos", vos);
         return "question";

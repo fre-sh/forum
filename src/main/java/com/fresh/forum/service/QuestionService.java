@@ -58,7 +58,7 @@ public class QuestionService {
         question.setContent(sensitiveService.filter(question.getContent()));
         question.setStatus(0);
         question.setAnswerCount(0);
-        question.setUserId(hostHolder.getUser().getId());
+        question.setUser(hostHolder.getUser());
         questionDAO.save(question);
     }
 
