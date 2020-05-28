@@ -22,18 +22,19 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	//渲染表单
 	form.render();	
 	//顶部添加
-	$('.addBtn').click(function() {
+	$('.addBtn').mouseenter(function() {
+
+		dialog.tips('添加', '.addBtn');
+
+	})/*.click(function() {
 		var url=$(this).attr('data-url');
 		var title=$(this).attr('data-title');
 		//将iframeObj传递给父级窗口,执行操作完成刷新
 		parent.page(title == null ? "菜单添加" : title, url, iframeObj, w = "700px", h = "620px");
 		return false;
 
-	}).mouseenter(function() {
-
-		dialog.tips('添加', '.addBtn');
-
-	})
+	})*/
+	;
 	//顶部排序
 	$('.listOrderBtn').click(function() {
 		var url=$(this).attr('data-url');

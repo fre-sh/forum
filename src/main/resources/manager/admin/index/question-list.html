@@ -17,20 +17,20 @@
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" data-title="问题添加" data-url="question-add.html"><i class="layui-icon">&#xe654;</i></button>
+								<button ng-click="showAddPage()" class="layui-btn layui-btn-small layui-btn-normal addBtn" data-title="问题添加" data-url="question-add.html"><i class="layui-icon">&#xe654;</i></button>
 								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"  data-url="question-add.html"><i class="layui-icon">&#xe640;</i></button>
-								<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>
+								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
-							<div class="layui-inline">
+							<!--<div class="layui-inline">
 								<select name="status" lay-filter="status">
 									<option value="">排序</option>
 									<option value="0" select="true">按时间排序</option>
-									<!--<option value="021">停止</option>-->
+									&lt;!&ndash;<option value="021">停止</option>&ndash;&gt;
 									<option value="1">已删除</option>
 								</select>
-							</div>
+							</div>-->
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.kw" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<input type="text" name="title" ng-model="query.kw" lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
 						</div>
