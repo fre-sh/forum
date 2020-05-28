@@ -29,7 +29,8 @@ public class QuestionService {
         Question tmpQ = new Question();
         tmpQ.setTitle(query.getKw());
         tmpQ.setStatus(query.getStatus());
-        ExampleMatcher matcher = ExampleMatcher.matching();
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains());
         Example<Question> example = Example.of(tmpQ, matcher);
 
         Sort sort = new Sort(Sort.Direction.DESC, "createdDate");

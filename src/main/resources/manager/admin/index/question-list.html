@@ -17,8 +17,8 @@
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button ng-click="showAddPage()" class="layui-btn layui-btn-small layui-btn-normal addBtn" data-title="问题添加" data-url="question-add.html"><i class="layui-icon">&#xe654;</i></button>
-								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"  data-url="question-add.html"><i class="layui-icon">&#xe640;</i></button>
+								<button ng-click="showAddPage()" class="layui-btn layui-btn-small layui-btn-normal addBtn"><i class="layui-icon">&#xe654;</i></button>
+								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"><i class="layui-icon">&#xe640;</i></button>
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
 							<!--<div class="layui-inline">
@@ -30,9 +30,9 @@
 								</select>
 							</div>-->
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.kw" lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<input type="text" name="title" ng-model="query.kw" placeholder="请输入标题" autocomplete="off" class="layui-input">
 							</div>
-							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+							<button class="layui-btn layui-btn-normal" ng-click="loadPage()">搜索</button>
 						</div>
 					</form>
 					<div class="layui-form" id="table-list">
