@@ -24,8 +24,9 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	//顶部添加
 	$('.addBtn').click(function() {
 		var url=$(this).attr('data-url');
+		var title=$(this).attr('data-title');
 		//将iframeObj传递给父级窗口,执行操作完成刷新
-		parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+		parent.page(title == null ? "菜单添加" : title, url, iframeObj, w = "700px", h = "620px");
 		return false;
 
 	}).mouseenter(function() {
@@ -53,29 +54,30 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 
 	})	
 	//顶部批量删除
-	$('.delBtn').click(function() {
-		var url=$(this).attr('data-url');
+	$('.delBtn').click(function () {
+		var url = $(this).attr('data-url');
 		dialog.confirm({
-			message:'您确定要删除选中项',
-			success:function(){
+			message: '您确定要删除选中项',
+			success: function () {
 				layer.msg('删除了')
 			},
-			cancel:function(){
+			cancel: function () {
 				layer.msg('取消了')
 			}
 		})
 		return false;
 
-	}).mouseenter(function() {
+	}).mouseenter(function () {
 
 		dialog.tips('批量删除', '.delBtn');
 
-	})	
+	});
 	//列表添加
 	$('#table-list').on('click', '.add-btn', function() {
 		var url=$(this).attr('data-url');
+		var title=$(this).attr('data-title');
 		//将iframeObj传递给父级窗口
-		parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+		parent.page(title == null ? "菜单添加" : title, url, iframeObj, w = "700px", h = "620px");
 		return false;
 	})
 	//列表删除
@@ -142,12 +144,18 @@ function page(title, url, obj, w, h) {
 		});
 		layer.full(index);
 	} else {
+
 		var index = layer.open({
 			type: 2,
 			title: title,
 			area: [w, h],
 			fixed: false, //不固定
-			content: url
+			content: url,
+			button:[],
+			end: function () {
+
+				window.frames[iframeObjName].location.reload();
+			}
 		});
 	}
 }

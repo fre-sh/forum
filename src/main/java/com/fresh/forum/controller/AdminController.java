@@ -3,11 +3,11 @@ package com.fresh.forum.controller;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.dto.UserRole;
+import com.fresh.forum.model.Question;
 import com.fresh.forum.model.User;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +20,12 @@ public class AdminController extends BaseController{
     private UserService userService;
     @Autowired
     private QuestionService questionService;
+
+    @RequestMapping("/question/add")
+    public ResponseTO listQuestion(@RequestBody Question query) {
+        questionService.add(query);
+        return success();
+    }
 
     @RequestMapping("/question/list")
     public ResponseTO listQuestion(@RequestBody Query query) {

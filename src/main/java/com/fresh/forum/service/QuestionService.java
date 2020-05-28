@@ -1,8 +1,10 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.dao.QuestionDAO;
+import com.fresh.forum.util.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class QuestionService {
     @Autowired
     SensitiveService sensitiveService;
 
+    @Autowired
+    HostHolder hostHolder;
+
     public Page<Question> listByQuery(Query query) {
         Question tmpQ = new Question();
         tmpQ.setTitle(query.getKw());
@@ -29,6 +34,7 @@ public class QuestionService {
 
         Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
         // JPA 分页从0页开始
+//        return questionDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize()));
         return questionDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize(), sort));
     }
 
@@ -40,12 +46,18 @@ public class QuestionService {
         return questionDAO.getOne(id);
     }
 
-    public void addQuestion(Question question) {
+    public void add(Question question) {
+        if (questionDAO.countByTitle(question.getTitle()) > 0) {
+            throw new AppException("问题已存在");
+        }
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
         // 敏感词过滤
         question.setTitle(sensitiveService.filter(question.getTitle()));
         question.setContent(sensitiveService.filter(question.getContent()));
+        question.setStatus(0);
+        question.setAnswerCount(0);
+        question.setUserId(hostHolder.getUser().getId());
         questionDAO.save(question);
     }
 

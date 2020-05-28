@@ -34,6 +34,10 @@ public class BaseController {
         return ResponseTO.failed(errMsg);
     }
 
+    protected ResponseTO success() {
+        return ResponseTO.success();
+    }
+
     protected ResponseTO success(Object o) {
         return ResponseTO.success(o);
     }

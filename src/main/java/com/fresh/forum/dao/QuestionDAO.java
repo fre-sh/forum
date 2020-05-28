@@ -23,4 +23,6 @@ public interface QuestionDAO extends JpaRepository<Question, Integer> {
     Question findByTitle(String title);
 
     Question findById(int id);
+
+    int countByTitle(String title);
 }

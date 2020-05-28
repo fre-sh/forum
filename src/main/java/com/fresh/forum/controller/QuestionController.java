@@ -108,15 +108,8 @@ public class QuestionController {
         try {
             Question question = new Question();
             question.setContent(content);
-            question.setCreatedDate(new Date());
             question.setTitle(title);
-            if (hostHolder.getUser() == null) {
-                question.setUserId(WendaUtil.ANONYMOUS_USERID);
-                throw new AppException();
-            } else {
-                question.setUserId(hostHolder.getUser().getId());
-            }
-            questionService.addQuestion(question);
+            questionService.add(question);
             return WendaUtil.getJSONString(0);
         } catch (Exception e) {
             logger.error("增加问题失败" + e.getMessage());
