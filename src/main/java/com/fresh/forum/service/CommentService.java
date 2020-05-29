@@ -47,10 +47,10 @@ public class CommentService {
     }
 
     public void deleteComment(int commentId) {
-        commentDAO.getOne(commentId).setStatus(1);
+        commentDAO.findById(commentId).setStatus(1);
     }
 
     public Comment getCommentById(int id) {
-        return commentDAO.getOne(id);
+        return commentDAO.findById(id);
     }
 }

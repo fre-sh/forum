@@ -5,8 +5,11 @@ app.controller("questionController", function ($scope, $http, appService) {
         alert("测试");
     };
 
-    $scope.check = function (e) {
-        e.checked = !e.checked
+    $scope.showEditData = function () {
+        let i = localStorage.getItem('qId');
+        appService.getQuestion(i).success(function (res) {
+            $scope.entity = res.data;
+        });
     };
 
     $scope.delAll = function () {
@@ -45,6 +48,21 @@ app.controller("questionController", function ($scope, $http, appService) {
         var index = layer.open({
             type: 2,
             title: '问题添加',
+            area: [w, h],
+            fixed: false, //不固定
+            content: 'question-add.html',
+            end: function () {
+                $scope.loadPage();
+            }
+        });
+    };
+
+    $scope.showEditPage = function (id) {
+        localStorage.setItem("qId", id);
+        let w = '700px', h = '500px';
+        var index = layer.open({
+            type: 2,
+            title: '问题编辑',
             area: [w, h],
             fixed: false, //不固定
             content: 'question-add.html',

@@ -97,12 +97,12 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	// 	return false;
 	// })
 	//列表跳转
-	$('#table-list,.tool-btn').on('click', '.go-btn', function() {
-		var url=$(this).attr('data-url');
-		var id = $(this).attr('data-id');
-		window.location.href=url+"?id="+id;
-		return false;
-	})
+	// $('#table-list,.tool-btn').on('click', '.go-btn', function() {
+	// 	var url=$(this).attr('data-url');
+	// 	var id = $(this).attr('data-id');
+	// 	window.location.href=url+"?id="+id;
+	// 	return false;
+	// })
 	//编辑栏目
 	$('#table-list').on('click', '.edit-btn', function() {
 		var That = $(this);

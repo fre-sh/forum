@@ -42,7 +42,7 @@ public class ContentService {
     private SensitiveService sensitiveService;
 
     public Content getOne(int id) {
-        return contentDAO.getOne(id);
+        return contentDAO.findById(id);
     }
 
     public List<ViewObject> getLatest(int userId, int offset, int limit) {

@@ -44,7 +44,14 @@ public class QuestionService {
     }
 
     public Question getById(int id) {
-        return questionDAO.getOne(id);
+        return questionDAO.findById(id);
+    }
+
+    public void update(Question question) {
+        // 敏感词过滤
+        question.setTitle(sensitiveService.filter(question.getTitle()));
+        question.setContent(sensitiveService.filter(question.getContent()));
+        questionDAO.save(question);
     }
 
     public void add(Question question) {
@@ -67,7 +74,7 @@ public class QuestionService {
     }
 
     public int updateAnswerCount(int id, int count) {
-        questionDAO.getOne(id).setAnswerCount(count);
+        questionDAO.findById(id).setAnswerCount(count);
         return count;
     }
 

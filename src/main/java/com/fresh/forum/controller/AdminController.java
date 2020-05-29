@@ -8,6 +8,7 @@ import com.fresh.forum.model.User;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,11 @@ public class AdminController extends BaseController{
     @Autowired
     private QuestionService questionService;
 
+    @RequestMapping("/question/{id}")
+    public ResponseTO listQuestion(@PathVariable Integer id) {
+        return success(questionService.getById(id));
+    }
+
     @RequestMapping("/question/delAll")
     public ResponseTO listQuestion(@RequestBody List<Integer> ids) {
         questionService.delete(ids);
@@ -30,8 +36,12 @@ public class AdminController extends BaseController{
     }
 
     @RequestMapping("/question/add")
-    public ResponseTO listQuestion(@RequestBody Question query) {
-        questionService.add(query);
+    public ResponseTO listQuestion(@RequestBody Question question) {
+        if (question.getId() != null) {
+            questionService.update(question);
+        } else {
+            questionService.add(question);
+        }
         return success();
     }
 

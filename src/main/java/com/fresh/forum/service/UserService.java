@@ -103,7 +103,7 @@ public class UserService {
     }
 
     public User getUser(int id) {
-        return userDAO.getOne(id);
+        return userDAO.findById(id);
     }
 
     public void logout(String ticket) {
