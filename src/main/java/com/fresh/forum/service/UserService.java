@@ -1,6 +1,8 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.LoginTicket;
+import com.fresh.forum.model.Question;
 import com.fresh.forum.model.User;
 import com.fresh.forum.dao.LoginTicketDAO;
 import com.fresh.forum.dao.UserDAO;
@@ -9,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -108,5 +111,19 @@ public class UserService {
 
     public void logout(String ticket) {
         loginTicketDAO.findByTicket(ticket).setStatus(1);
+    }
+
+    public Page<User> listByQuery(Query query) {
+        User tmp = new User();
+        tmp.setName(query.getKw());
+        tmp.setStatus(query.getStatus());
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<User> example = Example.of(tmp, matcher);
+
+//        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
+        // JPA 分页从0页开始
+        return userDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize()));
+//        return userDAO.findAll(example);
     }
 }

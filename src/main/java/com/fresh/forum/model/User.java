@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User  extends BaseEntity{
     private String name;
-    private String description = "";
-    private String email = "";
+    private String description;
+    private String email;
     private String password;
     private String salt;
     private String headUrl;
@@ -25,6 +25,8 @@ public class User  extends BaseEntity{
         this.password = "";
         this.salt = "";
         this.headUrl = "";
+        this.email = "";
+        this.description = "";
     }
 
     public UserRole getRole() {

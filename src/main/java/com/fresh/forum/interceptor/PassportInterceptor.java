@@ -6,6 +6,8 @@ import com.fresh.forum.model.User;
 import com.fresh.forum.dao.LoginTicketDAO;
 import com.fresh.forum.dao.MessageDAO;
 import com.fresh.forum.dao.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,6 +20,8 @@ import java.util.Date;
 
 @Component
 public class PassportInterceptor implements HandlerInterceptor {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private LoginTicketDAO loginTicketDAO;
@@ -33,6 +37,9 @@ public class PassportInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+
+        logger.info("访问接口: {}", httpServletRequest.getRequestURI());
+
         String ticket = null;
         if (httpServletRequest.getCookies() != null) {
             for (Cookie cookie : httpServletRequest.getCookies()) {

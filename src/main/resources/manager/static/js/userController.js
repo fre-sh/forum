@@ -1,5 +1,5 @@
-// 问题（包含导航）
-app.controller("questionController", function ($scope, $http, appService) {
+// 用户管理
+app.controller("userController", function ($scope, $http, appService) {
 
     $scope.test = function () {
         alert("测试");
@@ -107,11 +107,9 @@ app.controller("questionController", function ($scope, $http, appService) {
     $scope.loadPage = function () {
         $scope.query.curPage = $scope.pageConf.currentPage;
         $scope.query.pageSize = $scope.pageConf.itemsPerPage;
-        appService.listQuestion($scope.query).success(function (res) {
-            // let i = 1;
-            $scope.questionList = res.data.content;
+        appService.listUser($scope.query).success(function (res) {
+            $scope.entityList = res.data.content;
             $scope.pageConf.totalItems = res.data.totalElements;
-            // layui.form().render('checkbox');
         });
     };
 

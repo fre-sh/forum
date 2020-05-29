@@ -24,6 +24,12 @@ public class AdminController extends BaseController{
     @Autowired
     private QuestionService questionService;
 
+    @RequestMapping("/user/list")
+    public ResponseTO listUser(@RequestBody Query query) {
+        return success(userService.listByQuery(query));
+    }
+
+
     @RequestMapping("/question/{id}")
     public ResponseTO listQuestion(@PathVariable Integer id) {
         return success(questionService.getById(id));
