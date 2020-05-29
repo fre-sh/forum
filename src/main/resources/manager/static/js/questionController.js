@@ -7,9 +7,11 @@ app.controller("questionController", function ($scope, $http, appService) {
 
     $scope.showEditData = function () {
         let i = localStorage.getItem('qId');
-        appService.getQuestion(i).success(function (res) {
-            $scope.entity = res.data;
-        });
+        if (i !== null) {
+            appService.getQuestion(i).success(function (res) {
+                $scope.entity = res.data;
+            });
+        }
     };
 
     $scope.delAll = function () {
@@ -44,6 +46,7 @@ app.controller("questionController", function ($scope, $http, appService) {
     };
 
     $scope.showAddPage = function () {
+        localStorage.removeItem('qId');
         let w = '700px', h = '500px';
         var index = layer.open({
             type: 2,
