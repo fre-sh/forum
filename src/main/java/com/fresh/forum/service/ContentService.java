@@ -41,7 +41,7 @@ public class ContentService {
     @Autowired
     private SensitiveService sensitiveService;
 
-    public Content getOne(int id) {
+    public Content getById(int id) {
         return contentDAO.findById(id);
     }
 

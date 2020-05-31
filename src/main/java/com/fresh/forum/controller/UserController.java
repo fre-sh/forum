@@ -63,7 +63,7 @@ public class UserController {
             if (Arrays.stream(ContentType.values()).map(Enum::name).collect(Collectors.toList()).contains(entityType)) {
                 ContentType contentType = ContentType.valueOf(entityType);
                 followRelations = followService.getFollowObjs(userId, EntityType.content)
-                        .stream().filter(relation -> contentService.getOne(relation.getEntityId()).getContentType() == contentType)
+                        .stream().filter(relation -> contentService.getById(relation.getEntityId()).getContentType() == contentType)
                         .collect(Collectors.toList());
             } else {
                 followRelations = followService.getFollowObjs(userId, EntityType.valueOf(entityType));
@@ -85,7 +85,7 @@ public class UserController {
 
     private Object getContent(FollowRelation relation) {
         if (relation.getEntityType() == EntityType.content) {
-            return WendaUtil.getBrief(contentService.getOne(relation.getEntityId()).getContent());
+            return WendaUtil.getBrief(contentService.getById(relation.getEntityId()).getContent());
         }
         return null;
     }
@@ -94,7 +94,7 @@ public class UserController {
         if (relation.getEntityType() != EntityType.content) {
             return "";
         }
-        return contentService.getOne(relation.getEntityId()).getContentType().name();
+        return contentService.getById(relation.getEntityId()).getContentType().name();
     }
 
     @RequestMapping(path = {"/user/{uid}/followers"}, method = {RequestMethod.GET})

@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body ng-app="admin" ng-controller="userController">
+	<body ng-app="admin" ng-controller="commentController">
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
 					<form class="layui-form" action="">
@@ -38,27 +38,16 @@
 					</form>
 					<div class="layui-form" id="table-list">
 						<table class="layui-table" lay-even lay-skin="nob">
-							<!--<colgroup>
-								<col width="50">
-								<col class="hidden-xs" width="100">
-								<col>
-								&lt;!&ndash;<col class="hidden-xs">&ndash;&gt;
-								<col class="hidden-xs" width="120">
-								<col class="hidden-xs" width="150">
-								<col width="80">
-								<col width="150">
-							</colgroup>-->
 							<thead>
 							<tr>
-								<!--标题，内容，创建用户，回答数，更新时间，状态-->
+								<!-- 评论：内容，发布用户，评论对象-->
 								<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
 								<th>ID</th>
-								<th>头像</th>
-								<th class="hidden-xs">用户名</th>
-								<th>简介</th>
-								<th class="hidden-xs">邮箱</th>
-								<th class="hidden-xs">创建时间</th>
-								<th>角色</th>
+								<th>发布用户</th>
+								<th>内容</th>
+								<th>评论类型</th>
+								<th>评论对象</th>
+								<th>发布时间</th>
 								<th>操作</th>
 							</tr>
 							</thead>
@@ -68,10 +57,10 @@
 									<div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
 								</td>
 								<th>{{e.id}}</th>
-								<th ><img height="30" ng-src="{{e.headUrl}}"></th>
-								<th class="hidden-xs">{{e.name}}</th>
-								<th>{{e.description}}</th>
-								<th class="hidden-xs">{{e.email}}</th>
+								<th>{{e.user.name}}</th>
+								<th>{{e.content}}</th>
+								<th>{{e.entity.contentType == "article" ? "文章" : "回答"}}</th>
+								<th>{{e.entity.title}}[id={{e.entity.id}}]</th>
 								<th class="hidden-xs">{{e.createTime}}</th>
 								<td ng-if="e.role == 'normal'"><button class="layui-btn layui-btn-mini layui-btn-normal">用户</button></td>
 								<td ng-if="e.role == 'admin'"><button class="layui-btn layui-btn-mini layui-btn-warm">管理员</button></td>
@@ -95,7 +84,7 @@
 		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/userController.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/commentController.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

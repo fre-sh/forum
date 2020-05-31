@@ -51,6 +51,7 @@
 								<tr>
 									<!--标题，内容，创建用户，回答数，更新时间，状态-->
 									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+									<th>ID</th>
 									<th class="hidden-xs">创建用户</th>
 									<th>标题</th>
 									<!--<th>说明</th>-->
@@ -65,6 +66,7 @@
 									<td><input type="checkbox" name="" lay-skin="primary" data-id="{{q.id}}">
 										<div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
 									</td>
+									<td>{{q.id}}</td>
 									<td class="hidden-xs">{{q.user.name}}</td>
 									<td>{{q.title}}</td>
 									<!--<td >{{q.content}}</td>-->

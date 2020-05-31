@@ -3,8 +3,10 @@ package com.fresh.forum.controller;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.dto.UserRole;
+import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.model.User;
+import com.fresh.forum.service.CommentService;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,35 @@ public class AdminController extends BaseController{
     private UserService userService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    CommentService commentService;
+
+    @GetMapping("/comment/{id}")
+    public ResponseTO getComment(@PathVariable Integer id) {
+        return success(commentService.getById(id));
+    }
+
+    @RequestMapping("/comment/delAll")
+    public ResponseTO delComment(@RequestBody List<Integer> ids) {
+        commentService.delete(ids);
+        return success();
+    }
+
+    @RequestMapping("/comment/save")
+    public ResponseTO saveComment(@RequestBody Comment comment) {
+        if (comment.getId() != null) {
+            commentService.update(comment);
+        } else {
+            commentService.add(comment);
+        }
+        return success();
+    }
+
+    @RequestMapping("/comment/list")
+    public ResponseTO listComment(@RequestBody Query query) {
+        return success(commentService.listByQuery(query));
+    }
+
 
     @GetMapping("/user/{id}")
     public ResponseTO getUser(@PathVariable Integer id) {

@@ -9,29 +9,33 @@ import java.util.Date;
 @Table(name = "comment")
 public class Comment extends BaseEntity{
 
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private Integer entityId;
+    @ManyToOne
+    @JoinColumn(name = "entity_id")
+    private Content entity;
 
     @Enumerated(value = EnumType.STRING)
-    private EntityType entityType;
+    private EntityType entityType = EntityType.content;
 
     private String content;
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getEntityId() {
-        return entityId;
+    public Content getEntity() {
+        return entity;
     }
 
-    public void setEntityId(Integer entityId) {
-        this.entityId = entityId;
+    public void setEntity(Content entity) {
+        this.entity = entity;
     }
 
     public EntityType getEntityType() {

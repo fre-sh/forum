@@ -69,7 +69,7 @@ public class ContentController {
      */
     @RequestMapping("/content/{id}")
     public String showContent(@PathVariable int id, Model model) {
-        Content content = contentService.getOne(id);
+        Content content = contentService.getById(id);
         if (content.getContentType() == ContentType.answer) {
             Question question = questionService.getByTitle(content.getTitle());
             return "redirect:/question/" + question.getId() + "#answer-item-" + id;
@@ -80,7 +80,7 @@ public class ContentController {
             model.addAttribute("comments", commentService.getCommentsByEntity(content.getId(), EntityType.content).stream()
                     .map(comment ->
                             ViewObject.build("comment", comment)
-                            .set("user", userService.getById(comment.getUserId()))
+                            .set("user", comment.getUser())
                     ).collect(Collectors.toList())
             );
             model.addAttribute("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.content, content.getId()));

@@ -1,6 +1,25 @@
 const app = angular.module("admin", ["pagination"]);
 const appService = app.service("appService", function ($http) {
 
+
+    /**
+     * 评论管理
+     * @param id
+     * @returns {*}
+     */
+    this.getComment = function (id) {
+        return $http.get('/admin/comment/' + id);
+    };
+    this.delComment = function (ids) {
+        return $http.post('/admin/comment/delAll', ids);
+    };
+    this.saveComment = function (entity) {
+        return $http.post('/admin/comment/save', entity);
+    };
+    this.listComment = function (query) {
+        return $http.post('/admin/comment/list', query);
+    };
+
     /**
      * 用户管理
      * @param id

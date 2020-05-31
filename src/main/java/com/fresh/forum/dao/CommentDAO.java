@@ -19,4 +19,6 @@ public interface CommentDAO extends JpaRepository<Comment, Integer> {
     Comment findById(int commentId);
 
     void deleteAllByUserId(Integer integer);
+
+    void deleteAllByIdIn(List<Integer> ids);
 }

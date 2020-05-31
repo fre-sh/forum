@@ -22,9 +22,19 @@ public class Query {
 
     private UserRole role;
 
+    private EntityType entityType;
+
     private Integer curPage;
 
     private Integer pageSize;
+
+    public EntityType getEntityType() {
+        return entityType;
+    }
+
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
 
     public UserRole getRole() {
         return role;
