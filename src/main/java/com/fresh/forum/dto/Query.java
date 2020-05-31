@@ -20,9 +20,19 @@ public class Query {
      */
     private Integer status;
 
+    private UserRole role;
+
     private Integer curPage;
 
     private Integer pageSize;
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 
     public Integer getCurPage() {
         return curPage;

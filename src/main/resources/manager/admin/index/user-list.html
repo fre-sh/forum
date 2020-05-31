@@ -24,6 +24,15 @@
 							<div class="layui-inline">
 								<input type="text" name="title" ng-model="query.kw" placeholder="请输入标题" autocomplete="off" class="layui-input">
 							</div>
+							<div class="layui-inline">
+								<select ng-model="query.role" name="states" lay-filter="status">
+									<option value="">请选择一个角色</option>
+									<option value="null">所有</option>
+									<option value="normal">用户</option>
+									<option value="admin">管理员</option>
+									<option value="supAdmin">超级管理员</option>
+								</select>
+							</div>
 							<button class="layui-btn layui-btn-normal" ng-click="loadPage()">搜索</button>
 						</div>
 					</form>
@@ -67,8 +76,8 @@
 								<td ng-if="e.role == 'supAdmin'"><button class="layui-btn layui-btn-mini layui-btn-danger">超级管理员</button></td>
 								<td>
 									<div class="layui-inline">
-										<button ng-click="showEditPage(q.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
-										<button ng-click="delOne(q.id)" class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="1"><i class="layui-icon">&#xe640;</i></button>
+										<button ng-click="showEditPage(e.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
+										<button ng-click="delOne(e.id)" class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="1"><i class="layui-icon">&#xe640;</i></button>
 									</div>
 								</td>
 							</tr>

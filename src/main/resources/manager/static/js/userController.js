@@ -1,12 +1,27 @@
 // 用户管理
 app.controller("userController", function ($scope, $http, appService) {
     // 初始化
-    layui.use('form', function () {
+    layui.use(['form', 'dialog'], function () {
         let form = layui.form();
+        let dialog = layui.dialog
         form.render();
+        // 监听添加按钮
         form.on('submit(addUser)', function (data) {
             $scope.add();
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        // 监听添加的下拉选
+        form.on('select(addStatus)', function(data){
+            $scope.entity.role = data.value;
+        });
+        // 监听搜索下拉框
+        form.on('select(status)', function(data){
+            let value = data.value;
+            $scope.query.role = value !== "null" ? value : null;
+            $scope.loadPage();
+            // console.log(data.elem); //得到select原始DOM对象
+            // console.log(data.value); //得到被选中的值
+            // console.log(data.othis); //得到美化后的DOM对象
         });
     });
 
@@ -24,32 +39,42 @@ app.controller("userController", function ($scope, $http, appService) {
     };
 
     $scope.delAll = function () {
-        let ids = [];
-        $("input + div.layui-form-checked").each(function () {
-            ids.push(parseInt($(this).prev("input").attr('data-id')));
-        });
-        console.log(ids);
-        appService.delUser(ids).success(function (res) {
-            if (res.code === 0) {
-                layer.msg("删除成功", {
-                    icon: 6
+        layui.dialog.confirm({
+            message: '将会删除用户和用户下的所有数据！',
+            success: function () {
+                let ids = [];
+                $("input + div.layui-form-checked").each(function () {
+                    ids.push(parseInt($(this).prev("input").attr('data-id')));
                 });
-                $scope.loadPage();
-            } else {
-                layer.alert(res.msg);
+                console.log(ids);
+                appService.delUser(ids).success(function (res) {
+                    if (res.code === 0) {
+                        layer.msg("删除成功", {
+                            icon: 6
+                        });
+                        $scope.loadPage();
+                    } else {
+                        layer.alert(res.msg);
+                    }
+                });
             }
         });
     };
 
     $scope.delOne = function (id) {
-        appService.delUser([id]).success(function (res) {
-            if (res.code === 0) {
-                layer.msg("删除成功", {
-                    icon: 6
+        layui.dialog.confirm({
+            message: '将会删除用户和用户下的所有数据！',
+            success: function () {
+                appService.delUser([id]).success(function (res) {
+                    if (res.code === 0) {
+                        layer.msg("删除成功", {
+                            icon: 6
+                        });
+                        $scope.loadPage();
+                    } else {
+                        layer.alert(res.msg);
+                    }
                 });
-                $scope.loadPage();
-            } else {
-                layer.alert(res.msg);
             }
         });
     };

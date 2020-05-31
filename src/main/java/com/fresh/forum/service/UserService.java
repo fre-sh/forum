@@ -1,11 +1,8 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dao.*;
 import com.fresh.forum.dto.Query;
-import com.fresh.forum.model.LoginTicket;
-import com.fresh.forum.model.Question;
-import com.fresh.forum.model.User;
-import com.fresh.forum.dao.LoginTicketDAO;
-import com.fresh.forum.dao.UserDAO;
+import com.fresh.forum.model.*;
 import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -25,6 +22,14 @@ public class UserService {
     private UserDAO userDAO;
     @Autowired
     private LoginTicketDAO loginTicketDAO;
+    @Autowired
+    private QuestionDAO questionDAO;
+    @Autowired
+    private ContentDAO contentDAO;
+    @Autowired
+    private CommentDAO commentDAO;
+    @Autowired
+    private MessageDAO messageDAO;
 
 //    @Autowired
 //    private LoginTicketDAO loginTicketDAO;
@@ -117,17 +122,22 @@ public class UserService {
         User tmp = new User();
         tmp.setName(query.getKw());
         tmp.setStatus(query.getStatus());
+        tmp.setRole(query.getRole());
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
         Example<User> example = Example.of(tmp, matcher);
 
-//        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
+        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
         // JPA 分页从0页开始
-        return userDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize()));
+        return userDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize(), sort));
 //        return userDAO.findAll(example);
     }
 
     public void delete(List<Integer> ids) {
+        ids.forEach(questionDAO::deleteAllByUserId);
+//        ids.forEach(contentDAO::deleteAllByUserId);
+//        ids.forEach(commentDAO::deleteAllByUserId);
+//        ids.forEach(messageDAO::deleteAllByUserId);
         userDAO.deleteByIdIn(ids);
     }
 

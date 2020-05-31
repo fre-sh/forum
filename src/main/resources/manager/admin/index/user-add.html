@@ -27,8 +27,8 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">角色：</label>
 				<div class="layui-input-block">
-					<select ng-model="entity.role" name="category" lay-verify="required">
-						<option value=""></option>
+					<select ng-model="entity.role" name="category" lay-verify="required" lay-filter="addStatus">
+						<option value="">请选择一个角色</option>
 						<option value="normal">用户</option>
 						<option value="admin">管理员</option>
 						<option value="supAdmin">超级管理员</option>
