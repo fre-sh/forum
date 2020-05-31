@@ -3,6 +3,7 @@ app.controller("commentController", function ($scope, $http, appService) {
 
     $scope.init = function () {
         $scope.query = {};
+        $scope.entity = {entity:{id:null}};
         $scope.refreshSelect();
         $scope.showEditData();
     };
@@ -16,13 +17,10 @@ app.controller("commentController", function ($scope, $http, appService) {
             $scope.save();
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
-        // 监听添加的单选
-        form.on('radio(type)', function(data){
+        // 监听添加的下拉框
+        form.on('select(select)', function(data){
             // 搜索刷新select
-            $scope.query.contentType = data.value;
-            $scope.refreshSelect();
-            // console.log(data.elem); //得到radio原始DOM对象
-            // console.log(data.value); //被点击的radio的value值
+            $scope.entity.entity.id = parseInt(data.value);
         });
         // 监听搜索下拉框
         form.on('select(status)', function(data){

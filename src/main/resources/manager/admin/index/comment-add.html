@@ -28,8 +28,8 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">评论对象：</label>
 				<div class="layui-input-block">
-					<select ng-model="entity.entity.id" name="category" ng-options="c.id as c.title for c in contents"
-							lay-filter="select" lay-verify="required" lay-search>
+					<select ng-model="entity.entity.id" name="category" lay-filter="select" lay-verify="required" lay-search>
+						<option ng-repeat="op in contents" value="{{op.id}}">{{op.title}}</option>
 					</select>
 				</div>
 			</div>

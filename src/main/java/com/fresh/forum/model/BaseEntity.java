@@ -19,7 +19,7 @@ public class BaseEntity {
    * 0-正常 1-删除 2-其他无效情况
    */
   @Column(name = "status", columnDefinition = "int default 0")
-  private Integer status;
+  private Integer status = 0;
 
   private Date createdDate;
 
