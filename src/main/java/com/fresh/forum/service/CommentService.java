@@ -6,6 +6,7 @@ import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.dao.CommentDAO;
 import com.fresh.forum.model.Content;
+import com.fresh.forum.model.CountRecord;
 import com.fresh.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,6 +30,8 @@ public class CommentService {
     private ContentService contentService;
     @Autowired
     HostHolder hostHolder;
+    @Autowired
+    AdminService adminService;
 
     public List<Comment> getCommentsByEntity(int entityId, EntityType entityType) {
         return commentDAO.findByEntityIdAndEntityType(entityId, entityType);
@@ -41,6 +45,8 @@ public class CommentService {
         Content one = contentService.getById(comment.getEntity().getId());
         one.setCommentCnt(one.getCommentCnt() + 1);
 
+        CountRecord countRecord = adminService.getCountRecord(new Date());
+        countRecord.setCommentCnt(countRecord.getCommentCnt() + 1);
         return commentDAO.save(comment);
     }
 

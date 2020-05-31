@@ -1,0 +1,112 @@
+package com.fresh.forum.service;
+
+import com.fresh.forum.dao.CommentDAO;
+import com.fresh.forum.dao.ContentDAO;
+import com.fresh.forum.dao.CountRecordDAO;
+import com.fresh.forum.dao.UserDAO;
+import com.fresh.forum.dto.ContentType;
+import com.fresh.forum.dto.EntityType;
+import com.fresh.forum.dto.UserRole;
+import com.fresh.forum.dto.WelcomeTo;
+import com.fresh.forum.model.Comment;
+import com.fresh.forum.model.Content;
+import com.fresh.forum.model.CountRecord;
+import com.fresh.forum.model.User;
+import com.fresh.forum.util.DateUtil;
+import com.fresh.forum.util.WendaUtil;
+import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
+
+/**
+ * @author guowenyu
+ * @date 2020/5/31
+ */
+@Service
+public class AdminService {
+
+    @Autowired
+    CountRecordDAO recordDAO;
+    @Autowired
+    UserDAO userDAO;
+    @Autowired
+    CommentDAO commentDAO;
+    @Autowired
+    ContentDAO contentDAO;
+
+    public WelcomeTo welcome() {
+        // 数量记录
+        List<String> dates = new ArrayList<>();
+        List<Integer> userCnts = new ArrayList<>();
+        List<Integer> commentCnts = new ArrayList<>();
+        List<Integer> contentCnts = new ArrayList<>();
+        Date date = DateUtils.addDays(new Date(), -6);
+        for (int i = 0; i < 7; i++) {
+            String strDate = DateUtil.format(date);
+            dates.add(strDate);
+            CountRecord record = getCountRecord(date);
+            userCnts.add(record.getUserCnt());
+            commentCnts.add(record.getCommentCnt());
+            contentCnts.add(record.getContentCnt());
+            date = DateUtils.addDays(date, 1);
+        }
+        WelcomeTo dto = new WelcomeTo();
+        dto.setDates(dates);
+        dto.setUserCnts(userCnts);
+        dto.setCommentCnts(commentCnts);
+        dto.setContentCnts(contentCnts);
+
+        /**
+         * 总数
+         */
+        dto.setUserCnt((int) userDAO.count());
+        dto.setCommentCnt((int) commentDAO.count());
+        dto.setContentCnt((int) contentDAO.count());
+        return dto;
+    }
+
+    public CountRecord getCountRecord(Date date) {
+        String strDate = DateUtil.format(date);
+        Optional<CountRecord> optional = recordDAO.findAll().stream()
+                .filter(r -> strDate.equals(r.getCreateTime())).findFirst();
+        return optional.orElseGet(() -> {
+            CountRecord record = new CountRecord();
+            record.setCommentCnt(0);
+            record.setUserCnt(0);
+            record.setContentCnt(0);
+            return record;
+        });
+    }
+
+//    static Random random = new Random();
+//    @Autowired
+//    UserService userService;
+//
+//    @PostConstruct
+//    public void init() {
+//        for (int i = 0; i < 68; i++) {
+//            Content tmp = new Content();
+//            tmp.setUserId(WendaUtil.ANONYMOUS_USERID);
+//            tmp.setContent("auto_article" + i);
+//            tmp.setTitle("auto_article" + i);
+//            tmp.setContentType(ContentType.article);
+//            tmp.setCommentCnt(0);
+//            Date date = new Date();
+//
+//            tmp.setCreatedDate(DateUtils.addDays(date, 0 - i*5));
+//            contentDAO.save(tmp);
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        for (int i = 0; i < 10; i++) {
+//            Date date = new Date();
+//            Date date1 = DateUtils.addDays(date, 0 - random.nextInt(10));
+//            System.out.println(DateUtil.format(date1));
+//        }
+//    }
+
+}

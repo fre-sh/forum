@@ -3,6 +3,7 @@ package com.fresh.forum.service;
 import com.fresh.forum.dto.*;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Content;
+import com.fresh.forum.model.CountRecord;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.dao.ContentDAO;
 import com.fresh.forum.dao.QuestionDAO;
@@ -39,6 +40,8 @@ public class ContentService {
 
     @Autowired
     private SensitiveService sensitiveService;
+    @Autowired
+    AdminService adminService;
 
     public Content getById(int id) {
         return contentDAO.findById(id);
@@ -82,6 +85,8 @@ public class ContentService {
             question.setAnswerCount(question.getAnswerCount() + 1);
         }
 
+        CountRecord countRecord = adminService.getCountRecord(new Date());
+        countRecord.setContentCnt(countRecord.getContentCnt() + 1);
         return contentDAO.save(content);
     }
 
@@ -106,6 +111,9 @@ public class ContentService {
             Question question = questionDAO.findByTitle(content.getTitle());
             question.setAnswerCount(question.getAnswerCount() + 1);
         }
+
+        CountRecord countRecord = adminService.getCountRecord(new Date());
+        countRecord.setContentCnt(countRecord.getContentCnt() + 1);
         contentDAO.save(content);
     }
 

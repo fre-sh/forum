@@ -8,10 +8,7 @@ import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.model.User;
-import com.fresh.forum.service.CommentService;
-import com.fresh.forum.service.ContentService;
-import com.fresh.forum.service.QuestionService;
-import com.fresh.forum.service.UserService;
+import com.fresh.forum.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +26,8 @@ public class AdminController extends BaseController{
     CommentService commentService;
     @Autowired
     ContentService contentService;
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/content/{id}")
     public ResponseTO getContent(@PathVariable Integer id) {
@@ -160,6 +159,11 @@ public class AdminController extends BaseController{
             return ResponseTO.failed("用户权限不足");
         }
         return success(userService.login(username, pass));
+    }
+
+    @RequestMapping("/welcome")
+    public ResponseTO index() {
+        return success(adminService.welcome());
     }
 
 }

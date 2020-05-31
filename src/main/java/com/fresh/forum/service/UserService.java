@@ -30,6 +30,8 @@ public class UserService {
     private CommentDAO commentDAO;
     @Autowired
     private MessageDAO messageDAO;
+    @Autowired
+    AdminService adminService;
 
 //    @Autowired
 //    private LoginTicketDAO loginTicketDAO;
@@ -73,6 +75,9 @@ public class UserService {
         // 登陆
         String ticket = addLoginTicket(user.getId());
         map.put("ticket", ticket);
+
+        CountRecord countRecord = adminService.getCountRecord(new Date());
+        countRecord.setUserCnt(countRecord.getUserCnt() + 1);
         return map;
     }
 
@@ -154,5 +159,8 @@ public class UserService {
         user.setHeadUrl(head);
         user.setPassword(WendaUtil.MD5(user.getPassword() + user.getSalt()));
         userDAO.save(user);
+
+        CountRecord countRecord = adminService.getCountRecord(new Date());
+        countRecord.setUserCnt(countRecord.getUserCnt() + 1);
     }
 }
