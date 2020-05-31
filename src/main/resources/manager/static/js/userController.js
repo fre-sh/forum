@@ -141,7 +141,7 @@ app.controller("userController", function ($scope, $http, appService) {
         appService.listUser($scope.query).success(function (res) {
             $scope.entityList = res.data.content;
             $scope.pageConf.totalItems = res.data.totalElements;
-            layui.form.render();
+            // layui.form.render();
         });
     };
 

@@ -69,8 +69,13 @@ public class CommentService {
         tmp.setContent(query.getKw());
         tmp.setStatus(query.getStatus());
         tmp.setEntityType(query.getEntityType());
+        Content content = new Content();
+        content.setContentType(query.getContentType());
+        content.setTitle(query.getTitle());
+        tmp.setEntity(content);
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("content", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("entity.title", ExampleMatcher.GenericPropertyMatchers.contains());
         Example<Comment> example = Example.of(tmp, matcher);
 
         Sort sort = new Sort(Sort.Direction.DESC, "createdDate");

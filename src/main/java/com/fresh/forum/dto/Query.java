@@ -1,6 +1,7 @@
 package com.fresh.forum.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fresh.forum.model.Content;
 
 /**
  * 用于管理页面查询
@@ -24,9 +25,39 @@ public class Query {
 
     private EntityType entityType;
 
+    private ContentType contentType;
+
     private Integer curPage;
 
     private Integer pageSize;
+
+    private Integer entityId;
+
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(Integer entityId) {
+        this.entityId = entityId;
+    }
+
+    public ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
+    }
 
     public EntityType getEntityType() {
         return entityType;

@@ -1,4 +1,4 @@
-// 用户管理
+// 评论管理
 app.controller("commentController", function ($scope, $http, appService) {
     // 初始化
     layui.use(['form', 'dialog'], function () {
@@ -11,12 +11,12 @@ app.controller("commentController", function ($scope, $http, appService) {
         });
         // 监听添加的下拉选
         form.on('select(addStatus)', function(data){
-            $scope.entity.role = data.value;
+            $scope.entity.contentType = data.value;
         });
         // 监听搜索下拉框
         form.on('select(status)', function(data){
             let value = data.value;
-            $scope.query.role = value !== "null" ? value : null;
+            $scope.query.contentType = value !== "null" ? value : null;
             $scope.loadPage();
         });
     });
@@ -34,9 +34,10 @@ app.controller("commentController", function ($scope, $http, appService) {
         }
     };
 
+    const del_msg = '确定要删除评论';
     $scope.delAll = function () {
         layui.dialog.confirm({
-            message: '将会删除用户和用户下的所有数据！',
+            message: del_msg,
             success: function () {
                 let ids = [];
                 $("input + div.layui-form-checked").each(function () {
@@ -59,7 +60,7 @@ app.controller("commentController", function ($scope, $http, appService) {
 
     $scope.delOne = function (id) {
         layui.dialog.confirm({
-            message: '将会删除用户和用户下的所有数据！',
+            message: del_msg,
             success: function () {
                 appService.delComment([id]).success(function (res) {
                     if (res.code === 0) {
@@ -80,7 +81,7 @@ app.controller("commentController", function ($scope, $http, appService) {
         let w = '700px', h = '500px';
         var index = layer.open({
             type: 2,
-            title: '用户添加',
+            title: '评论添加',
             area: [w, h],
             fixed: false, //不固定
             content: 'comment-add.html',
@@ -95,7 +96,7 @@ app.controller("commentController", function ($scope, $http, appService) {
         let w = '700px', h = '500px';
         var index = layer.open({
             type: 2,
-            title: '用户编辑',
+            title: '评论编辑',
             area: [w, h],
             fixed: false, //不固定
             content: 'comment-add.html',
@@ -141,7 +142,7 @@ app.controller("commentController", function ($scope, $http, appService) {
         appService.listComment($scope.query).success(function (res) {
             $scope.entityList = res.data.content;
             $scope.pageConf.totalItems = res.data.totalElements;
-            layui.form.render();
+            // layui.form.render();
         });
     };
 

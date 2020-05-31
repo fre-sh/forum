@@ -22,16 +22,18 @@
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
 							<div class="layui-inline">
+								<select ng-model="query.contentType" name="states" lay-filter="status">
+									<option value="">请选择评论类型</option>
+									<option value="null">所有</option>
+									<option value="answer">回答</option>
+									<option value="article">文章</option>
+								</select>
+							</div>
+							<div class="layui-inline">
 								<input type="text" name="title" ng-model="query.kw" placeholder="请输入标题" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select ng-model="query.role" name="states" lay-filter="status">
-									<option value="">请选择一个角色</option>
-									<option value="null">所有</option>
-									<option value="normal">用户</option>
-									<option value="admin">管理员</option>
-									<option value="supAdmin">超级管理员</option>
-								</select>
+								<input type="text" name="title" ng-model="query.title" placeholder="请输入评论对象" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" ng-click="loadPage()">搜索</button>
 						</div>
@@ -60,7 +62,7 @@
 								<th>{{e.user.name}}</th>
 								<th>{{e.content}}</th>
 								<th>{{e.entity.contentType == "article" ? "文章" : "回答"}}</th>
-								<th>{{e.entity.title}}[id={{e.entity.id}}]</th>
+								<th>{{e.entity.title}}{{e.entity.contentType == "answer" ? '[id=' + e.entity.id + ']' : ""}}</th>
 								<th class="hidden-xs">{{e.createTime}}</th>
 								<td ng-if="e.role == 'normal'"><button class="layui-btn layui-btn-mini layui-btn-normal">用户</button></td>
 								<td ng-if="e.role == 'admin'"><button class="layui-btn layui-btn-mini layui-btn-warm">管理员</button></td>
