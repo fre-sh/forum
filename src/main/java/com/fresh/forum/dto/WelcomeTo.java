@@ -1,5 +1,7 @@
 package com.fresh.forum.dto;
 
+import com.fresh.forum.model.Question;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,11 @@ import java.util.List;
  * @date 2020/5/31
  */
 public class WelcomeTo {
+
+    /**
+     * 提问
+     */
+    private List<Question> questions;
 
     /**
      * 总数
@@ -22,6 +29,14 @@ public class WelcomeTo {
     private List<Integer> userCnts;
     private List<Integer> commentCnts;
     private List<Integer> contentCnts;
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public Integer getUserCnt() {
         return userCnt;

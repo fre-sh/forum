@@ -1,6 +1,37 @@
 // welcome页面
 app.controller("homeController", function ($scope, $http) {
 
+    $scope.formatDate = function (inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+    };
+
+    $scope.getFormatDate = function () {
+        var date = new Date();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentDate = date.getFullYear() + "-" + month + "-" + strDate
+            + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        return currentDate;
+    };
+
     let data;
     $http.get('/admin/welcome').success(function (res) {
         $scope.data = res.data;

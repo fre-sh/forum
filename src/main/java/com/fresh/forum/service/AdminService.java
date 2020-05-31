@@ -1,21 +1,16 @@
 package com.fresh.forum.service;
 
-import com.fresh.forum.dao.CommentDAO;
-import com.fresh.forum.dao.ContentDAO;
-import com.fresh.forum.dao.CountRecordDAO;
-import com.fresh.forum.dao.UserDAO;
+import com.fresh.forum.dao.*;
 import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.UserRole;
 import com.fresh.forum.dto.WelcomeTo;
-import com.fresh.forum.model.Comment;
-import com.fresh.forum.model.Content;
-import com.fresh.forum.model.CountRecord;
-import com.fresh.forum.model.User;
+import com.fresh.forum.model.*;
 import com.fresh.forum.util.DateUtil;
 import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -36,6 +31,8 @@ public class AdminService {
     CommentDAO commentDAO;
     @Autowired
     ContentDAO contentDAO;
+    @Autowired
+    QuestionDAO questionDAO;
 
     public WelcomeTo welcome() {
         // 数量记录
@@ -65,6 +62,12 @@ public class AdminService {
         dto.setUserCnt((int) userDAO.count());
         dto.setCommentCnt((int) commentDAO.count());
         dto.setContentCnt((int) contentDAO.count());
+
+        /**
+         * 提问
+         */
+        List<Question> questions = questionDAO.findAll(new Sort(Sort.Direction.DESC, "createdDate"));
+        dto.setQuestions(questions.subList(0, 5));
         return dto;
     }
 
