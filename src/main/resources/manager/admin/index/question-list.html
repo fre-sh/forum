@@ -37,16 +37,16 @@
 					</form>
 					<div class="layui-form" id="table-list">
 						<table class="layui-table" lay-even lay-skin="nob">
-							<colgroup>
+							<!--<colgroup>
 								<col width="50">
 								<col class="hidden-xs" width="100">
 								<col>
-								<!--<col class="hidden-xs">-->
+								&lt;!&ndash;<col class="hidden-xs">&ndash;&gt;
 								<col class="hidden-xs" width="120">
 								<col class="hidden-xs" width="150">
 								<col width="80">
 								<col width="150">
-							</colgroup>
+							</colgroup>-->
 							<thead>
 								<tr>
 									<!--标题，内容，创建用户，回答数，更新时间，状态-->
@@ -68,7 +68,7 @@
 									</td>
 									<td>{{q.id}}</td>
 									<td class="hidden-xs">{{q.user.name}}</td>
-									<td>{{q.title}}</td>
+									<td><div style="width: 500px">{{q.title}}</div></td>
 									<!--<td >{{q.content}}</td>-->
 									<!--<td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="0" data-id="1"></td>-->
 									<td class="hidden-xs">{{q.answerCount}}</td>

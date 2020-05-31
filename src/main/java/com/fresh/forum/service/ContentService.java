@@ -1,14 +1,13 @@
 package com.fresh.forum.service;
 
-import com.fresh.forum.dto.ContentType;
-import com.fresh.forum.dto.EntityType;
-import com.fresh.forum.dto.HostHolder;
-import com.fresh.forum.dto.ViewObject;
+import com.fresh.forum.dto.*;
+import com.fresh.forum.model.Comment;
 import com.fresh.forum.model.Content;
 import com.fresh.forum.model.Question;
 import com.fresh.forum.dao.ContentDAO;
 import com.fresh.forum.dao.QuestionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,5 +89,49 @@ public class ContentService {
         for (Content content : contentDAO.findAll()) {
             content.setCommentCnt(commentService.getCommentCount(content.getId(), EntityType.content));
         }
+    }
+
+    public void delete(List<Integer> ids) {
+        contentDAO.deleteAllByIdIn(ids);
+    }
+
+    public void update(Content content) {
+        contentDAO.save(content);
+    }
+
+    public void add(Content content) {
+        content.setContent(sensitiveService.filter(content.getContent()));
+        content.setUserId(hostHolder.getUser().getId());
+        if (content.getContentType() == ContentType.answer) {
+            Question question = questionDAO.findByTitle(content.getTitle());
+            question.setAnswerCount(question.getAnswerCount() + 1);
+        }
+        contentDAO.save(content);
+    }
+
+    public Page<Content> listByQuery(Query query) {
+        Content tmp = new Content();
+        tmp.setTitle(query.getKw());
+        tmp.setStatus(query.getStatus());
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Content> example = Example.of(tmp, matcher);
+
+        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
+        // JPA 分页从0页开始
+        return contentDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize(), sort));
+    }
+
+    public List<Content> allByQuery(Query query) {
+        Content tmp = new Content();
+        tmp.setTitle(query.getKw());
+        tmp.setContentType(query.getContentType());
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Content> example = Example.of(tmp, matcher);
+
+        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
+        // JPA 分页从0页开始
+        return contentDAO.findAll(example, sort);
     }
 }

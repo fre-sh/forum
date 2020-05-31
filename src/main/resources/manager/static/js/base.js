@@ -1,6 +1,24 @@
 const app = angular.module("admin", ["pagination"]);
 const appService = app.service("appService", function ($http) {
 
+    /**
+     * 内容管理
+     */
+    this.getContent = function (id) {
+        return $http.get('/admin/content/' + id);
+    };
+    this.delContent = function (ids) {
+        return $http.post('/admin/content/delAll', ids);
+    };
+    this.saveContent = function (entity) {
+        return $http.post('/admin/content/save', entity);
+    };
+    this.listContent = function (query) {
+        return $http.post('/admin/content/list', query);
+    };
+    this.allContent = function (query) {
+        return $http.post('/admin/content/all', query);
+    };
 
     /**
      * 评论管理

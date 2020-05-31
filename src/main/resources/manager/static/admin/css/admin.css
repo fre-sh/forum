@@ -1,4 +1,4 @@
-/* 表格单行内容过长隐藏 */
+/* 表格单行内容过长隐藏  表格td中需提交div才有效*/
 td div{
   overflow: hidden;
   white-space: nowrap;

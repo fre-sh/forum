@@ -1,6 +1,7 @@
 package com.fresh.forum.service;
 
 import com.fresh.forum.dto.EntityType;
+import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Comment;
 import com.fresh.forum.dao.CommentDAO;
@@ -25,18 +26,21 @@ public class CommentService {
 
     @Autowired
     private ContentService contentService;
+    @Autowired
+    HostHolder hostHolder;
 
     public List<Comment> getCommentsByEntity(int entityId, EntityType entityType) {
         return commentDAO.findByEntityIdAndEntityType(entityId, entityType);
     }
 
     public Comment add(Comment comment) {
+        comment.setUser(hostHolder.getUser());
         comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
         comment.setContent(sensitiveService.filter(comment.getContent()));
-        if (comment.getEntityType() == EntityType.content) {
-            Content one = comment.getEntity();
-            one.setCommentCnt(one.getCommentCnt() + 1);
-        }
+        comment.setEntityType(EntityType.content);
+        Content one = contentService.getById(comment.getEntity().getId());
+        one.setCommentCnt(one.getCommentCnt() + 1);
+
         return commentDAO.save(comment);
     }
 

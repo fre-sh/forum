@@ -1,17 +1,28 @@
 // 评论管理
 app.controller("commentController", function ($scope, $http, appService) {
-    // 初始化
+
+    $scope.init = function () {
+        $scope.query = {};
+        $scope.refreshSelect();
+        $scope.showEditData();
+    };
+
+// 初始化
     layui.use(['form', 'dialog'], function () {
         let form = layui.form();
         form.render();
         // 监听添加按钮
-        form.on('submit(addComment)', function (data) {
-            $scope.add();
+        form.on('submit(commit)', function (data) {
+            $scope.save();
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
-        // 监听添加的下拉选
-        form.on('select(addStatus)', function(data){
-            $scope.entity.contentType = data.value;
+        // 监听添加的单选
+        form.on('radio(type)', function(data){
+            // 搜索刷新select
+            $scope.query.contentType = data.value;
+            $scope.refreshSelect();
+            // console.log(data.elem); //得到radio原始DOM对象
+            // console.log(data.value); //被点击的radio的value值
         });
         // 监听搜索下拉框
         form.on('select(status)', function(data){
@@ -21,8 +32,14 @@ app.controller("commentController", function ($scope, $http, appService) {
         });
     });
 
-    $scope.test = function () {
-        alert("测试");
+    $scope.refreshSelect = function () {
+        appService.allContent($scope.query).success(function (res) {
+            if (res.code === 0) {
+                $scope.contents = res.data;
+            } else {
+                layer.alert(res.msg);
+            }
+        });
     };
 
     $scope.showEditData = function () {
@@ -106,7 +123,7 @@ app.controller("commentController", function ($scope, $http, appService) {
         });
     };
 
-    $scope.add = function () {
+    $scope.save = function () {
         if ($scope.entity == null){
             return
         }

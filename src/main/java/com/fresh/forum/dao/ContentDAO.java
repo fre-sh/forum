@@ -26,4 +26,6 @@ public interface ContentDAO extends JpaRepository<Content, Integer> {
     Content findById(int id);
 
     void deleteAllByUserId(Integer integer);
+
+    void deleteAllByIdIn(List<Integer> ids);
 }

@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/layui/css/layui.css"/>
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css"/>
 	</head>
-	<body ng-app="admin" ng-controller="commentController" ng-init="showEditData()">
+	<body ng-app="admin" ng-controller="commentController" ng-init="init()">
 	<div class="">
 		<form class="layui-form" style="width: 90%;padding-top: 20px;">
 			<div class="layui-form-item">
@@ -18,23 +18,24 @@
 					<input ng-model="entity.content" type="text" required lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
 				</div>
 			</div>
-			<div class="layui-form-item">
+<!--			<div class="layui-form-item">
 				<label class="layui-form-label">评论类型：</label>
 				<div class="layui-input-block">
-					<input type="radio" name="status" value="answer" title="回答" checked lay-filter="type">
-					<input type="radio" name="status" value="article" title="文章">
+					<input type="radio" name="status" value="answer" title="回答"  lay-filter="type">
+					<input type="radio" name="status" value="article" title="文章" lay-filter="type">
 				</div>
-			</div>
+			</div>-->
 			<div class="layui-form-item">
 				<label class="layui-form-label">评论对象：</label>
 				<div class="layui-input-block">
-					<select ng-model="entity.role" name="category" ng-options="c.id as c." lay-verify="required">
+					<select ng-model="entity.entity.id" name="category" ng-options="c.id as c.title for c in contents"
+							lay-filter="select" lay-verify="required" lay-search>
 					</select>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button class="layui-btn layui-btn-normal" lay-submit lay-filter="addUser">立即提交</button>
+					<button class="layui-btn layui-btn-normal" lay-submit lay-filter="commit">立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
