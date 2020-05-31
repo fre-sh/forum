@@ -1,3 +1,15 @@
+/* 表格单行内容过长隐藏 */
+td div{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+td div:hover{
+  overflow-x:scroll;
+  overflow-y:hidden;
+  text-overflow: unset;
+}
+
 /*圆角*/
 /*阴影*/
 /*字体*/
