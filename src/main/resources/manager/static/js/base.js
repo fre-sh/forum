@@ -12,7 +12,7 @@ const appService = app.service("appService", function ($http) {
     this.delUser = function (ids) {
         return $http.post('/admin/user/delAll', ids);
     };
-    this.addUser = function (entity) {
+    this.saveUser = function (entity) {
         return $http.post('/admin/user/save', entity);
     };
     this.listUser = function (query) {

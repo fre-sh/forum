@@ -31,4 +31,7 @@ public interface MessageDAO extends JpaRepository<Message, Integer> {
             " group by conversation_id " +
             " order by created_date desc limit ?2, ?3", nativeQuery = true)
     List<Message> getConversationList(int userId, int offset, int limit);
+
+    void deleteAllByFromId(Integer fromId);
+    void deleteAllByToId(Integer fromId);
 }

@@ -135,9 +135,12 @@ public class UserService {
 
     public void delete(List<Integer> ids) {
         ids.forEach(questionDAO::deleteAllByUserId);
-//        ids.forEach(contentDAO::deleteAllByUserId);
-//        ids.forEach(commentDAO::deleteAllByUserId);
-//        ids.forEach(messageDAO::deleteAllByUserId);
+        ids.forEach(contentDAO::deleteAllByUserId);
+        ids.forEach(commentDAO::deleteAllByUserId);
+        ids.forEach(id -> {
+            messageDAO.deleteAllByFromId(id);
+            messageDAO.deleteAllByToId(id);
+        });
         userDAO.deleteByIdIn(ids);
     }
 

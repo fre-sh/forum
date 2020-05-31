@@ -3,7 +3,6 @@ app.controller("userController", function ($scope, $http, appService) {
     // 初始化
     layui.use(['form', 'dialog'], function () {
         let form = layui.form();
-        let dialog = layui.dialog
         form.render();
         // 监听添加按钮
         form.on('submit(addUser)', function (data) {
@@ -19,9 +18,6 @@ app.controller("userController", function ($scope, $http, appService) {
             let value = data.value;
             $scope.query.role = value !== "null" ? value : null;
             $scope.loadPage();
-            // console.log(data.elem); //得到select原始DOM对象
-            // console.log(data.value); //得到被选中的值
-            // console.log(data.othis); //得到美化后的DOM对象
         });
     });
 
@@ -113,11 +109,11 @@ app.controller("userController", function ($scope, $http, appService) {
         if ($scope.entity == null){
             return
         }
-        appService.addUser($scope.entity).success(function (res) {
+        appService.saveUser($scope.entity).success(function (res) {
             if (res.code === 0) {
                 var index = parent.layer.getFrameIndex(window.name); /* 先得到当前iframe层的索引 */
                 parent.layer.close(index); //成功再执行关闭
-                parent.layer.msg("添加成功", {
+                parent.layer.msg($scope.entity.id === null ? "添加成功" : "修改成功", {
                     icon: 6
                 });
             } else {
@@ -145,6 +141,7 @@ app.controller("userController", function ($scope, $http, appService) {
         appService.listUser($scope.query).success(function (res) {
             $scope.entityList = res.data.content;
             $scope.pageConf.totalItems = res.data.totalElements;
+            layui.form.render();
         });
     };
 
