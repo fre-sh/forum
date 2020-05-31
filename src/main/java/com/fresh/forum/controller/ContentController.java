@@ -76,11 +76,11 @@ public class ContentController {
 
         } else if (content.getContentType() == ContentType.article){
             model.addAttribute("content", content);
-            model.addAttribute("author", userService.getUser(content.getUserId()));
+            model.addAttribute("author", userService.getById(content.getUserId()));
             model.addAttribute("comments", commentService.getCommentsByEntity(content.getId(), EntityType.content).stream()
                     .map(comment ->
                             ViewObject.build("comment", comment)
-                            .set("user", userService.getUser(comment.getUserId()))
+                            .set("user", userService.getById(comment.getUserId()))
                     ).collect(Collectors.toList())
             );
             model.addAttribute("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.content, content.getId()));

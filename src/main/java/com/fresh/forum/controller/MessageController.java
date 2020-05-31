@@ -51,7 +51,7 @@ public class MessageController {
             ViewObject vo = new ViewObject();
             vo.set("message", message);
             int targetId = message.getFromId() == localUserId ? message.getToId() : message.getFromId();
-            vo.set("user", userService.getUser(targetId));
+            vo.set("user", userService.getById(targetId));
             vo.set("unread", messageService.getConversationUnreadCount(localUserId, message.getConversationId()));
             conversations.add(vo);
         }
@@ -69,11 +69,11 @@ public class MessageController {
                     .map(Integer::parseInt)
                     .filter(id -> id!=hostHolder.getUser().getId())
                     .findFirst().get();
-            User talker = userService.getUser(talkerId);
+            User talker = userService.getById(talkerId);
             for (Message message : messageList) {
                 ViewObject vo = new ViewObject();
                 vo.set("message", message);
-                User user = userService.getUser(message.getFromId());
+                User user = userService.getById(message.getFromId());
                 vo.set("user", user);
                 messages.add(vo);
             }

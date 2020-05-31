@@ -58,6 +58,9 @@ public class QuestionService {
         if (questionDAO.countByTitle(question.getTitle()) > 0) {
             throw new AppException("问题已存在");
         }
+        if (hostHolder.getUser() == null) {
+            throw new AppException("请先登录");
+        }
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
         // 敏感词过滤

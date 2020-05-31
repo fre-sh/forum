@@ -105,7 +105,7 @@ public class UserService {
         return ticket.getTicket();
     }
 
-    public User getUser(int id) {
+    public User getById(int id) {
         return userDAO.findById(id);
     }
 
@@ -125,5 +125,21 @@ public class UserService {
         // JPA 分页从0页开始
         return userDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize()));
 //        return userDAO.findAll(example);
+    }
+
+    public void delete(List<Integer> ids) {
+        userDAO.deleteByIdIn(ids);
+    }
+
+    public void update(User user) {
+        userDAO.save(user);
+    }
+
+    public void add(User user) {
+        user.setSalt(UUID.randomUUID().toString().substring(0, 5));
+        String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
+        user.setHeadUrl(head);
+        user.setPassword(WendaUtil.MD5(user.getPassword() + user.getSalt()));
+        userDAO.save(user);
     }
 }

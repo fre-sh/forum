@@ -1,5 +1,14 @@
 // 用户管理
 app.controller("userController", function ($scope, $http, appService) {
+    // 初始化
+    layui.use('form', function () {
+        let form = layui.form();
+        form.render();
+        form.on('submit(addUser)', function (data) {
+            $scope.add();
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
 
     $scope.test = function () {
         alert("测试");
@@ -7,9 +16,11 @@ app.controller("userController", function ($scope, $http, appService) {
 
     $scope.showEditData = function () {
         let i = localStorage.getItem('qId');
-        appService.getQuestion(i).success(function (res) {
-            $scope.entity = res.data;
-        });
+        if (i !== null) {
+            appService.getUser(i).success(function (res) {
+                $scope.entity = res.data;
+            });
+        }
     };
 
     $scope.delAll = function () {
@@ -18,7 +29,7 @@ app.controller("userController", function ($scope, $http, appService) {
             ids.push(parseInt($(this).prev("input").attr('data-id')));
         });
         console.log(ids);
-        appService.delQuestion(ids).success(function (res) {
+        appService.delUser(ids).success(function (res) {
             if (res.code === 0) {
                 layer.msg("删除成功", {
                     icon: 6
@@ -31,7 +42,7 @@ app.controller("userController", function ($scope, $http, appService) {
     };
 
     $scope.delOne = function (id) {
-        appService.delQuestion([id]).success(function (res) {
+        appService.delUser([id]).success(function (res) {
             if (res.code === 0) {
                 layer.msg("删除成功", {
                     icon: 6
@@ -44,13 +55,14 @@ app.controller("userController", function ($scope, $http, appService) {
     };
 
     $scope.showAddPage = function () {
+        localStorage.removeItem('qId');
         let w = '700px', h = '500px';
         var index = layer.open({
             type: 2,
-            title: '问题添加',
+            title: '用户添加',
             area: [w, h],
             fixed: false, //不固定
-            content: 'question-add.html',
+            content: 'user-add.html',
             end: function () {
                 $scope.loadPage();
             }
@@ -62,10 +74,10 @@ app.controller("userController", function ($scope, $http, appService) {
         let w = '700px', h = '500px';
         var index = layer.open({
             type: 2,
-            title: '问题编辑',
+            title: '用户编辑',
             area: [w, h],
             fixed: false, //不固定
-            content: 'question-add.html',
+            content: 'user-add.html',
             end: function () {
                 $scope.loadPage();
             }
@@ -76,15 +88,13 @@ app.controller("userController", function ($scope, $http, appService) {
         if ($scope.entity == null){
             return
         }
-        appService.addQuestion($scope.entity).success(function (res) {
+        appService.addUser($scope.entity).success(function (res) {
             if (res.code === 0) {
                 var index = parent.layer.getFrameIndex(window.name); /* 先得到当前iframe层的索引 */
-                // parent.layui.table.reload('educationReload',{page:{curr:1}}); //主页代码，第一个参数为： 父页面的表格属性 id名
                 parent.layer.close(index); //成功再执行关闭
                 parent.layer.msg("添加成功", {
                     icon: 6
                 });
-                // window.frames[iframeObjName].location.reload();
             } else {
                 layer.alert(res.msg);
             }

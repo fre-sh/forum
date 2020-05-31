@@ -50,7 +50,7 @@ public class ContentService {
         return contentList.stream()
                 .map(content -> ViewObject
                     .build("content", content)
-                    .set("user", userService.getUser(content.getUserId()))
+                    .set("user", userService.getById(content.getUserId()))
                     .set("userFanCnt", followService.getFollowerCount(EntityType.user, content.getUserId()))
                     .set("commentCnt", commentService.getCommentCount(content.getId(), EntityType.content))
                     .set("comments", commentService.getCommentsByEntity(content.getId(), EntityType.content))

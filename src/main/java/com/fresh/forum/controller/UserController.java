@@ -1,7 +1,6 @@
 package com.fresh.forum.controller;
 
 import com.fresh.forum.dto.*;
-import com.fresh.forum.model.Content;
 import com.fresh.forum.model.FollowRelation;
 import com.fresh.forum.model.ReadRecord;
 import com.fresh.forum.model.User;
@@ -12,13 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Controller
@@ -111,7 +107,7 @@ public class UserController {
         );
 
         model.addAttribute("followerCount", followService.getFollowerCount(EntityType.user, userId));
-        model.addAttribute("curUser", userService.getUser(userId));
+        model.addAttribute("curUser", userService.getById(userId));
         return "followers";
     }
 
@@ -122,7 +118,7 @@ public class UserController {
                 .collect(Collectors.toList());
         model.addAttribute("followees", getUsersInfo(hostHolder.getUser().getId(), userIds));
         model.addAttribute("followeeCount", followService.getFolloweeCount(userId, EntityType.user));
-        model.addAttribute("curUser", userService.getUser(userId));
+        model.addAttribute("curUser", userService.getById(userId));
         return "followees";
     }
 
@@ -153,7 +149,7 @@ public class UserController {
     private List<ViewObject> getUsersInfo(int localUserId, List<Integer> userIds) {
         List<ViewObject> userInfos = new ArrayList<>();
         for (Integer uid : userIds) {
-            User user = userService.getUser(uid);
+            User user = userService.getById(uid);
             if (user == null) {
                 continue;
             }

@@ -8,10 +8,7 @@ import com.fresh.forum.model.User;
 import com.fresh.forum.service.QuestionService;
 import com.fresh.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,27 @@ public class AdminController extends BaseController{
     @Autowired
     private QuestionService questionService;
 
+    @GetMapping("/user/{id}")
+    public ResponseTO getUser(@PathVariable Integer id) {
+        return success(userService.getById(id));
+    }
+
+    @RequestMapping("/user/delAll")
+    public ResponseTO delUser(@RequestBody List<Integer> ids) {
+        userService.delete(ids);
+        return success();
+    }
+
+    @RequestMapping("/user/save")
+    public ResponseTO saveUser(@RequestBody User user) {
+        if (user.getId() != null) {
+            userService.update(user);
+        } else {
+            userService.add(user);
+        }
+        return success();
+    }
+    
     @RequestMapping("/user/list")
     public ResponseTO listUser(@RequestBody Query query) {
         return success(userService.listByQuery(query));
@@ -31,18 +49,18 @@ public class AdminController extends BaseController{
 
 
     @RequestMapping("/question/{id}")
-    public ResponseTO listQuestion(@PathVariable Integer id) {
+    public ResponseTO getQuestion(@PathVariable Integer id) {
         return success(questionService.getById(id));
     }
 
     @RequestMapping("/question/delAll")
-    public ResponseTO listQuestion(@RequestBody List<Integer> ids) {
+    public ResponseTO delQuestion(@RequestBody List<Integer> ids) {
         questionService.delete(ids);
         return success();
     }
 
     @RequestMapping("/question/add")
-    public ResponseTO listQuestion(@RequestBody Question question) {
+    public ResponseTO saveQuestion(@RequestBody Question question) {
         if (question.getId() != null) {
             questionService.update(question);
         } else {

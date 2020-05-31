@@ -61,7 +61,7 @@ public class HomeController {
     public String userIndex(Model model, @PathVariable("userId") int userId) {
         model.addAttribute("vos", getQuestions(userId, 0, 20));
 
-        User user = userService.getUser(userId);
+        User user = userService.getById(userId);
         ViewObject vo = new ViewObject();
         vo.set("user", user);
         vo.set("answerCnt", contentService.countAnswer(userId));
@@ -92,7 +92,7 @@ public class HomeController {
             ViewObject vo = new ViewObject();
             vo.set("question", question);
             vo.set("followCount", followService.getFollowerCount(EntityType.question, question.getId()));
-            vo.set("user", userService.getUser(question.getUser().getId()));
+            vo.set("user", userService.getById(question.getUser().getId()));
             vos.add(vo);
         }
         return vos;

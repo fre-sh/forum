@@ -2,7 +2,6 @@ package com.fresh.forum.controller;
 
 import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.model.User;
-import com.fresh.forum.util.AppException;
 import com.fresh.forum.dto.EntityType;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.ViewObject;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,12 +82,12 @@ public class QuestionController {
         model.addAttribute("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.question, qid));
 
         List<User> followers = followService.getFollowers(EntityType.question, qid).stream()
-                .map(follower -> userService.getUser(follower.getUserId())
+                .map(follower -> userService.getById(follower.getUserId())
                 ).collect(Collectors.toList());
 
         List<ViewObject> vos = contentService.listAnswer(question.getTitle()).stream()
                 .map(answer -> ViewObject.build("answer", answer)
-                        .set("user", userService.getUser(answer.getUserId()))
+                        .set("user", userService.getById(answer.getUserId()))
                         .set("comments", commentService.getCommentsByEntity(answer.getId(), EntityType.content))
                         .set("isFollow", followService.isFollower(hostHolder.getUser().getId(), EntityType.content, answer.getId()))
                 ).collect(Collectors.toList());
