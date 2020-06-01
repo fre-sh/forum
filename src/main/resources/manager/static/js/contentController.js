@@ -1,6 +1,9 @@
 // 内容管理
 app.controller("contentController", function ($scope, $http, appService) {
 
+    /**
+     * 添加页面初始化
+     */
     $scope.initArticle = function () {
         $scope.query = {};
         $scope.entity = {id:null, contentType:'article'};
@@ -13,6 +16,16 @@ app.controller("contentController", function ($scope, $http, appService) {
         $scope.entity = {id:null, contentType:'answer'};
         // $scope.refreshSelect();
         $scope.showEditData();
+    };
+
+    /**
+     * 列表页面初始化
+     */
+    $scope.initArticleList = function () {
+        del_msg += '文章';
+    };
+    $scope.initAnswerList = function () {
+        del_msg += '回答';
     };
 
 // 初始化
@@ -63,7 +76,7 @@ app.controller("contentController", function ($scope, $http, appService) {
         }
     };
 
-    const del_msg = '确定要删除内容';
+    let del_msg = '确定要删除';
     $scope.delAll = function () {
         layui.dialog.confirm({
             message: del_msg,

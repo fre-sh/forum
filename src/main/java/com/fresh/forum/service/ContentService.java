@@ -121,10 +121,12 @@ public class ContentService {
 
     public Page<Content> listByQuery(Query query) {
         Content tmp = new Content();
-        tmp.setTitle(query.getKw());
+        tmp.setTitle(query.getTitle());
+        tmp.setContent(query.getKw());
         tmp.setStatus(query.getStatus());
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("content", ExampleMatcher.GenericPropertyMatchers.contains());
         Example<Content> example = Example.of(tmp, matcher);
 
         Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
@@ -134,7 +136,7 @@ public class ContentService {
 
     public List<Content> allByQuery(Query query) {
         Content tmp = new Content();
-        tmp.setTitle(query.getKw());
+        tmp.setTitle(query.getTitle());
         tmp.setContentType(query.getContentType());
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains());

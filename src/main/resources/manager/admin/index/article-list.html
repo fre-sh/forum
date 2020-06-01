@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body ng-app="admin" ng-controller="contentController">
+	<body ng-app="admin" ng-controller="contentController" ng-init="initArticleList()">
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
 					<form class="layui-form" action="">
@@ -22,18 +22,10 @@
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
 							<div class="layui-inline">
-								<select ng-model="query.contentType" name="states" lay-filter="status">
-									<option value="">请选择评论类型</option>
-									<option value="null">所有</option>
-									<option value="answer">回答</option>
-									<option value="article">文章</option>
-								</select>
+								<input type="text" name="title" ng-model="query.title" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.kw" placeholder="请输入评论内容" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.title" placeholder="请输入评论对象" autocomplete="off" class="layui-input">
+								<input type="text" name="title" ng-model="query.kw" placeholder="请输入文章内容" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" ng-click="loadPage()">搜索</button>
 						</div>
