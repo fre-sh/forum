@@ -4,6 +4,7 @@ import com.fresh.forum.dao.UserDAO;
 import com.fresh.forum.dto.*;
 import com.fresh.forum.model.*;
 import com.fresh.forum.service.*;
+import org.apache.catalina.Host;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,8 @@ public class AdminController extends BaseController{
     private MessageService messageService;
     @Autowired
     UserDAO userDAO;
+    @Autowired
+    HostHolder hostHolder;
 
     // 消息管理
     @GetMapping("/message/{id}")
@@ -140,7 +143,12 @@ public class AdminController extends BaseController{
     // 用户管理
     @GetMapping("/user/{id}")
     public ResponseTO getUser(@PathVariable Integer id) {
+
         return success(userService.getById(id));
+    }
+    @GetMapping("/user/cur")
+    public ResponseTO getCurUser() {
+        return success(hostHolder.getUser());
     }
 
     @RequestMapping("/user/delAll")

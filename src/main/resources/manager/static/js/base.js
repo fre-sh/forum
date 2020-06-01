@@ -61,6 +61,9 @@ const appService = app.service("appService", function ($http) {
      * @param id
      * @returns {*}
      */
+    this.getCurUser = function () {
+        return $http.get('/admin/user/cur');
+    };
     this.getUser = function (id) {
         return $http.get('/admin/user/' + id);
     };
