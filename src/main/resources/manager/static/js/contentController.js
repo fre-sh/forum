@@ -5,14 +5,12 @@ app.controller("contentController", function ($scope, $http, appService) {
      * 添加页面初始化
      */
     $scope.initArticle = function () {
-        $scope.query = {};
         $scope.entity = {id:null, contentType:'article'};
         // $scope.refreshSelect();
         $scope.showEditData();
     };
 
     $scope.initAnswer = function () {
-        $scope.query = {};
         $scope.entity = {id:null, contentType:'answer'};
         // $scope.refreshSelect();
         $scope.showEditData();
@@ -22,9 +20,11 @@ app.controller("contentController", function ($scope, $http, appService) {
      * 列表页面初始化
      */
     $scope.initArticleList = function () {
+        $scope.query = {contentType:'article'};
         del_msg += '文章';
     };
     $scope.initAnswerList = function () {
+        $scope.query = {contentType:'answer'};
         del_msg += '回答';
     };
 

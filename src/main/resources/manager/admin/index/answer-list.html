@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body ng-app="admin" ng-controller="contentController" ng-init="initArticleList()">
+	<body ng-app="admin" ng-controller="contentController" ng-init="initAnswerList()">
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
 					<form class="layui-form" action="">
@@ -22,10 +22,10 @@
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.title" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+								<input type="text" name="title" ng-model="query.title" placeholder="请输入对应的问题" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.kw" placeholder="请输入文章内容" autocomplete="off" class="layui-input">
+								<input type="text" name="title" ng-model="query.kw" placeholder="请输入回答内容" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" ng-click="loadPage()">搜索</button>
 						</div>
@@ -37,8 +37,8 @@
 								<!-- 内容：标题，[类型（文章/回答）]，内容，发布用户，时间，评论数 -->
 								<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
 								<th>ID</th>
-								<th>文章标题</th>
-								<th>内容</th>
+								<th>回答问题</th>
+								<th>回答内容</th>
 								<th>发布用户</th>
 								<!--<th>发布时间</th>-->
 								<th>更新时间</th>
@@ -60,7 +60,7 @@
 								<td>{{e.commentCnt}}</td>
 								<td>
 									<div class="layui-inline">
-										<button ng-click="showEditPage(e.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
+										<button ng-click="showEditPage(e.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="answer-detail.html"><i class="layui-icon">&#xe642;</i></button>
 										<button ng-click="delOne(e.id)" class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="1"><i class="layui-icon">&#xe640;</i></button>
 									</div>
 								</td>
