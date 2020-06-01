@@ -1,7 +1,6 @@
 package com.fresh.forum.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fresh.forum.model.Content;
 
 /**
  * 用于管理页面查询
@@ -36,23 +35,23 @@ public class Query {
     private String title;
 
     // 消息用户
-    private Integer fromUId;
-    private Integer toUId;
+    private Integer fromId;
+    private Integer toId;
 
-    public Integer getFromUId() {
-        return fromUId;
+    public Integer getFromId() {
+        return fromId;
     }
 
-    public void setFromUId(Integer fromUId) {
-        this.fromUId = fromUId;
+    public void setFromId(Integer fromId) {
+        this.fromId = fromId;
     }
 
-    public Integer getToUId() {
-        return toUId;
+    public Integer getToId() {
+        return toId;
     }
 
-    public void setToUId(Integer toUId) {
-        this.toUId = toUId;
+    public void setToId(Integer toId) {
+        this.toId = toId;
     }
 
     public String getTitle() {

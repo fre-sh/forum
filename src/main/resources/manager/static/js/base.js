@@ -2,6 +2,24 @@ const app = angular.module("admin", ["pagination"]);
 const appService = app.service("appService", function ($http) {
 
     /**
+     * 消息管理
+     * @param id
+     * @returns {*}
+     */
+    this.getMessage = function (id) {
+        return $http.get('/admin/message/' + id);
+    };
+    this.delMessage = function (ids) {
+        return $http.post('/admin/message/delAll', ids);
+    };
+    this.saveMessage = function (entity) {
+        return $http.post('/admin/message/save', entity);
+    };
+    this.listMessage = function (query) {
+        return $http.post('/admin/message/list', query);
+    };
+
+    /**
      * 内容管理
      */
     this.getContent = function (id) {
@@ -54,6 +72,9 @@ const appService = app.service("appService", function ($http) {
     };
     this.listUser = function (query) {
         return $http.post('/admin/user/list', query);
+    };
+    this.allUser = function (query) {
+        return $http.post('/admin/user/all', query);
     };
 
     /**

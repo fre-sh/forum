@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body ng-app="admin" ng-controller="commentController">
+	<body ng-app="admin" ng-controller="messageController" ng-init="refreshSelect()">
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
 					<form class="layui-form" action="">
@@ -22,18 +22,19 @@
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
 							<div class="layui-inline">
-								<select ng-model="query.contentType" name="states" lay-filter="status">
-									<option value="">请选择评论类型</option>
-									<option value="null">所有</option>
-									<option value="answer">回答</option>
-									<option value="article">文章</option>
+								<select ng-model="query.fromId" name="states" lay-filter="fromUser" lay-search>
+									<option value="">发送用户</option>
+									<option ng-repeat="op in users" value="{{op.id}}">{{op.name}}</option>
 								</select>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.kw" placeholder="请输入评论内容" autocomplete="off" class="layui-input">
+								<select ng-model="query.toId" name="states" lay-filter="toUser" lay-search>
+									<option value="">接收用户</option>
+									<option ng-repeat="op in users" value="{{op.id}}">{{op.name}}</option>
+								</select>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" ng-model="query.title" placeholder="请输入评论对象" autocomplete="off" class="layui-input">
+								<input type="text" name="title" ng-model="query.kw" placeholder="请输入消息标题" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" ng-click="loadPage()">搜索</button>
 						</div>
@@ -42,13 +43,12 @@
 						<table class="layui-table" lay-even lay-skin="nob">
 							<thead>
 							<tr>
-								<!-- 评论：内容，发布用户，评论对象-->
+								<!-- 消息：发送用户，接收用户，内容 -->
 								<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
 								<th>ID</th>
-								<th>发布用户</th>
 								<th>内容</th>
-								<th>评论类型</th>
-								<th>评论对象</th>
+								<th>发送用户</th>
+								<th>接收用户</th>
 								<th>发布时间</th>
 								<th>操作</th>
 							</tr>
@@ -59,14 +59,10 @@
 									<div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
 								</td>
 								<td>{{e.id}}</td>
-								<td>{{e.user.name}}</td>
-								<td><div style="width: 320px">{{e.content}}</div></td>
-								<td>{{e.entity.contentType == "article" ? "文章" : "回答"}}</td>
-								<td><div style="width: 320px">{{e.entity.title}}{{e.entity.contentType == "answer" ? '[id=' + e.entity.id + ']' : ""}}</div></td>
+								<td>{{e.content}}</td>
+								<td>{{e.fromUser.name}}</td>
+								<td>{{e.toUser.name}}</td>
 								<td class="hidden-xs">{{e.createTime}}</td>
-								<td ng-if="e.role == 'normal'"><button class="layui-btn layui-btn-mini layui-btn-normal">用户</button></td>
-								<td ng-if="e.role == 'admin'"><button class="layui-btn layui-btn-mini layui-btn-warm">管理员</button></td>
-								<td ng-if="e.role == 'supAdmin'"><button class="layui-btn layui-btn-mini layui-btn-danger">超级管理员</button></td>
 								<td>
 									<div class="layui-inline">
 										<button ng-click="showEditPage(e.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
@@ -86,7 +82,7 @@
 		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/commentController.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/messageController.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

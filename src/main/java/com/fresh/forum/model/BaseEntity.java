@@ -25,6 +25,14 @@ public class BaseEntity {
 
   private Date updatedDate;
 
+  public BaseEntity() {
+
+  }
+
+  public BaseEntity(Integer id) {
+    this.id = id;
+  }
+
   public String getCreateTime() {
     return DateUtil.format(createdDate);
   }

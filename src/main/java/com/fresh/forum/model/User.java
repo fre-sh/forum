@@ -20,6 +20,10 @@ public class User  extends BaseEntity{
 
     }
 
+    public User(Integer id) {
+        super(id);
+    }
+
     public User(String name) {
         this.name = name;
         this.password = "";

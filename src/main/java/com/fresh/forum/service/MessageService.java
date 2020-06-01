@@ -1,16 +1,17 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dao.UserDAO;
 import com.fresh.forum.dto.HostHolder;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Message;
 import com.fresh.forum.dao.MessageDAO;
-import com.fresh.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,16 +24,18 @@ public class MessageService {
     SensitiveService sensitiveService;
     @Autowired
     HostHolder hostHolder;
+    @Autowired
+    UserDAO userDAO;
 
     public int countUnRead(int fromUser, int toUser) {
-        return messageDAO.countByFromIdAndToIdAndHasReadIsFalse(fromUser, toUser);
+        return messageDAO.countByFromUserIdAndToUserIdAndHasReadIsFalse(fromUser, toUser);
     }
 
     public void add(Message message) {
-        message.setFromId(hostHolder.getUser().getId());
+        message.setFromUser(hostHolder.getUser());
         message.setConversationId(String.format("%d_%d",
-                Math.min(message.getFromId(), message.getToId()),
-                Math.max(message.getFromId(), message.getToId())
+                Math.min(message.getFromUser().getId(), message.getToUser().getId()),
+                Math.max(message.getFromUser().getId(), message.getToUser().getId())
         ));
         message.setContent(sensitiveService.filter(message.getContent()));
         messageDAO.save(message);
@@ -66,11 +69,11 @@ public class MessageService {
     }
 
     public int getConversationUnreadCount(int userId, String conversationId) {
-        return messageDAO.countByToIdAndConversationIdAndHasReadIsFalse(userId, conversationId);
+        return messageDAO.countByToUserIdAndConversationIdAndHasReadIsFalse(userId, conversationId);
     }
 
     public void hasRead(String conversationId, int receiveUser) {
-        messageDAO.findByConversationIdAndToId(conversationId, receiveUser).forEach(e -> e.setHasRead(true));
+        messageDAO.findByConversationIdAndToUserId(conversationId, receiveUser).forEach(e -> e.setHasRead(true));
     }
 
     public Message getById(Integer id) {
@@ -89,10 +92,15 @@ public class MessageService {
         Message tmp = new Message();
         tmp.setContent(query.getKw());
         tmp.setStatus(query.getStatus());
-        tmp.setFromId(query.getFromUId());
-        tmp.setToId(query.getToUId());
+        if (query.getFromId() != null) {
+            tmp.setFromUser(userDAO.findById(query.getFromId()));
+        }
+        if (query.getToId() != null) {
+            tmp.setToUser(Optional.ofNullable(userDAO.findById(query.getToId())).orElse(null));
+        }
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("content", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("content", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withIgnorePaths("hasRead");
         Example<Message> example = Example.of(tmp, matcher);
 
         Sort sort = new Sort(Sort.Direction.DESC, "createdDate");

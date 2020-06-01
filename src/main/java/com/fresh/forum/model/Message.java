@@ -7,26 +7,30 @@ import java.util.Date;
 @Entity
 public class Message extends BaseEntity {
 
-    private Integer fromId;
-    private Integer toId;
+    @ManyToOne
+    @JoinColumn(name = "from_id")
+    private User fromUser;
+    @ManyToOne
+    @JoinColumn(name = "to_id")
+    private User toUser;
     private String content;
     private boolean hasRead;
     private String conversationId;
 
-    public Integer getFromId() {
-        return fromId;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setFromId(Integer fromId) {
-        this.fromId = fromId;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public Integer getToId() {
-        return toId;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setToId(Integer toId) {
-        this.toId = toId;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public String getContent() {

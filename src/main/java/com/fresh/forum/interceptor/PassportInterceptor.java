@@ -66,7 +66,7 @@ public class PassportInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         if (modelAndView != null && hostHolder.getUser() != null) {
             modelAndView.addObject("user", hostHolder.getUser());
-            modelAndView.addObject("unReadCnt", messageDAO.countByToIdAndHasReadIsFalse(hostHolder.getUser().getId()));
+            modelAndView.addObject("unReadCnt", messageDAO.countByToUserIdAndHasReadIsFalse(hostHolder.getUser().getId()));
         }
     }
 

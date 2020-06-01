@@ -50,7 +50,7 @@ public class MessageController {
         for (Message message : conversationList) {
             ViewObject vo = new ViewObject();
             vo.set("message", message);
-            int targetId = message.getFromId() == localUserId ? message.getToId() : message.getFromId();
+            int targetId = message.getFromUser().getId() == localUserId ? message.getToUser().getId() : message.getFromUser().getId();
             vo.set("user", userService.getById(targetId));
             vo.set("unread", messageService.getConversationUnreadCount(localUserId, message.getConversationId()));
             conversations.add(vo);
@@ -73,7 +73,7 @@ public class MessageController {
             for (Message message : messageList) {
                 ViewObject vo = new ViewObject();
                 vo.set("message", message);
-                User user = userService.getById(message.getFromId());
+                User user = message.getFromUser();
                 vo.set("user", user);
                 messages.add(vo);
             }
@@ -101,11 +101,11 @@ public class MessageController {
 
             Message message = new Message();
             message.setCreatedDate(new Date());
-            message.setFromId(hostHolder.getUser().getId());
-            message.setToId(user.getId());
+            message.setFromUser(hostHolder.getUser());
+            message.setToUser(user);
             message.setConversationId(String.format("%d_%d",
-                    Math.min(message.getFromId(), message.getToId()),
-                    Math.max(message.getFromId(), message.getToId())
+                    Math.min(message.getFromUser().getId(), message.getToUser().getId()),
+                    Math.max(message.getFromUser().getId(), message.getToUser().getId())
             ));
             message.setContent(content);
             messageService.add(message);
@@ -132,12 +132,12 @@ public class MessageController {
             }
 
             Message message = new Message();
-            message.setFromId(hostHolder.getUser().getId());
-            message.setToId(user.getId());
+            message.setFromUser(hostHolder.getUser());
+            message.setToUser(user);
             message.setContent(content);
             message.setConversationId(String.format("%d_%d",
-                    Math.min(message.getFromId(), message.getToId()),
-                    Math.max(message.getFromId(), message.getToId())
+                    Math.min(message.getFromUser().getId(), message.getToUser().getId()),
+                    Math.max(message.getFromUser().getId(), message.getToUser().getId())
             ));
             messageService.add(message);
             return WendaUtil.getJSONString(0);

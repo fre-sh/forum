@@ -156,6 +156,11 @@ public class AdminController extends BaseController{
         return success(userService.listByQuery(query));
     }
 
+    @RequestMapping("/user/all")
+    public ResponseTO allUser(@RequestBody Query query) {
+        return success(userService.allByQuery(query));
+    }
+
 
     @RequestMapping("/question/{id}")
     public ResponseTO getQuestion(@PathVariable Integer id) {

@@ -143,8 +143,8 @@ public class UserService {
         ids.forEach(contentDAO::deleteAllByUserId);
         ids.forEach(commentDAO::deleteAllByUserId);
         ids.forEach(id -> {
-            messageDAO.deleteAllByFromId(id);
-            messageDAO.deleteAllByToId(id);
+            messageDAO.deleteAllByFromUserId(id);
+            messageDAO.deleteAllByToUserId(id);
         });
         userDAO.deleteByIdIn(ids);
     }
@@ -162,5 +162,17 @@ public class UserService {
 
         CountRecord countRecord = adminService.getCountRecord(new Date());
         countRecord.setUserCnt(countRecord.getUserCnt() + 1);
+    }
+
+    public List<User> allByQuery(Query query) {
+        User tmp = new User();
+        tmp.setName(query.getKw());
+        tmp.setStatus(query.getStatus());
+        tmp.setRole(query.getRole());
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<User> example = Example.of(tmp, matcher);
+
+        return userDAO.findAll(example);
     }
 }
