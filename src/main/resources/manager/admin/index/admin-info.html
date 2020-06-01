@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/layui/css/layui.css"/>
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css"/>
 	</head>
-	<body>
+	<body ng-app="admin" ng-controller="indexController">
 		<div class="layui-tab page-content-wrap">
 		  <ul class="layui-tab-title">
 		    <li class="layui-this">修改资料</li>
@@ -21,36 +21,31 @@
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">ID：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="id" disabled autocomplete="off" class="layui-input layui-disabled" value="1">
+				      <input type="text" name="id" disabled autocomplete="off" class="layui-input layui-disabled" ng-model="user.id">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">用户名：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
-				    </div>
-				  </div>
-				   <div class="layui-form-item">
-				    <label class="layui-form-label">姓名：</label>
-				    <div class="layui-input-block">
-				      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+				      <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" ng-model="user.name">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">邮箱：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="email" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="5303588521@qq.com">
+				      <input type="text" name="email" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"
+							 ng-model="user.email">
 				    </div>
 				  </div>
 				  <div class="layui-form-item layui-form-text">
-				    <label class="layui-form-label">备注：</label>
+				    <label class="layui-form-label">介绍：</label>
 				    <div class="layui-input-block">
-				      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+				      <textarea name="desc" placeholder="请输入内容" class="layui-textarea" ng-model="user.description"></textarea>
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminInfo">立即提交</button>
+				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="commit" ng-click="save()">立即提交</button>
 				    </div>
 				  </div>
 				</form>
@@ -60,30 +55,30 @@
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">用户名：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
+				      <input ng-model="user.name" type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">旧密码：</label>
 				    <div class="layui-input-block">
-				      <input type="password" name="password1" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				      <input ng-model="oldPass" type="password" name="password1" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
-				    <label class="layui-form-label">新密码：</label>
+				    <label  class="layui-form-label">新密码：</label>
 				    <div class="layui-input-block">
-				      <input type="password" name="password2" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				      <input ng-model="newPass" type="password" name="password2" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
-				    <label class="layui-form-label">重复密码：</label>
+				    <label  class="layui-form-label">重复密码：</label>
 				    <div class="layui-input-block">
-				      <input type="password" name="password3" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				      <input ng-model="newPass2" type="password" name="password3" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminPassword">立即提交</button>
+				      <button class="layui-btn layui-btn-normal" lay-submit ng-click="updatePass()">立即提交</button>
 				    </div>
 				  </div>
 				</form>
@@ -109,5 +104,9 @@
 		  });
 		});
 	</script>
+	<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/js/indexController.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>

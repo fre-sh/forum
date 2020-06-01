@@ -4,6 +4,7 @@ import com.fresh.forum.dao.*;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.dto.UserRole;
 import com.fresh.forum.model.*;
+import com.fresh.forum.util.AppException;
 import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -176,5 +177,15 @@ public class UserService {
         Example<User> example = Example.of(tmp, matcher);
 
         return userDAO.findAll(example);
+    }
+
+    public User updatePass(Integer uId, String oldPass, String newPass) {
+        User user = userDAO.findById(uId);
+        if (!Objects.equals(WendaUtil.MD5(oldPass + user.getSalt()), user.getPassword())) {
+            throw new AppException("原密码不正确");
+        }
+        user.setPassword(WendaUtil.MD5(newPass + user.getSalt()));
+        userDAO.save(user);
+        return user;
     }
 }

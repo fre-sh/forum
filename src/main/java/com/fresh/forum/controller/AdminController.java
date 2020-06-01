@@ -166,7 +166,12 @@ public class AdminController extends BaseController{
         }
         return success();
     }
-    
+
+    @RequestMapping("/user/updatePass")
+    public ResponseTO updatePass(@RequestBody UpdatePassTo to) {
+        return success(userService.updatePass(to.getId(), to.getOldPass(), to.getNewPass()));
+    }
+
     @RequestMapping("/user/list")
     public ResponseTO listUser(@RequestBody Query query) {
         return success(userService.listByQuery(query));
