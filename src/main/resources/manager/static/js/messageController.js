@@ -2,11 +2,11 @@
 app.controller("messageController", function ($scope, $http, appService) {
 
     /**
-     * 添加/修改页面初始化
+     * 修改页面初始化
      */
+    $scope.query = {};
     $scope.init = function () {
-        $scope.query = {};
-        $scope.entity = {fromUser:{id:null}, toUser:{id:null}};
+        $scope.entity = {id:null, fromUser:{id:null}, toUser:{id:null}};
         $scope.refreshSelect();
         $scope.showEditData();
     };
