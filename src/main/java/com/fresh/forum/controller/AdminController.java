@@ -4,10 +4,7 @@ import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.dto.ResponseTO;
 import com.fresh.forum.dto.UserRole;
-import com.fresh.forum.model.Comment;
-import com.fresh.forum.model.Content;
-import com.fresh.forum.model.Question;
-import com.fresh.forum.model.User;
+import com.fresh.forum.model.*;
 import com.fresh.forum.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +25,41 @@ public class AdminController extends BaseController{
     ContentService contentService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private MessageService messageService;
 
+    // 消息管理
+    @GetMapping("/message/{id}")
+    public ResponseTO getMessage(@PathVariable Integer id) {
+        return success(messageService.getById(id));
+    }
+
+    @RequestMapping("/message/delAll")
+    public ResponseTO delMessage(@RequestBody List<Integer> ids) {
+        messageService.delete(ids);
+        return success();
+    }
+
+    @RequestMapping("/message/save")
+    public ResponseTO saveMessage(@RequestBody Message message) {
+        if (message.getId() != null) {
+            messageService.update(message);
+        } else {
+            messageService.add(message);
+        }
+        return success();
+    }
+
+    @RequestMapping("/message/list")
+    public ResponseTO listMessage(@RequestBody Query query) {
+        return success(messageService.listByQuery(query));
+    }
+
+    /**
+     * 内容管理
+     * @param id
+     * @return
+     */
     @GetMapping("/content/{id}")
     public ResponseTO getContent(@PathVariable Integer id) {
         return success(contentService.getById(id));

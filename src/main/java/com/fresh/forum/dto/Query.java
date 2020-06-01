@@ -35,6 +35,26 @@ public class Query {
 
     private String title;
 
+    // 消息用户
+    private Integer fromUId;
+    private Integer toUId;
+
+    public Integer getFromUId() {
+        return fromUId;
+    }
+
+    public void setFromUId(Integer fromUId) {
+        this.fromUId = fromUId;
+    }
+
+    public Integer getToUId() {
+        return toUId;
+    }
+
+    public void setToUId(Integer toUId) {
+        this.toUId = toUId;
+    }
+
     public String getTitle() {
         return title;
     }

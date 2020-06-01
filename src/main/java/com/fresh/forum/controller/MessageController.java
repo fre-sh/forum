@@ -108,7 +108,7 @@ public class MessageController {
                     Math.max(message.getFromId(), message.getToId())
             ));
             message.setContent(content);
-            messageService.addMessage(message);
+            messageService.add(message);
             return "redirect:/msg/detail/" + message.getConversationId();
 
         } catch (Exception e) {
@@ -132,7 +132,6 @@ public class MessageController {
             }
 
             Message message = new Message();
-            message.setCreatedDate(new Date());
             message.setFromId(hostHolder.getUser().getId());
             message.setToId(user.getId());
             message.setContent(content);
@@ -140,7 +139,7 @@ public class MessageController {
                     Math.min(message.getFromId(), message.getToId()),
                     Math.max(message.getFromId(), message.getToId())
             ));
-            messageService.addMessage(message);
+            messageService.add(message);
             return WendaUtil.getJSONString(0);
 
         } catch (Exception e) {

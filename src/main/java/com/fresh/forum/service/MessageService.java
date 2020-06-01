@@ -1,8 +1,12 @@
 package com.fresh.forum.service;
 
+import com.fresh.forum.dto.HostHolder;
+import com.fresh.forum.dto.Query;
 import com.fresh.forum.model.Message;
 import com.fresh.forum.dao.MessageDAO;
+import com.fresh.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,12 +21,19 @@ public class MessageService {
 
     @Autowired
     SensitiveService sensitiveService;
+    @Autowired
+    HostHolder hostHolder;
 
     public int countUnRead(int fromUser, int toUser) {
         return messageDAO.countByFromIdAndToIdAndHasReadIsFalse(fromUser, toUser);
     }
 
-    public void addMessage(Message message) {
+    public void add(Message message) {
+        message.setFromId(hostHolder.getUser().getId());
+        message.setConversationId(String.format("%d_%d",
+                Math.min(message.getFromId(), message.getToId()),
+                Math.max(message.getFromId(), message.getToId())
+        ));
         message.setContent(sensitiveService.filter(message.getContent()));
         messageDAO.save(message);
     }
@@ -60,5 +71,32 @@ public class MessageService {
 
     public void hasRead(String conversationId, int receiveUser) {
         messageDAO.findByConversationIdAndToId(conversationId, receiveUser).forEach(e -> e.setHasRead(true));
+    }
+
+    public Message getById(Integer id) {
+        return messageDAO.findById(id);
+    }
+
+    public void delete(List<Integer> ids) {
+        messageDAO.deleteAllByIdIn(ids);
+    }
+
+    public void update(Message message) {
+        messageDAO.save(message);
+    }
+
+    public Page<Message> listByQuery(Query query) {
+        Message tmp = new Message();
+        tmp.setContent(query.getKw());
+        tmp.setStatus(query.getStatus());
+        tmp.setFromId(query.getFromUId());
+        tmp.setToId(query.getToUId());
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("content", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Message> example = Example.of(tmp, matcher);
+
+        Sort sort = new Sort(Sort.Direction.DESC, "createdDate");
+        // JPA 分页从0页开始
+        return messageDAO.findAll(example, new PageRequest(query.getCurPage() - 1, query.getPageSize(), sort));
     }
 }

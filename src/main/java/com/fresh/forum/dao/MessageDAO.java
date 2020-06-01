@@ -34,4 +34,8 @@ public interface MessageDAO extends JpaRepository<Message, Integer> {
 
     void deleteAllByFromId(Integer fromId);
     void deleteAllByToId(Integer fromId);
+
+    Message findById(Integer id);
+
+    void deleteAllByIdIn(List<Integer> ids);
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author guowenyu
  * @date 2020/5/31
  */
-@Component
+//@Component
 public class AdminTask {
 
     @Autowired
@@ -29,7 +29,7 @@ public class AdminTask {
     @Autowired
     private ContentDAO contentDAO;
 
-    @Scheduled(initialDelay = 100000, fixedDelay = 3600 * 24)
+//    @Scheduled(initialDelay = 100000, fixedDelay = 3600 * 24)
     public void saveCntRecord() {
         String today = DateUtil.format(new Date());
         Optional<CountRecord> optional = countRecordDAO.findAll().stream()
