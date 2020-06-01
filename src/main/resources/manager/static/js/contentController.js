@@ -1,9 +1,16 @@
 // 内容管理
 app.controller("contentController", function ($scope, $http, appService) {
 
-    $scope.init = function () {
+    $scope.initArticle = function () {
         $scope.query = {};
-        $scope.entity = {entity:{id:null}};
+        $scope.entity = {id:null, contentType:'article'};
+        // $scope.refreshSelect();
+        $scope.showEditData();
+    };
+
+    $scope.initAnswer = function () {
+        $scope.query = {};
+        $scope.entity = {id:null, contentType:'answer'};
         // $scope.refreshSelect();
         $scope.showEditData();
     };
@@ -112,6 +119,7 @@ app.controller("contentController", function ($scope, $http, appService) {
         if ($scope.entity == null){
             return
         }
+        $scope.entity.content = editor.txt.html();
         appService.saveContent($scope.entity).success(function (res) {
             if (res.code === 0) {
                 var index = parent.layer.getFrameIndex(window.name); /* 先得到当前iframe层的索引 */
@@ -119,6 +127,7 @@ app.controller("contentController", function ($scope, $http, appService) {
                 parent.layer.msg($scope.entity.id === null ? "添加成功" : "修改成功", {
                     icon: 6
                 });
+                location.href = '/admin/index/article-list.html';
             } else {
                 layer.alert(res.msg);
             }

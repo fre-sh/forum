@@ -108,6 +108,7 @@ public class ContentService {
     public void add(Content content) {
         content.setContent(sensitiveService.filter(content.getContent()));
         content.setUserId(hostHolder.getUser().getId());
+        content.setCommentCnt(0);
         if (content.getContentType() == ContentType.answer) {
             Question question = questionDAO.findByTitle(content.getTitle());
             question.setAnswerCount(question.getAnswerCount() + 1);

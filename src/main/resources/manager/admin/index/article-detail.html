@@ -11,12 +11,12 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body ng-app="admin" ng-controller="contentController" ng-init="init()">
+	<body ng-app="admin" ng-controller="contentController" ng-init="initArticle()">
 		<div class="page-content-wrap">
 				<form class="layui-form">
 					<div class="layui-tab" style="margin: 0;">
 						<ul class="layui-tab-title">
-							<li><a href="content-list.html">文章列表</a></li>
+							<li><a href="article-list.html">文章列表</a></li>
 							<li class="layui-this">文章详情</li>
 							
 						</ul>
@@ -24,55 +24,24 @@
 							<div class="layui-tab-item"></div>
 							<div class="layui-tab-item layui-show">
 								<div class="layui-form-item">
-									<label class="layui-form-label">文章名称：</label>
+									<label class="layui-form-label">文章标题：</label>
 									<div class="layui-input-block">
 										<input ng-model="entity.title" type="text" name="name" required lay-verify="required" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
 									</div>
 								</div>
-								<div class="layui-form-item">
+								<!--<div class="layui-form-item">
 									<label class="layui-form-label">标签：</label>
 									<div class="layui-input-block">
 										<input type="checkbox" name="label[tj]" title="推荐" checked>
 										<input type="checkbox" name="label[zd]" title="置顶">
 										<input type="checkbox" name="label[hot]" title="热门">
 									</div>
-								</div>
-								<div id="wang"></div>
+								</div>-->
 								<div class="layui-form-item layui-form-text">
 									<label class="layui-form-label">文章内容：</label>
 									<div class="layui-input-block">
 										<!--<textarea ng-model="entity.content" class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>-->
 										<div id="editor"></div>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">关键字：</label>
-									<div class="layui-input-block">
-										<input type="text" name="laiyuan" placeholder="请输入关键字" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-form-item layui-form-text">
-									<label class="layui-form-label">描述：</label>
-									<div class="layui-input-block">
-										<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">文章来源：</label>
-									<div class="layui-input-block">
-										<input type="text" name="laiyuan" required lay-verify="required" placeholder="请输入文章来源" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">文章排序：</label>
-									<div class="layui-input-block">
-										<input type="text" name="listorder" required lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input" value="100">
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">点击数：</label>
-									<div class="layui-input-block">
-										<input type="text" name="count" required lay-verify="required" placeholder="请输入文章点击数" autocomplete="off" class="layui-input" value="100">
 									</div>
 								</div>
 							</div>
@@ -144,9 +113,6 @@
 		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
-<!--
-		<script type="text/javascript" src="/scripts/util/wangEditor.min.js"></script>
-		<script type="text/javascript" src="/scripts/util/tools.js"></script>-->
 		<script type="text/javascript" src="/scripts/jquery/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="/scripts/util/wangEditor.min.js"></script>
 		<script src="../../static/js/contentController.js" type="text/javascript" charset="utf-8"></script>
