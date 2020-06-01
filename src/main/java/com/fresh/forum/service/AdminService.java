@@ -80,7 +80,7 @@ public class AdminService {
             record.setCommentCnt(0);
             record.setUserCnt(0);
             record.setContentCnt(0);
-            return record;
+            return recordDAO.save(record);
         });
     }
 
