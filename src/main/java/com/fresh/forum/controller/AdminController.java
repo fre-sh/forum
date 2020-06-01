@@ -1,10 +1,7 @@
 package com.fresh.forum.controller;
 
 import com.fresh.forum.dao.UserDAO;
-import com.fresh.forum.dto.ContentType;
-import com.fresh.forum.dto.Query;
-import com.fresh.forum.dto.ResponseTO;
-import com.fresh.forum.dto.UserRole;
+import com.fresh.forum.dto.*;
 import com.fresh.forum.model.*;
 import com.fresh.forum.service.*;
 import org.springframework.beans.factory.annotation.Autowired;

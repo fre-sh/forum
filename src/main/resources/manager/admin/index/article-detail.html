@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
 	</head>
 
-	<body>
+	<body ng-app="admin" ng-controller="contentController" ng-init="init()">
 		<div class="page-content-wrap">
 				<form class="layui-form">
 					<div class="layui-tab" style="margin: 0;">
@@ -26,25 +26,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">文章名称：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">分类栏目：</label>
-									<div class="layui-input-block">
-										<select name="category" lay-verify="required">
-											<option value="">请选择分类栏目</option>
-											<optgroup label="新闻中心">
-												<option value="1" selected="">公司新闻</option>
-												<option value="2">行业新闻</option>
-											</optgroup>
-										</select>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">图像上传：</label>
-									<div class="layui-input-block">
-										<input type="file" name="file（可随便定义）" class="layui-upload-file">
+										<input ng-model="entity.title" type="text" name="name" required lay-verify="required" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
@@ -58,7 +40,7 @@
 								<div class="layui-form-item layui-form-text">
 									<label class="layui-form-label">文章内容：</label>
 									<div class="layui-input-block">
-										<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+										<textarea ng-model="entity.content" class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
 									</div>
 								</div>
 								<div class="layui-form-item">
@@ -96,14 +78,14 @@
 					</div>
 					<div class="layui-form-item" style="padding-left: 10px;">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="commit">立即提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
 				</form>
 		</div>
 		<script type="text/javascript">
-			var SCOPE = {
+			/*var SCOPE = {
 				static: '/static',
 				index: '/admin/category/index.html',
 				add: 'add.html',
@@ -114,12 +96,11 @@
 				del: '/admin/category/del.html',
 				delAll: '/admin/category/deleteall.html',
 				listOrderAll: '/admin/category/listorderall.html'
-			}
+			}*/
 		</script>
 		<script src="../../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script>
-			
 			layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',  'element', 'upload', 'layedit'], function() {
 				var form = layui.form(),
 					layer = layui.layer,
@@ -146,15 +127,7 @@
 						, 'unlink' //清除链接
 						, 'image' //插入图片
 					],
-					height: 100
-				})
-				//全选
-				form.on('checkbox(allChoose)', function(data) {
-					var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
-					child.each(function(index, item) {
-						item.checked = data.elem.checked;
-					});
-					form.render('checkbox');
+					height: 400
 				});
 				form.render();
 
@@ -166,6 +139,10 @@
 				});
 			});
 		</script>
+		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/contentController.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

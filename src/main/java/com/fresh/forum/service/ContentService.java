@@ -79,6 +79,7 @@ public class ContentService {
         content.setContentType(ContentType.valueOf(contentType));
         content.setTitle(title);
         content.setUserId(hostHolder.getUser().getId());
+        content.setCommentCnt(0);
 
         if (content.getContentType() == ContentType.answer) {
             Question question = questionDAO.findByTitle(title);

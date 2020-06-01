@@ -140,6 +140,8 @@ $(function () {
     if ($("#wangEditor").length > 0) {
         const E = window.wangEditor;
         editor = new E('#wangEditor');
+        // editor.customConfig.uploadImgServer = '/upload';
+        editor.customConfig.uploadImgShowBase64 = true;
         editor.create()
     }
 });

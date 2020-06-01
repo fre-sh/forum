@@ -4,7 +4,7 @@ app.controller("contentController", function ($scope, $http, appService) {
     $scope.init = function () {
         $scope.query = {};
         $scope.entity = {entity:{id:null}};
-        $scope.refreshSelect();
+        // $scope.refreshSelect();
         $scope.showEditData();
     };
 
@@ -108,17 +108,7 @@ app.controller("contentController", function ($scope, $http, appService) {
 
     $scope.showEditPage = function (id) {
         localStorage.setItem("qId", id);
-        let w = '700px', h = '500px';
-        var index = layer.open({
-            type: 2,
-            title: '内容编辑',
-            area: [w, h],
-            fixed: false, //不固定
-            content: 'content-add.html',
-            end: function () {
-                $scope.loadPage();
-            }
-        });
+        window.location.href="/admin/index/article-detail.html?id="+id;
     };
 
     $scope.save = function () {
