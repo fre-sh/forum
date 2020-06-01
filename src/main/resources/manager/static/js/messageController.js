@@ -26,16 +26,16 @@ app.controller("messageController", function ($scope, $http, appService) {
         //     $scope.entity.entity.id = parseInt(data.value);
         // });
         // 监听搜索下拉框
-        // form.on('select(fromUser)', function(data){
-        //     let value = data.value;
-        //     $scope.query.fromId = value !== "null" ? parseInt(value) : null;
-        //     $scope.loadPage();
-        // });
-        // form.on('select(toUser)', function(data){
-        //     let value = data.value;
-        //     $scope.query.toId = value !== "null" ? parseInt(value) : null;
-        //     $scope.loadPage();
-        // });
+        form.on('select(user)', function(data){
+            let value = data.value;
+            value = value !== "null" ? parseInt(value) : null;
+            if (data.elem.name === 'fromUser') {
+                $scope.query.fromId = value;
+            } else {
+                $scope.query.toId = value;
+            }
+            $scope.loadPage();
+        });
     });
 
     $scope.refreshSelect = function () {

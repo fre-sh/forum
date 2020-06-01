@@ -22,14 +22,16 @@
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
 							<div class="layui-inline">
-								<select ng-model="query.fromId" name="states" lay-filter="fromUser" lay-search>
+								<select name="fromUser" lay-filter="user" lay-search>
 									<option value="">发送用户</option>
+									<option value="null">任意发送用户</option>
 									<option ng-repeat="op in users" value="{{op.id}}">{{op.name}}</option>
 								</select>
 							</div>
 							<div class="layui-inline">
-								<select ng-model="query.toId" name="states" lay-filter="toUser" lay-search>
+								<select name="toUser" lay-filter="user" lay-search>
 									<option value="">接收用户</option>
+									<option value="null">任意接收用户</option>
 									<option ng-repeat="op in users" value="{{op.id}}">{{op.name}}</option>
 								</select>
 							</div>
