@@ -1,19 +1,14 @@
 package com.fresh.forum.service;
 
 import com.fresh.forum.dao.*;
-import com.fresh.forum.dto.ContentType;
-import com.fresh.forum.dto.EntityType;
-import com.fresh.forum.dto.UserRole;
 import com.fresh.forum.dto.WelcomeTo;
 import com.fresh.forum.model.*;
 import com.fresh.forum.util.DateUtil;
-import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 /**
@@ -42,7 +37,7 @@ public class AdminService {
         List<Integer> contentCnts = new ArrayList<>();
         Date date = DateUtils.addDays(new Date(), -6);
         for (int i = 0; i < 7; i++) {
-            String strDate = DateUtil.format(date);
+            String strDate = DateUtil.format2s(date);
             dates.add(strDate);
             CountRecord record = getCountRecord(date);
             userCnts.add(record.getUserCnt());
@@ -72,9 +67,9 @@ public class AdminService {
     }
 
     public CountRecord getCountRecord(Date date) {
-        String strDate = DateUtil.format(date);
+        String strDate = DateUtil.format2d(date);
         Optional<CountRecord> optional = recordDAO.findAll().stream()
-                .filter(r -> strDate.equals(r.getCreateTime())).findFirst();
+                .filter(r -> r.getCreateTime().startsWith(strDate)).findFirst();
         return optional.orElseGet(() -> {
             CountRecord record = new CountRecord();
             record.setCommentCnt(0);

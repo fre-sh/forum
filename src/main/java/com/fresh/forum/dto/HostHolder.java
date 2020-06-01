@@ -14,9 +14,10 @@ public class HostHolder {
     UserDAO userDAO;
 
     public User getUser() {
-        if (users.get() == null) {
-            return userDAO.findById(WendaUtil.ANONYMOUS_USERID);
-        }
+        // todo 后台完成后需注释掉（否则默认登录此用户）
+//        if (users.get() == null) {
+//            return userDAO.findById(WendaUtil.ANONYMOUS_USERID);
+//        }
         return users.get();
     }
 

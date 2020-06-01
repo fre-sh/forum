@@ -7,8 +7,6 @@ import com.fresh.forum.dao.UserDAO;
 import com.fresh.forum.model.CountRecord;
 import com.fresh.forum.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Optional;
@@ -31,7 +29,7 @@ public class AdminTask {
 
 //    @Scheduled(initialDelay = 100000, fixedDelay = 3600 * 24)
     public void saveCntRecord() {
-        String today = DateUtil.format(new Date());
+        String today = DateUtil.format2s(new Date());
         Optional<CountRecord> optional = countRecordDAO.findAll().stream()
                 .filter(r -> today.equals(r.getCreateTime())).findFirst();
         CountRecord record = optional.orElseGet(CountRecord::new);

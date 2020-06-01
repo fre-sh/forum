@@ -10,10 +10,25 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    public static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final DateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final DateFormat dfd = new SimpleDateFormat("yyyy-MM-dd");
 
-    public static String format(Date date) {
-        return date == null ? "" : df.format(date);
+    /**
+     * 到秒
+     * @param date
+     * @return
+     */
+    public static String format2s(Date date) {
+        return date == null ? "" : dfs.format(date);
+    }
+
+    /**
+     * 到天
+     * @param date
+     * @return
+     */
+    public static String format2d(Date date) {
+        return date == null ? "" : dfd.format(date);
     }
 
 }

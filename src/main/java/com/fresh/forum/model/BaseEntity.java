@@ -3,7 +3,6 @@ package com.fresh.forum.model;
 
 import com.alibaba.fastjson.JSON;
 import com.fresh.forum.util.DateUtil;
-import org.apache.commons.lang.time.DateUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,11 +33,11 @@ public class BaseEntity {
   }
 
   public String getCreateTime() {
-    return DateUtil.format(createdDate);
+    return DateUtil.format2s(createdDate);
   }
 
   public String getUpdateTime() {
-    return DateUtil.format(updatedDate);
+    return DateUtil.format2s(updatedDate);
   }
 
   public Integer getStatus() {

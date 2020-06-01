@@ -2,6 +2,7 @@ package com.fresh.forum.service;
 
 import com.fresh.forum.dao.*;
 import com.fresh.forum.dto.Query;
+import com.fresh.forum.dto.UserRole;
 import com.fresh.forum.model.*;
 import com.fresh.forum.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
@@ -70,6 +71,7 @@ public class UserService {
 //        user.setPassword(password);
         user.setEmail(email);
         user.setDescription(description);
+        user.setRole(UserRole.normal);
         userDAO.save(user);
 
         // 登陆

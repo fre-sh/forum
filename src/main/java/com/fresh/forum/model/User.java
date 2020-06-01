@@ -33,6 +33,10 @@ public class User  extends BaseEntity{
         this.description = "";
     }
 
+    public String getRoleStr() {
+        return role.name();
+    }
+
     public UserRole getRole() {
         return role;
     }
