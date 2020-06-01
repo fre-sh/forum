@@ -39,6 +39,7 @@ app.controller("messageController", function ($scope, $http, appService) {
         appService.allUser({}).success(function (res) {
             if (res.code === 0) {
                 $scope.users = res.data;
+                // $scope.users.splice(0, 0, {id:null, name:'所有用户'});
             } else {
                 layer.alert(res.msg);
             }

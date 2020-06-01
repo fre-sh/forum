@@ -13,11 +13,18 @@
 	<div class="">
 		<form class="layui-form" style="width: 90%;padding-top: 20px;">
 			<div class="layui-form-item">
+				<label class="layui-form-label">发送用户：</label>
+				<div class="layui-input-block">
+					<label class="layui-form-label"><span style="float: left">{{entity.fromUser.name}}</span></label>
+					<!--<input readonly ng-model="entity.fromUser.name" type="text" required  autocomplete="off" class="layui-input">-->
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">接收用户：</label>
 				<div class="layui-input-block">
-					<select name="toUser" lay-filter="user" lay-search lay-verify="required">
-						<option value="">接收用户</option>
-						<option value="null">所有用户</option>
+					<select ng-model="entity.toUser.id" name="toUser" lay-filter="user" lay-search lay-verify="required">
+						<!--<option value="">接收用户</option>
+						<option value="null">所有用户</option>-->
 						<option ng-repeat="op in users" value="{{op.id}}">{{op.name}}</option>
 					</select>
 				</div>
