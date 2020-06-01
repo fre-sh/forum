@@ -9,6 +9,7 @@ app.controller("contentController", function ($scope, $http, appService) {
     };
 
 // 初始化
+    let editor;
     layui.use(['form', 'dialog'], function () {
         let form = layui.form();
         form.render();
@@ -28,6 +29,11 @@ app.controller("contentController", function ($scope, $http, appService) {
             $scope.query.contentType = value !== "null" ? value : null;
             $scope.loadPage();
         });
+        var E = window.wangEditor;
+        editor = new E('#editor');
+        editor.customConfig.uploadImgShowBase64 = true;
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create()
     });
 
     $scope.refreshSelect = function () {
@@ -45,6 +51,7 @@ app.controller("contentController", function ($scope, $http, appService) {
         if (i !== null) {
             appService.getContent(i).success(function (res) {
                 $scope.entity = res.data;
+                $('#editor').html($scope.entity.content);
             });
         }
     };
@@ -93,17 +100,7 @@ app.controller("contentController", function ($scope, $http, appService) {
 
     $scope.showAddPage = function () {
         localStorage.removeItem('qId');
-        let w = '700px', h = '500px';
-        var index = layer.open({
-            type: 2,
-            title: '内容添加',
-            area: [w, h],
-            fixed: false, //不固定
-            content: 'content-add.html',
-            end: function () {
-                $scope.loadPage();
-            }
-        });
+        window.location.href="/admin/index/article-detail.html";
     };
 
     $scope.showEditPage = function (id) {

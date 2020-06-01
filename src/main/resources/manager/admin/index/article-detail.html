@@ -16,7 +16,7 @@
 				<form class="layui-form">
 					<div class="layui-tab" style="margin: 0;">
 						<ul class="layui-tab-title">
-							<li><a href="article-list.html">文章列表</a></li>
+							<li><a href="content-list.html">文章列表</a></li>
 							<li class="layui-this">文章详情</li>
 							
 						</ul>
@@ -37,10 +37,12 @@
 										<input type="checkbox" name="label[hot]" title="热门">
 									</div>
 								</div>
+								<div id="wang"></div>
 								<div class="layui-form-item layui-form-text">
 									<label class="layui-form-label">文章内容：</label>
 									<div class="layui-input-block">
-										<textarea ng-model="entity.content" class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+										<!--<textarea ng-model="entity.content" class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>-->
+										<div id="editor"></div>
 									</div>
 								</div>
 								<div class="layui-form-item">
@@ -142,7 +144,15 @@
 		<script src="../../static/angularjs/angular.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/angularjs/pagination.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/base.js" type="text/javascript" charset="utf-8"></script>
+<!--
+		<script type="text/javascript" src="/scripts/util/wangEditor.min.js"></script>
+		<script type="text/javascript" src="/scripts/util/tools.js"></script>-->
+		<script type="text/javascript" src="/scripts/jquery/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="/scripts/util/wangEditor.min.js"></script>
 		<script src="../../static/js/contentController.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+		</script>
 	</body>
 
 </html>
