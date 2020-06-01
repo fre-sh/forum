@@ -1,10 +1,10 @@
 /* 表格单行内容过长隐藏  表格td中需提交div才有效*/
-td div{
+td div.hidden-over{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-td div:hover{
+td div.hidden-over:hover{
   overflow-x:scroll;
   overflow-y:hidden;
   text-overflow: unset;

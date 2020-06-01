@@ -20,11 +20,6 @@ app.controller("messageController", function ($scope, $http, appService) {
             $scope.save();
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
-        // 监听添加的下拉框
-        // form.on('select(select)', function(data){
-        //     // 搜索刷新select
-        //     $scope.entity.entity.id = parseInt(data.value);
-        // });
         // 监听搜索下拉框
         form.on('select(user)', function(data){
             let value = data.value;
@@ -33,6 +28,8 @@ app.controller("messageController", function ($scope, $http, appService) {
                 $scope.query.fromId = value;
             } else {
                 $scope.query.toId = value;
+                // 添加页面
+                $scope.entity.toUser.id = value;
             }
             $scope.loadPage();
         });

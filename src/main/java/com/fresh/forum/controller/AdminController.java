@@ -1,5 +1,6 @@
 package com.fresh.forum.controller;
 
+import com.fresh.forum.dao.UserDAO;
 import com.fresh.forum.dto.ContentType;
 import com.fresh.forum.dto.Query;
 import com.fresh.forum.dto.ResponseTO;
@@ -27,6 +28,8 @@ public class AdminController extends BaseController{
     private AdminService adminService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    UserDAO userDAO;
 
     // 消息管理
     @GetMapping("/message/{id}")
@@ -45,7 +48,15 @@ public class AdminController extends BaseController{
         if (message.getId() != null) {
             messageService.update(message);
         } else {
-            messageService.add(message);
+            if (message.getToUser() == null || message.getToUser().getId() == null) {
+                // 给所有用户发送消息
+                for (User user : userDAO.findAll()) {
+                    message.setToUser(user);
+                    messageService.add(message);
+                }
+            } else {
+                messageService.add(message);
+            }
         }
         return success();
     }

@@ -60,9 +60,9 @@
 								</td>
 								<td>{{e.id}}</td>
 								<td>{{e.user.name}}</td>
-								<td><div style="width: 320px">{{e.content}}</div></td>
+								<td><div class="hidden-over" style="width: 320px">{{e.content}}</div></td>
 								<td>{{e.entity.contentType == "article" ? "文章" : "回答"}}</td>
-								<td><div style="width: 320px">{{e.entity.title}}{{e.entity.contentType == "answer" ? '[id=' + e.entity.id + ']' : ""}}</div></td>
+								<td><div class="hidden-over" style="width: 320px">{{e.entity.title}}{{e.entity.contentType == "answer" ? '[id=' + e.entity.id + ']' : ""}}</div></td>
 								<td class="hidden-xs">{{e.createTime}}</td>
 								<td ng-if="e.role == 'normal'"><button class="layui-btn layui-btn-mini layui-btn-normal">用户</button></td>
 								<td ng-if="e.role == 'admin'"><button class="layui-btn layui-btn-mini layui-btn-warm">管理员</button></td>
