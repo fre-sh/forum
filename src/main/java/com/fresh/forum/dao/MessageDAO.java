@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface MessageDAO extends JpaRepository<Message, Integer> {
 
-    String INSERT_FIELDS = " from_id, to_id, content, has_read, conversation_id, created_date ";
+    String INSERT_FIELDS = " from_id, to_id, content, has_read, conversation_id, created_date, updated_date, status ";
 
     List<Message> findByConversationIdAndToUserId(String conversationId, int toId);
 

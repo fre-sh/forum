@@ -17,7 +17,7 @@
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button ng-click="showAddPage()" class="layui-btn layui-btn-small layui-btn-normal addBtn"><i class="layui-icon">&#xe654;</i></button>
+								<button ng-click="showAddAnswerPage()" class="layui-btn layui-btn-small layui-btn-normal addBtn"><i class="layui-icon">&#xe654;</i></button>
 								<button ng-click="delAll()" class="layui-btn layui-btn-small layui-btn-danger delBtn"><i class="layui-icon">&#xe640;</i></button>
 								<!--<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>-->
 							</div>
@@ -60,7 +60,7 @@
 								<td>{{e.commentCnt}}</td>
 								<td>
 									<div class="layui-inline">
-										<button ng-click="showEditPage(e.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="answer-detail.html"><i class="layui-icon">&#xe642;</i></button>
+										<button ng-click="showEditAnswerPage(e.id)" class="layui-btn layui-btn-small layui-btn-normal go-btn" data-id="1" data-url="answer-detail.html"><i class="layui-icon">&#xe642;</i></button>
 										<button ng-click="delOne(e.id)" class="layui-btn layui-btn-small layui-btn-danger del-btn" data-id="1"><i class="layui-icon">&#xe640;</i></button>
 									</div>
 								</td>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-ZA-Response-Id" content="46acde5c53db46f2806ccad726de9826">
-    <title>问答</title>
+    <title>问答社区</title>
     <meta name="apple-itunes-app" content="app-id=432274380">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="mobile-agent" content="format=html5;url=https://nowcoder.com/">
@@ -23,7 +23,18 @@
     <script type="text/javascript" src="/scripts/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="/scripts/util/tools.js"></script>
     <script type="text/javascript" src="/scripts/main/base/base.js"></script>
-
+    <script>
+        let curUrl = '${request.getRequestURI()}';
+        $(function () {
+            if (curUrl.indexOf('question') > 0) {
+                $('#zh-top-nav-explore').addClass('current');
+            } else if (curUrl.indexOf('msg') > 0) {
+                $('#tab-msg').addClass('current');
+            } else {
+                $('#zh-top-nav-home').addClass('current');
+            }
+        });
+    </script>
 </head>
 <body class="zhi $!{bodyclass}">
 <div role="navigation" class="zu-top">
@@ -51,7 +62,7 @@
                 </li>
                 #if($user.role.name() != "normal")
                 <li>
-                    <a href="/admin/index/index.html" tabindex="-1" id=":2">
+                    <a href="/admin/index/index.html" target="_blank" tabindex="-1" id=":2">
                         <i class="zg-icon zg-icon-dd-settings"></i>后台管理
                     </a>
                 </li>
@@ -79,15 +90,14 @@
         </div>
         <div id="zg-top-nav" class="zu-top-nav">
             <ul class="zu-top-nav-ul zg-clear">
-                <li class="zu-top-nav-li current" id="zh-top-nav-home">
+                <li class="zu-top-nav-li" id="zh-top-nav-home" >
                     <a class="zu-top-nav-link" href="/" id="zh-top-link-home" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_home">首页</a>
                 </li>
-
                 <li class="zu-top-nav-li " id="zh-top-nav-explore">
                     <a class="zu-top-nav-link" href="/question/list">问题 #set($value = "#if(1==1)2#{else}3#end")</a>
                 </li>
                 #if ($user)
-                <li class="top-nav-noti zu-top-nav-li ">
+                <li class="top-nav-noti zu-top-nav-li " id="tab-msg">
                     <a class="zu-top-nav-link" href="/msg/list">
                         <span class="mobi-arrow"></span>消息<span id="zh-top-nav-count" class="zu-top-nav-count zg-noti-number" style="display: none;">0</span>
                         #if($unReadCnt > 0)

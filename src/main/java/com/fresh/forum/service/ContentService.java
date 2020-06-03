@@ -124,6 +124,7 @@ public class ContentService {
         tmp.setTitle(query.getTitle());
         tmp.setContent(query.getKw());
         tmp.setStatus(query.getStatus());
+        tmp.setContentType(query.getContentType());
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("content", ExampleMatcher.GenericPropertyMatchers.contains());

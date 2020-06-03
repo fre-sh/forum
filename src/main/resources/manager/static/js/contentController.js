@@ -123,9 +123,19 @@ app.controller("contentController", function ($scope, $http, appService) {
         window.location.href="/admin/index/article-detail.html";
     };
 
+    $scope.showAddAnswerPage = function () {
+        localStorage.removeItem('qId');
+        window.location.href="/admin/index/answer-detail.html";
+    };
+
     $scope.showEditPage = function (id) {
         localStorage.setItem("qId", id);
         window.location.href="/admin/index/article-detail.html?id="+id;
+    };
+
+    $scope.showEditAnswerPage = function (id) {
+        localStorage.setItem("qId", id);
+        window.location.href="/admin/index/answer-detail.html?id="+id;
     };
 
     $scope.save = function () {

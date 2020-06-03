@@ -82,8 +82,9 @@ var oPopupAdd = new PopupAdd({
                     if (oResult.code === 999) {
                         window.location.href = '/reglogin?next=' + window.encodeURIComponent(window.location.href);
                     } else {
-                        oConf.ok && oConf.ok.call(that);
-                        oAdd.emit('ok');
+                        window.location.href = '/question/list';
+                        // oConf.ok && oConf.ok.call(that);
+                        // oAdd.emit('ok');
                     }
                 }).fail(function () {
                     alert('出现错误，请重试');

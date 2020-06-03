@@ -163,7 +163,7 @@ function submitContent(contentType, title, qId) {
     $.post('/content/add', data,
         function (res) {
             if (qId > 0) {
-                location.href = '/content/' + qId;
+                location.href = '/question/' + qId;
             } else {
                 location.href = '/content/' + res.data.id;
             }
